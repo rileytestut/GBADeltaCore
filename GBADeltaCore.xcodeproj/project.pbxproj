@@ -93,6 +93,7 @@
 		BF04180E1D01E4CF00E85BCF /* Ppmd7.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417F11D01E4CF00E85BCF /* Ppmd7.h */; };
 		BF04180F1D01E4CF00E85BCF /* Ppmd7Dec.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417F21D01E4CF00E85BCF /* Ppmd7Dec.c */; };
 		BF0418101D01E4CF00E85BCF /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417F31D01E4CF00E85BCF /* Types.h */; };
+		BF0418171D01E9C000E85BCF /* GBADeltaCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */; };
 		BFE8E9CE1D010AF7009D623D /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BFE8E9E71D012886009D623D /* blargg_common.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9D91D012886009D623D /* blargg_common.h */; };
 		BFE8E9E81D012886009D623D /* blargg_config.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9DA1D012886009D623D /* blargg_config.h */; };
@@ -257,6 +258,7 @@
 		BF0417F11D01E4CF00E85BCF /* Ppmd7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ppmd7.h; path = "VBA-M/fex/7z_C/Ppmd7.h"; sourceTree = SOURCE_ROOT; };
 		BF0417F21D01E4CF00E85BCF /* Ppmd7Dec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Ppmd7Dec.c; path = "VBA-M/fex/7z_C/Ppmd7Dec.c"; sourceTree = SOURCE_ROOT; };
 		BF0417F31D01E4CF00E85BCF /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Types.h; path = "VBA-M/fex/7z_C/Types.h"; sourceTree = SOURCE_ROOT; };
+		BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBADeltaCore.swift; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
 		BFE8E9CF1D010AF7009D623D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */,
+				BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */,
 				BFE8E9D61D012865009D623D /* Core */,
 				BF0418121D01E63900E85BCF /* Supporting Files */,
 			);
@@ -947,6 +950,7 @@
 				BF0417C61D01E4BE00E85BCF /* fex.cpp in Sources */,
 				BF04173C1D01E26900E85BCF /* gbDis.cpp in Sources */,
 				BFE8EAC61D013AAA009D623D /* Packet.cpp in Sources */,
+				BF0418171D01E9C000E85BCF /* GBADeltaCore.swift in Sources */,
 				BFE8EA801D0129A5009D623D /* bios.cpp in Sources */,
 				BFE8EAC41D013AAA009D623D /* Http.cpp in Sources */,
 				BFE8EAA91D0129A5009D623D /* Mode3.cpp in Sources */,
@@ -1106,6 +1110,7 @@
 		BFE8E9D31D010AF7009D623D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1116,12 +1121,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rileytestut.GBADeltaCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		BFE8E9D41D010AF7009D623D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
