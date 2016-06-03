@@ -95,6 +95,8 @@
 		BF0418101D01E4CF00E85BCF /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417F31D01E4CF00E85BCF /* Types.h */; };
 		BF0418171D01E9C000E85BCF /* GBADeltaCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */; };
 		BF0418191D01EA1A00E85BCF /* GBAEmulatorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */; };
+		BF04181D1D01EEEC00E85BCF /* Default.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BF04181C1D01EEEC00E85BCF /* Default.deltaskin */; };
+		BF0418201D01EF1900E85BCF /* GBAControllerSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */; };
 		BFE8E9CE1D010AF7009D623D /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BFE8E9E71D012886009D623D /* blargg_common.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9D91D012886009D623D /* blargg_common.h */; };
 		BFE8E9E81D012886009D623D /* blargg_config.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9DA1D012886009D623D /* blargg_config.h */; };
@@ -261,6 +263,8 @@
 		BF0417F31D01E4CF00E85BCF /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Types.h; path = "VBA-M/fex/7z_C/Types.h"; sourceTree = SOURCE_ROOT; };
 		BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBADeltaCore.swift; sourceTree = "<group>"; };
 		BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAEmulatorCore.swift; sourceTree = "<group>"; };
+		BF04181C1D01EEEC00E85BCF /* Default.deltaskin */ = {isa = PBXFileReference; lastKnownFileType = file; path = Default.deltaskin; sourceTree = "<group>"; };
+		BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAControllerSkin.swift; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
 		BFE8E9CF1D010AF7009D623D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -499,9 +503,18 @@
 		BF0418121D01E63900E85BCF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BF04181C1D01EEEC00E85BCF /* Default.deltaskin */,
 				BFE8E9CF1D010AF7009D623D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BF04181E1D01EF0900E85BCF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		BFE8E9C01D010AF7009D623D = {
@@ -526,6 +539,7 @@
 			children = (
 				BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */,
 				BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */,
+				BF04181E1D01EF0900E85BCF /* Model */,
 				BFE8E9D61D012865009D623D /* Core */,
 				BF0418121D01E63900E85BCF /* Supporting Files */,
 			);
@@ -888,6 +902,7 @@
 			files = (
 				BF0418071D01E4CF00E85BCF /* lzma.txt in Resources */,
 				BF0417F91D01E4CF00E85BCF /* 7zC.txt in Resources */,
+				BF04181D1D01EEEC00E85BCF /* Default.deltaskin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -968,6 +983,7 @@
 				BFE8EA121D0128BB009D623D /* iniparser.c in Sources */,
 				BFE8EA921D0129A5009D623D /* ereader.cpp in Sources */,
 				BF04180A1D01E4CF00E85BCF /* LzmaDec.c in Sources */,
+				BF0418201D01EF1900E85BCF /* GBAControllerSkin.swift in Sources */,
 				BFE8EA9D1D0129A5009D623D /* GBAGfx.cpp in Sources */,
 				BFE8E9EA1D012886009D623D /* Blip_Buffer.cpp in Sources */,
 				BF0417231D01D5F000E85BCF /* Time.cpp in Sources */,
