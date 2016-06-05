@@ -15,7 +15,7 @@
 		BF0417261D01D69600E85BCF /* ConfigManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E9F91D0128BB009D623D /* ConfigManager.cpp */; };
 		BF0417271D01D69600E85BCF /* ConfigManager.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9FA1D0128BB009D623D /* ConfigManager.h */; };
 		BF0417291D01D75200E85BCF /* System.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417281D01D75200E85BCF /* System.h */; };
-		BF0417321D01D9E000E85BCF /* GBAEmulatorBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417301D01D9E000E85BCF /* GBAEmulatorBridge.h */; };
+		BF0417321D01D9E000E85BCF /* GBAEmulatorBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417301D01D9E000E85BCF /* GBAEmulatorBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BF0417331D01D9E000E85BCF /* GBAEmulatorBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF0417311D01D9E000E85BCF /* GBAEmulatorBridge.mm */; };
 		BF0417361D01E26900E85BCF /* GB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA1F1D01298E009D623D /* GB.cpp */; };
 		BF0417371D01E26900E85BCF /* gb.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA201D01298E009D623D /* gb.h */; };
@@ -97,6 +97,8 @@
 		BF0418191D01EA1A00E85BCF /* GBAEmulatorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */; };
 		BF04181D1D01EEEC00E85BCF /* Default.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BF04181C1D01EEEC00E85BCF /* Default.deltaskin */; };
 		BF0418201D01EF1900E85BCF /* GBAControllerSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */; };
+		BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF7A908A1D02708700A3617D /* GBASoundDriver.mm */; };
+		BF7A908D1D02708700A3617D /* GBASoundDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7A908B1D02708700A3617D /* GBASoundDriver.h */; };
 		BFE8E9CE1D010AF7009D623D /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BFE8E9E71D012886009D623D /* blargg_common.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9D91D012886009D623D /* blargg_common.h */; };
 		BFE8E9E81D012886009D623D /* blargg_config.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9DA1D012886009D623D /* blargg_config.h */; };
@@ -265,6 +267,8 @@
 		BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAEmulatorCore.swift; sourceTree = "<group>"; };
 		BF04181C1D01EEEC00E85BCF /* Default.deltaskin */ = {isa = PBXFileReference; lastKnownFileType = file; path = Default.deltaskin; sourceTree = "<group>"; };
 		BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAControllerSkin.swift; sourceTree = "<group>"; };
+		BF7A908A1D02708700A3617D /* GBASoundDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GBASoundDriver.mm; sourceTree = "<group>"; };
+		BF7A908B1D02708700A3617D /* GBASoundDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBASoundDriver.h; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
 		BFE8E9CF1D010AF7009D623D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -409,6 +413,8 @@
 			children = (
 				BF0417301D01D9E000E85BCF /* GBAEmulatorBridge.h */,
 				BF0417311D01D9E000E85BCF /* GBAEmulatorBridge.mm */,
+				BF7A908B1D02708700A3617D /* GBASoundDriver.h */,
+				BF7A908A1D02708700A3617D /* GBASoundDriver.mm */,
 			);
 			name = Bridge;
 			sourceTree = "<group>";
@@ -826,6 +832,7 @@
 				BF0417C71D01E4BE00E85BCF /* fex.h in Headers */,
 				BF0417BF1D01E4BE00E85BCF /* blargg_config.h in Headers */,
 				BF0418091D01E4CF00E85BCF /* Lzma2Dec.h in Headers */,
+				BF7A908D1D02708700A3617D /* GBASoundDriver.h in Headers */,
 				BFE8EA131D0128BB009D623D /* iniparser.h in Headers */,
 				BFE8EA1D1D0128BB009D623D /* Types.h in Headers */,
 				BFE8EAD01D013AB3009D623D /* SocketImpl.hpp in Headers */,
@@ -941,6 +948,7 @@
 				BFE8EA891D0129A5009D623D /* debugger-expr-lex.cpp in Sources */,
 				BF0417261D01D69600E85BCF /* ConfigManager.cpp in Sources */,
 				BF0417C41D01E4BE00E85BCF /* Data_Reader.cpp in Sources */,
+				BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */,
 				BF0417461D01E26900E85BCF /* gbSound.cpp in Sources */,
 				BF04174A1D01E29800E85BCF /* Util.cpp in Sources */,
 				BFE8EAA61D0129A5009D623D /* Mode0.cpp in Sources */,
@@ -1043,7 +1051,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1066,6 +1074,7 @@
 					"-DBKPT_SUPPORT",
 					"-DC_CORE",
 					"-DNO_PNG",
+					"-DFINAL_VERSION",
 				);
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1118,6 +1127,7 @@
 					"-DBKPT_SUPPORT",
 					"-DC_CORE",
 					"-DNO_PNG",
+					"-DFINAL_VERSION",
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

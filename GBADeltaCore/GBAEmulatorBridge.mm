@@ -7,25 +7,25 @@
 //
 
 #import "GBAEmulatorBridge.h"
-
-#include <sys/time.h>
+#import "GBASoundDriver.h"
 
 // VBA-M
 #include "../VBA-M/System.h"
 #include "../VBA-M/gba/Sound.h"
+#include "../VBA-M/gba/GBA.h"
+#include "../VBA-M/Util.h"
 
-@implementation GBAEmulatorBridge
+#import <DeltaCore/DeltaCore.h>
+#import <CoreImage/CoreImage.h>
 
-@end
-
-#pragma mark - VBA-M -
+#include <sys/time.h>
 
 // Required vars, used by the emulator core
 //
-int  systemRedShift;
-int  systemGreenShift;
-int  systemBlueShift;
-int  systemColorDepth;
+int  systemRedShift = 19;
+int  systemGreenShift = 11;
+int  systemBlueShift = 3;
+int  systemColorDepth = 32;
 int  systemVerbose;
 int  systemSaveUpdateCounter;
 int  systemFrameSkip;
@@ -35,6 +35,122 @@ u16  systemGbPalette[24];
 
 int  emulating;
 int  RGB_LOW_BITS_MASK;
+
+@interface GBAEmulatorBridge ()
+
+@property (copy, nonatomic, nonnull, readwrite) NSURL *gameURL;
+
+@property (strong, nonatomic, nonnull) CADisplayLink *displayLink;
+
+@property (assign, nonatomic, getter=isFrameReady) BOOL frameReady;
+
+@property (strong, nonatomic, nonnull, readonly) dispatch_queue_t renderQueue;
+
+@end
+
+@implementation GBAEmulatorBridge
+
++ (instancetype)sharedBridge
+{
+    static GBAEmulatorBridge *_emulatorBridge = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _emulatorBridge = [[self alloc] init];
+    });
+    
+    return _emulatorBridge;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        _renderQueue = dispatch_queue_create("com.rileytestut.GBADeltaCore.renderQueue", DISPATCH_QUEUE_SERIAL);
+    }
+    
+    return self;
+}
+
+#pragma mark - Emulation -
+
+- (void)startWithGameURL:(NSURL *)URL
+{
+    self.gameURL = URL;
+    
+    NSData *data = [NSData dataWithContentsOfURL:URL];
+    
+    if (!CPULoadRomData((const char*)data.bytes, data.length))
+    {
+        return;
+    }
+    
+    utilUpdateSystemColorMaps(NO);
+    
+    char gameID[5];
+    gameID[0] = rom[0xac];
+    gameID[1] = rom[0xad];
+    gameID[2] = rom[0xae];
+    gameID[3] = rom[0xaf];
+    gameID[4] = '\0';
+    
+    NSLog(@"VBA: GameID in ROM is: %s\n", gameID);
+    
+    soundInit();
+    soundSetSampleRate(32768); // 44100 chirps
+    
+    soundReset();
+    
+    CPUInit(0, false);
+    CPUReset();
+    
+    emulating = 1;
+    
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(didUpdateDisplayLink:)];
+    self.displayLink.frameInterval = 1;
+    
+    dispatch_queue_t emulationQueue = dispatch_queue_create("com.rileytestut.GBADeltaCore.emulationQueue", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(emulationQueue, ^{
+        [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [[NSRunLoop currentRunLoop] run];
+    });
+    
+}
+
+- (void)stop
+{
+    
+}
+
+- (void)pause
+{
+    
+}
+
+- (void)resume
+{
+    
+}
+
+#pragma mark - Render Loop -
+
+- (void)didUpdateDisplayLink:(CADisplayLink *)displayLink
+{
+    self.frameReady = NO;
+    
+    while (![self isFrameReady])
+    {
+        GBASystem.emuMain(GBASystem.emuCount);
+    }
+    
+    dispatch_async(self.renderQueue, ^{
+        [self.emulatorCore didUpdate];
+    });
+}
+
+@end
+
+#pragma mark - VBA-M -
 
 void systemMessage(int _iId, const char * _csFormat, ...)
 {
@@ -48,7 +164,20 @@ void systemMessage(int _iId, const char * _csFormat, ...)
 
 void systemDrawScreen()
 {
+    for (int i = 0; i < 241 * 162 * 4; i++)
+    {
+        if ((i + 1) % 4 == 0)
+        {
+            pix[i] = 255;
+        }
+    }
     
+    // Get rid of the first line and the last row
+    dispatch_apply(160, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t y){
+        memcpy([GBAEmulatorBridge sharedBridge].videoRenderer.videoBuffer + y * 240 * 4, pix + (y + 1) * (240 + 1) * 4, 240 * 4);
+    });
+    
+    [[GBAEmulatorBridge sharedBridge] setFrameReady:YES];
 }
 
 bool systemReadJoypads()
@@ -94,6 +223,14 @@ u32 systemGetClock()
     
     double milliseconds = (time.tv_sec * 1000.0) + (time.tv_usec / 1000.0);
     return milliseconds;
+}
+
+SoundDriver *systemSoundInit()
+{
+    soundShutdown();
+    
+    auto driver = new GBASoundDriver;
+    return driver;
 }
 
 void systemUpdateMotionSensor()
@@ -149,13 +286,6 @@ bool systemPauseOnFrame()
 
 void systemGbBorderOn()
 {
-}
-
-SoundDriver * systemSoundInit()
-{
-    soundShutdown();
-    
-    return nullptr;
 }
 
 void systemOnSoundShutdown()

@@ -37,13 +37,13 @@ public class GBAEmulatorCore: EmulatorCore
     {
         let inputFormat = AVAudioFormat(commonFormat: .PCMFormatInt16, sampleRate: 32768, channels: 2, interleaved: true)
         
-        let bufferInfo = AudioManager.BufferInfo(inputFormat: inputFormat, preferredSize: 2132)
+        let bufferInfo = AudioManager.BufferInfo(inputFormat: inputFormat, preferredSize: 2184)
         return bufferInfo
     }
     
     override public var videoBufferInfo: VideoManager.BufferInfo
     {
-        let bufferInfo = VideoManager.BufferInfo(inputFormat: .RGBA8, inputDimensions: CGSize(width: 240, height: 160), outputDimensions: CGSize(width: 240, height: 160))
+        let bufferInfo = VideoManager.BufferInfo(inputFormat: .BGRA8, inputDimensions: CGSize(width: 240, height: 160), outputDimensions: CGSize(width: 240, height: 160))
         return bufferInfo
     }
     
@@ -55,6 +55,46 @@ public class GBAEmulatorCore: EmulatorCore
     override public var fastForwardRate: Float
     {
         return 4.0
+    }
+    
+    public override func startEmulation() -> Bool
+    {
+        guard super.startEmulation() else { return false }
+        
+        GBAEmulatorBridge.sharedBridge().emulatorCore = self
+        GBAEmulatorBridge.sharedBridge().audioRenderer = self.audioManager
+        GBAEmulatorBridge.sharedBridge().videoRenderer = self.videoManager
+        
+        GBAEmulatorBridge.sharedBridge().startWithGameURL(self.game.fileURL)
+        
+        return true
+    }
+    
+    public override func stopEmulation() -> Bool
+    {
+        guard super.stopEmulation() else { return false }
+        
+        GBAEmulatorBridge.sharedBridge().stop()
+        
+        return true
+    }
+    
+    public override func pauseEmulation() -> Bool
+    {
+        guard super.pauseEmulation() else { return false }
+        
+        GBAEmulatorBridge.sharedBridge().pause()
+        
+        return true
+    }
+    
+    public override func resumeEmulation() -> Bool
+    {
+        guard super.resumeEmulation() else { return false }
+        
+        GBAEmulatorBridge.sharedBridge().resume()
+        
+        return true
     }
     
     //MARK: - EmulatorCore

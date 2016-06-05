@@ -15,5 +15,4 @@ FOUNDATION_EXPORT double GBADeltaCoreVersionNumber;
 FOUNDATION_EXPORT const unsigned char GBADeltaCoreVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <GBADeltaCore/PublicHeader.h>
-
-
+#import <GBADeltaCore/GBAEmulatorBridge.h>
