@@ -62,6 +62,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)activateInput:(GBAGameInput)gameInput;
 - (void)deactivateInput:(GBAGameInput)gameInput;
 
+// Save States
+- (void)saveSaveStateToURL:(NSURL *)URL;
+- (void)loadSaveStateFromURL:(NSURL *)URL;
+
 @end
 
 

@@ -213,6 +213,18 @@ int  RGB_LOW_BITS_MASK;
     [self.activatedInputs removeObject:@(gameInput)];
 }
 
+#pragma mark - Save States -
+
+- (void)saveSaveStateToURL:(NSURL *)URL
+{
+    GBASystem.emuWriteState(URL.fileSystemRepresentation);
+}
+
+- (void)loadSaveStateFromURL:(NSURL *)URL
+{
+    GBASystem.emuReadState(URL.fileSystemRepresentation);
+}
+
 #pragma mark - Getters/Setters -
 
 - (void)setState:(GBAEmulationState)state
