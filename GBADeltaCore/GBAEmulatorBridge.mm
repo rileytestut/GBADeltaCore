@@ -43,10 +43,9 @@ int  RGB_LOW_BITS_MASK;
 
 @property (assign, nonatomic) GBAEmulationState previousState;
 
-@property (strong, nonatomic, nonnull) CADisplayLink *displayLink;
-
 @property (assign, nonatomic, getter=isFrameReady) BOOL frameReady;
 
+@property (strong, nonatomic, nonnull, readonly) CADisplayLink *displayLink;
 @property (strong, nonatomic, nonnull, readonly) dispatch_queue_t renderQueue;
 @property (strong, nonatomic, nonnull, readonly) dispatch_semaphore_t emulationStateSemaphore;
 
@@ -72,6 +71,16 @@ int  RGB_LOW_BITS_MASK;
     {
         _renderQueue = dispatch_queue_create("com.rileytestut.GBADeltaCore.renderQueue", DISPATCH_QUEUE_SERIAL);
         _emulationStateSemaphore = dispatch_semaphore_create(0);
+        
+        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(didUpdateDisplayLink:)];
+        _displayLink.frameInterval = 1;
+        _displayLink.paused = YES;
+        
+        dispatch_queue_t emulationQueue = dispatch_queue_create("com.rileytestut.GBADeltaCore.emulationQueue", DISPATCH_QUEUE_SERIAL);
+        dispatch_async(emulationQueue, ^{
+            [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            [[NSRunLoop currentRunLoop] run];
+        });
     }
     
     return self;
@@ -115,15 +124,8 @@ int  RGB_LOW_BITS_MASK;
     
     CPUInit(0, false);
     CPUReset();
-        
-    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(didUpdateDisplayLink:)];
-    self.displayLink.frameInterval = 1;
     
-    dispatch_queue_t emulationQueue = dispatch_queue_create("com.rileytestut.GBADeltaCore.emulationQueue", DISPATCH_QUEUE_SERIAL);
-    dispatch_async(emulationQueue, ^{
-        [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        [[NSRunLoop currentRunLoop] run];
-    });
+    self.displayLink.paused = NO;
     
     dispatch_semaphore_wait(self.emulationStateSemaphore, DISPATCH_TIME_FOREVER);
 }
@@ -142,8 +144,7 @@ int  RGB_LOW_BITS_MASK;
     
     dispatch_semaphore_wait(self.emulationStateSemaphore, DISPATCH_TIME_FOREVER);
     
-    [self.displayLink invalidate];
-    self.displayLink = nil;
+    self.displayLink.paused = YES;
 }
 
 - (void)pause
