@@ -143,10 +143,10 @@ int  RGB_LOW_BITS_MASK;
     
     self.state = GBAEmulationStateStopped;
     
+    dispatch_semaphore_wait(self.emulationStateSemaphore, DISPATCH_TIME_FOREVER);
+    
     GBASystem.emuCleanUp();
     soundShutdown();
-    
-    dispatch_semaphore_wait(self.emulationStateSemaphore, DISPATCH_TIME_FOREVER);
     
     self.displayLink.paused = YES;
 }
