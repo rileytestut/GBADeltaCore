@@ -49,6 +49,8 @@ int  RGB_LOW_BITS_MASK;
 @property (strong, nonatomic, nonnull, readonly) dispatch_queue_t renderQueue;
 @property (strong, nonatomic, nonnull, readonly) dispatch_semaphore_t emulationStateSemaphore;
 
+@property (strong, nonatomic, nonnull, readonly) NSMutableSet *activatedInputs;
+
 @end
 
 @implementation GBAEmulatorBridge
@@ -71,6 +73,8 @@ int  RGB_LOW_BITS_MASK;
     {
         _renderQueue = dispatch_queue_create("com.rileytestut.GBADeltaCore.renderQueue", DISPATCH_QUEUE_SERIAL);
         _emulationStateSemaphore = dispatch_semaphore_create(0);
+        
+        _activatedInputs = [NSMutableSet set];
         
         _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(didUpdateDisplayLink:)];
         _displayLink.frameInterval = 1;
@@ -197,6 +201,18 @@ int  RGB_LOW_BITS_MASK;
     self.previousState = self.state;
 }
 
+#pragma mark - Inputs -
+
+- (void)activateInput:(GBAGameInput)gameInput
+{
+    [self.activatedInputs addObject:@(gameInput)];
+}
+
+- (void)deactivateInput:(GBAGameInput)gameInput
+{
+    [self.activatedInputs removeObject:@(gameInput)];
+}
+
 #pragma mark - Getters/Setters -
 
 - (void)setState:(GBAEmulationState)state
@@ -258,7 +274,14 @@ bool systemReadJoypads()
 
 u32 systemReadJoypad(int joy)
 {
-    return 0;
+    u32 joypad = 0;
+    
+    for (NSNumber *input in [GBAEmulatorBridge sharedBridge].activatedInputs.copy)
+    {
+        joypad |= [input unsignedIntegerValue];
+    }
+    
+    return joypad;
 }
 
 void systemShowSpeed(int _iSpeed)

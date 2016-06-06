@@ -11,6 +11,8 @@ import AVFoundation
 
 import DeltaCore
 
+extension GBAGameInput: InputType {}
+
 public class GBAEmulatorCore: EmulatorCore
 {
     public required init(game: GameType)
@@ -101,11 +103,15 @@ public class GBAEmulatorCore: EmulatorCore
     /// EmulatorCore
     public override func gameController(gameController: GameControllerProtocol, didActivateInput input: InputType)
     {
+        guard let input = input as? GBAGameInput else { return }
         
+        GBAEmulatorBridge.sharedBridge().activateInput(input)
     }
     
     public override func gameController(gameController: GameControllerProtocol, didDeactivateInput input: InputType)
     {
+        guard let input = input as? GBAGameInput else { return }
         
+        GBAEmulatorBridge.sharedBridge().deactivateInput(input)
     }
 }

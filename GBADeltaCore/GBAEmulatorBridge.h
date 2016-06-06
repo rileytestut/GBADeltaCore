@@ -12,6 +12,20 @@
 @protocol DLTAAudioRendering;
 @protocol DLTAVideoRendering;
 
+typedef NS_ENUM(NSInteger, GBAGameInput)
+{
+    GBAGameInputUp     = 1 << 6,
+    GBAGameInputDown   = 1 << 7,
+    GBAGameInputLeft   = 1 << 5,
+    GBAGameInputRight  = 1 << 4,
+    GBAGameInputA      = 1 << 0,
+    GBAGameInputB      = 1 << 1,
+    GBAGameInputL      = 1 << 9,
+    GBAGameInputR      = 1 << 8,
+    GBAGameInputStart  = 1 << 3,
+    GBAGameInputSelect = 1 << 2,
+};
+
 typedef NS_ENUM(NSInteger, GBAEmulationState)
 {
     GBAEmulationStateStopped = 0,
@@ -43,6 +57,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stop;
 - (void)pause;
 - (void)resume;
+
+// Inputs
+- (void)activateInput:(GBAGameInput)gameInput;
+- (void)deactivateInput:(GBAGameInput)gameInput;
 
 @end
 
