@@ -12,12 +12,20 @@
 @protocol DLTAAudioRendering;
 @protocol DLTAVideoRendering;
 
+typedef NS_ENUM(NSInteger, GBAEmulationState)
+{
+    GBAEmulationStateStopped = 0,
+    GBAEmulationStateRunning = 1,
+    GBAEmulationStatePaused  = 2,
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GBAEmulatorBridge : NSObject
 
 // State
 @property (copy, nonatomic, nullable, readonly) NSURL *gameURL;
+@property (assign, nonatomic, readonly) GBAEmulationState state;
 
 // Core
 @property (weak, nonatomic, nullable) id<DLTAEmulating> emulatorCore;

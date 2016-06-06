@@ -39,12 +39,16 @@ int  RGB_LOW_BITS_MASK;
 @interface GBAEmulatorBridge ()
 
 @property (copy, nonatomic, nonnull, readwrite) NSURL *gameURL;
+@property (assign, nonatomic, readwrite) GBAEmulationState state;
+
+@property (assign, nonatomic) GBAEmulationState previousState;
 
 @property (strong, nonatomic, nonnull) CADisplayLink *displayLink;
 
 @property (assign, nonatomic, getter=isFrameReady) BOOL frameReady;
 
 @property (strong, nonatomic, nonnull, readonly) dispatch_queue_t renderQueue;
+@property (strong, nonatomic, nonnull, readonly) dispatch_semaphore_t emulationStateSemaphore;
 
 @end
 
@@ -67,6 +71,7 @@ int  RGB_LOW_BITS_MASK;
     if (self)
     {
         _renderQueue = dispatch_queue_create("com.rileytestut.GBADeltaCore.renderQueue", DISPATCH_QUEUE_SERIAL);
+        _emulationStateSemaphore = dispatch_semaphore_create(0);
     }
     
     return self;
@@ -76,6 +81,13 @@ int  RGB_LOW_BITS_MASK;
 
 - (void)startWithGameURL:(NSURL *)URL
 {
+    if (self.state != GBAEmulationStateStopped)
+    {
+        return;
+    }
+    
+    self.state = GBAEmulationStateRunning;
+    
     self.gameURL = URL;
     
     NSData *data = [NSData dataWithContentsOfURL:URL];
@@ -103,9 +115,7 @@ int  RGB_LOW_BITS_MASK;
     
     CPUInit(0, false);
     CPUReset();
-    
-    emulating = 1;
-    
+        
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(didUpdateDisplayLink:)];
     self.displayLink.frameInterval = 1;
     
@@ -115,21 +125,49 @@ int  RGB_LOW_BITS_MASK;
         [[NSRunLoop currentRunLoop] run];
     });
     
+    dispatch_semaphore_wait(self.emulationStateSemaphore, DISPATCH_TIME_FOREVER);
 }
 
 - (void)stop
 {
+    if (self.state == GBAEmulationStateStopped)
+    {
+        return;
+    }
     
+    self.state = GBAEmulationStateStopped;
+    
+    GBASystem.emuCleanUp();
+    soundShutdown();
+    
+    dispatch_semaphore_wait(self.emulationStateSemaphore, DISPATCH_TIME_FOREVER);
+    
+    [self.displayLink invalidate];
+    self.displayLink = nil;
 }
 
 - (void)pause
 {
+    if (self.state != GBAEmulationStateRunning)
+    {
+        return;
+    }
     
+    self.state = GBAEmulationStatePaused;
+    
+    dispatch_semaphore_wait(self.emulationStateSemaphore, DISPATCH_TIME_FOREVER);
 }
 
 - (void)resume
 {
+    if (self.state != GBAEmulationStatePaused)
+    {
+        return;
+    }
     
+    self.state = GBAEmulationStateRunning;
+    
+    dispatch_semaphore_wait(self.emulationStateSemaphore, DISPATCH_TIME_FOREVER);
 }
 
 #pragma mark - Render Loop -
@@ -138,14 +176,46 @@ int  RGB_LOW_BITS_MASK;
 {
     self.frameReady = NO;
     
-    while (![self isFrameReady])
+    while (![self isFrameReady] && self.state == GBAEmulationStateRunning)
     {
         GBASystem.emuMain(GBASystem.emuCount);
     }
     
-    dispatch_async(self.renderQueue, ^{
-        [self.emulatorCore didUpdate];
-    });
+    if (self.state == GBAEmulationStateRunning)
+    {
+        dispatch_async(self.renderQueue, ^{
+            [self.emulatorCore didUpdate];
+        });
+    }
+    
+    if (self.previousState != self.state)
+    {
+        dispatch_semaphore_signal(self.emulationStateSemaphore);
+    }
+    
+    self.previousState = self.state;
+}
+
+#pragma mark - Getters/Setters -
+
+- (void)setState:(GBAEmulationState)state
+{
+    _state = state;
+    
+    switch (_state)
+    {
+        case GBAEmulationStateStopped:
+            emulating = 0;
+            break;
+            
+        case GBAEmulationStateRunning:
+            emulating = 1;
+            break;
+            
+        case GBAEmulationStatePaused:
+            emulating = 0;
+            break;
+    }
 }
 
 @end
