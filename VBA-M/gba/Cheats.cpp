@@ -1577,13 +1577,13 @@ void cheatsDecryptGSACode(u32& address, u32& value, bool v3)
   }
 }
 
-void cheatsAddGSACode(const char *code, const char *desc, bool v3)
+bool cheatsAddGSACode(const char *code, const char *desc, bool v3)
 {
   if(strlen(code) != 16) {
     // wrong cheat
     systemMessage(MSG_INVALID_GSA_CODE,
                   N_("Invalid GSA code. Format is XXXXXXXXYYYYYYYY"));
-    return;
+    return false;
   }
 
   int i;
@@ -1592,7 +1592,7 @@ void cheatsAddGSACode(const char *code, const char *desc, bool v3)
       // wrong cheat
       systemMessage(MSG_INVALID_GSA_CODE,
                     N_("Invalid GSA code. Format is XXXXXXXXYYYYYYYY"));
-      return;
+      return false;
     }
   }
 
@@ -1622,11 +1622,11 @@ void cheatsAddGSACode(const char *code, const char *desc, bool v3)
     }
     cheatsAdd(code, desc, address, address & 0x0FFFFFFF, value, v3 ? 257 : 256,
               UNKNOWN_CODE);
-    return;
+    return true;
   }
   if(isMultilineWithData(cheatsNumber-1)) {
     cheatsAdd(code, desc, address, address, value, v3 ? 257 : 256, UNKNOWN_CODE);
-    return;
+    return true;
   }
   if(v3) {
     int type = ((address >> 25) & 127) | ((address >> 17) & 0x80);
@@ -2061,6 +2061,8 @@ void cheatsAddGSACode(const char *code, const char *desc, bool v3)
       break;
     }
   }
+    
+    return true;
 }
 
 bool cheatsImportGSACodeFile(const char *name, int game, bool v3)
@@ -2432,13 +2434,13 @@ bool cheatsCBAShouldDecrypt()
   return false;
 }
 
-void cheatsAddCBACode(const char *code, const char *desc)
+bool cheatsAddCBACode(const char *code, const char *desc)
 {
   if(strlen(code) != 13) {
     // wrong cheat
     systemMessage(MSG_INVALID_CBA_CODE,
                   N_("Invalid CBA code. Format is XXXXXXXX YYYY."));
-    return;
+    return false;
   }
 
   int i;
@@ -2447,14 +2449,14 @@ void cheatsAddCBACode(const char *code, const char *desc)
       // wrong cheat
       systemMessage(MSG_INVALID_CBA_CODE,
                     N_("Invalid CBA code. Format is XXXXXXXX YYYY."));
-      return;
+      return false;
     }
   }
 
   if(code[8] != ' ') {
     systemMessage(MSG_INVALID_CBA_CODE,
                   N_("Invalid CBA code. Format is XXXXXXXX YYYY."));
-    return;
+    return false;
   }
 
   for(i = 9; i < 13; i++) {
@@ -2462,7 +2464,7 @@ void cheatsAddCBACode(const char *code, const char *desc)
       // wrong cheat
       systemMessage(MSG_INVALID_CBA_CODE,
                     N_("Invalid CBA code. Format is XXXXXXXX YYYY."));
-      return;
+      return false;
     }
   }
 
@@ -2507,7 +2509,7 @@ void cheatsAddCBACode(const char *code, const char *desc)
       cheatsAdd(code, desc, address, address, value, 512, UNKNOWN_CODE);
 	  if (super>0)
 		  super-= 1;
-      return;
+      return true;
     }
 
     switch(type) {
@@ -2589,6 +2591,8 @@ void cheatsAddCBACode(const char *code, const char *desc)
       break;
     }
   }
+    
+    return true;
 }
 
 #ifndef __LIBRETRO__

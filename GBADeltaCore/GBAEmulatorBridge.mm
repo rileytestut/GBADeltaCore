@@ -13,6 +13,7 @@
 #include "../VBA-M/System.h"
 #include "../VBA-M/gba/Sound.h"
 #include "../VBA-M/gba/GBA.h"
+#include "../VBA-M/gba/Cheats.h"
 #include "../VBA-M/Util.h"
 
 #import <DeltaCore/DeltaCore.h>
@@ -49,7 +50,8 @@ int  RGB_LOW_BITS_MASK;
 @property (strong, nonatomic, nonnull, readonly) dispatch_queue_t renderQueue;
 @property (strong, nonatomic, nonnull, readonly) dispatch_semaphore_t emulationStateSemaphore;
 
-@property (strong, nonatomic, nonnull, readonly) NSMutableSet *activatedInputs;
+@property (strong, nonatomic, nonnull, readonly) NSMutableSet<NSNumber *> *activatedInputs;
+@property (strong, nonatomic, nonnull, readonly) NSMutableDictionary<NSString *, NSNumber *> *cheatCodes;
 
 @end
 
@@ -75,6 +77,7 @@ int  RGB_LOW_BITS_MASK;
         _emulationStateSemaphore = dispatch_semaphore_create(0);
         
         _activatedInputs = [NSMutableSet set];
+        _cheatCodes = [NSMutableDictionary dictionary];
         
         _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(didUpdateDisplayLink:)];
         _displayLink.frameInterval = 1;
@@ -103,6 +106,8 @@ int  RGB_LOW_BITS_MASK;
     
     self.gameURL = URL;
     
+    [self.cheatCodes removeAllObjects];
+    
     NSData *data = [NSData dataWithContentsOfURL:URL];
     
     if (!CPULoadRomData((const char*)data.bytes, data.length))
@@ -119,7 +124,7 @@ int  RGB_LOW_BITS_MASK;
     gameID[3] = rom[0xaf];
     gameID[4] = '\0';
     
-    NSLog(@"VBA: GameID in ROM is: %s\n", gameID);
+    NSLog(@"VBA-M: GameID in ROM is: %s\n", gameID);
     
     soundInit();
     soundSetSampleRate(32768); // 44100 chirps
@@ -225,6 +230,87 @@ int  RGB_LOW_BITS_MASK;
     GBASystem.emuReadState(URL.fileSystemRepresentation);
 }
 
+#pragma mark - Cheats -
+
+- (BOOL)activateCheat:(NSString *)cheatCode type:(GBACheatType)type
+{
+    NSArray *codes = [cheatCode componentsSeparatedByString:@"\n"];
+    for (NSString *code in codes)
+    {
+        BOOL success = YES;
+        
+        switch (type)
+        {
+            case GBACheatTypeActionReplay:
+            case GBACheatTypeGameShark:
+            {
+                NSString *sanitizedCode = [code stringByReplacingOccurrencesOfString:@" " withString:@""];
+                success = cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
+                break;
+            }
+                
+            case GBACheatTypeCodeBreaker:
+            {
+                success = cheatsAddCBACode([code UTF8String], "code");
+                break;
+            }
+        }
+        
+        if (!success)
+        {
+            return NO;
+        }
+    }
+    
+    self.cheatCodes[cheatCode] = @(type);
+    
+    [self updateCheats];
+    
+    return YES;
+}
+
+- (void)deactivateCheat:(NSString *)cheatCode
+{
+    if (self.cheatCodes[cheatCode] == nil)
+    {
+        return;
+    }
+    
+    self.cheatCodes[cheatCode] = nil;
+    
+    [self updateCheats];
+}
+
+- (void)updateCheats
+{
+    cheatsDeleteAll(false);
+    
+    [self.cheatCodes.copy enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull cheatCode, NSNumber * _Nonnull type, BOOL * _Nonnull stop) {
+        
+        NSArray *codes = [cheatCode componentsSeparatedByString:@"\n"];
+        for (NSString *code in codes)
+        {
+            switch ([type integerValue])
+            {
+                case GBACheatTypeActionReplay:
+                case GBACheatTypeGameShark:
+                {
+                    NSString *sanitizedCode = [code stringByReplacingOccurrencesOfString:@" " withString:@""];
+                    cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
+                    break;
+                }
+                    
+                case GBACheatTypeCodeBreaker:
+                {
+                    cheatsAddCBACode([code UTF8String], "code");
+                    break;
+                }
+            }
+        }
+        
+    }];
+}
+
 #pragma mark - Getters/Setters -
 
 - (void)setState:(GBAEmulationState)state
@@ -253,12 +339,7 @@ int  RGB_LOW_BITS_MASK;
 
 void systemMessage(int _iId, const char * _csFormat, ...)
 {
-    va_list args;
-    va_start(args, _csFormat);
-    
-    NSLogv(@"%s", args);
-    
-    va_end(args);
+    NSLog(@"VBA-M: %s", _csFormat);
 }
 
 void systemDrawScreen()

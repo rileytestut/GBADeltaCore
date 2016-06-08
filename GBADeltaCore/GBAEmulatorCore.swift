@@ -13,6 +13,20 @@ import DeltaCore
 
 extension GBAGameInput: InputType {}
 
+private extension GBACheatType
+{
+    init?(_ type: CheatType)
+    {
+        switch type
+        {
+        case .actionReplay: self = .ActionReplay
+        case .gameShark: self = .GameShark
+        case .codeBreaker: self = .CodeBreaker
+        default: return nil
+        }
+    }
+}
+
 public class GBAEmulatorCore: EmulatorCore
 {
     public required init(game: GameType)
@@ -57,6 +71,14 @@ public class GBAEmulatorCore: EmulatorCore
     override public var fastForwardRate: Float
     {
         return 4.0
+    }
+    
+    override public var supportedCheatFormats: [CheatFormat]
+    {
+        let actionReplayFormat = CheatFormat(name: NSLocalizedString("Action Replay", comment: ""), format: "XXXXXXXX YYYYYYYY", type: .actionReplay)
+        let gameSharkFormat = CheatFormat(name: NSLocalizedString("GameShark", comment: ""), format: "XXXXXXXX YYYYYYYY", type: .gameShark)
+        let codeBreakerFormat = CheatFormat(name: NSLocalizedString("Code Breaker", comment: ""), format: "XXXXXXXX YYYY", type: .codeBreaker)
+        return [actionReplayFormat, gameSharkFormat, codeBreakerFormat]
     }
     
     public override func startEmulation() -> Bool
@@ -140,5 +162,22 @@ public class GBAEmulatorCore: EmulatorCore
         GBAEmulatorBridge.sharedBridge().loadSaveStateFromURL(saveState.fileURL)
         
         return true
+    }
+    
+    //MARK: - Cheats -
+    /// Cheats
+    public override func activateCheat(cheat: CheatProtocol) throws
+    {
+        guard let type = GBACheatType(cheat.type) else { throw CheatError.invalid }
+        
+        if !GBAEmulatorBridge.sharedBridge().activateCheat(cheat.code, type: type)
+        {
+            throw CheatError.invalid
+        }
+    }
+    
+    public override func deactivateCheat(cheat: CheatProtocol)
+    {
+        GBAEmulatorBridge.sharedBridge().deactivateCheat(cheat.code)
     }
 }

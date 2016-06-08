@@ -26,6 +26,13 @@ typedef NS_ENUM(NSInteger, GBAGameInput)
     GBAGameInputSelect = 1 << 2,
 };
 
+typedef NS_ENUM(NSInteger, GBACheatType)
+{
+    GBACheatTypeActionReplay = 0,
+    GBACheatTypeGameShark    = 1,
+    GBACheatTypeCodeBreaker  = 2,
+};
+
 typedef NS_ENUM(NSInteger, GBAEmulationState)
 {
     GBAEmulationStateStopped = 0,
@@ -65,6 +72,10 @@ NS_ASSUME_NONNULL_BEGIN
 // Save States
 - (void)saveSaveStateToURL:(NSURL *)URL;
 - (void)loadSaveStateFromURL:(NSURL *)URL;
+
+// Cheats
+- (BOOL)activateCheat:(NSString *)cheatCode type:(GBACheatType)type;
+- (void)deactivateCheat:(NSString *)cheatCode;
 
 @end
 
