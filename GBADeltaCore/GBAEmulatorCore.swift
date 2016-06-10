@@ -102,33 +102,6 @@ public class GBAEmulatorCore: EmulatorCore
         GBAEmulatorBridge.sharedBridge().deactivateInput(input)
     }
     
-    //MARK: - Save States -
-    /// Save States
-    public override func saveSaveState(completion: (SaveStateType -> Void)) -> Bool
-    {
-        guard super.saveSaveState(completion) else { return false }
-        
-        NSFileManager.defaultManager().prepareTemporaryURL { URL in
-            
-            GBAEmulatorBridge.sharedBridge().saveSaveStateToURL(URL)
-            
-            let name = self.timestampDateFormatter.stringFromDate(NSDate())
-            let saveState = SaveState(name: name, fileURL: URL)
-            completion(saveState)
-        }
-        
-        return true
-    }
-    
-    public override func loadSaveState(saveState: SaveStateType) -> Bool
-    {
-        guard super.loadSaveState(saveState) else { return false }
-        
-        GBAEmulatorBridge.sharedBridge().loadSaveStateFromURL(saveState.fileURL)
-        
-        return true
-    }
-    
     //MARK: - Cheats -
     /// Cheats
     public override func activateCheat(cheat: CheatProtocol) throws
