@@ -7,10 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@protocol DLTAEmulating;
-@protocol DLTAAudioRendering;
-@protocol DLTAVideoRendering;
+#import <DeltaCore/DeltaCore.h>
 
 typedef NS_ENUM(NSInteger, GBAGameInput)
 {
@@ -33,37 +30,9 @@ typedef NS_ENUM(NSInteger, GBACheatType)
     GBACheatTypeCodeBreaker  = 2,
 };
 
-typedef NS_ENUM(NSInteger, GBAEmulationState)
-{
-    GBAEmulationStateStopped = 0,
-    GBAEmulationStateRunning = 1,
-    GBAEmulationStatePaused  = 2,
-};
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GBAEmulatorBridge : NSObject
-
-// State
-@property (copy, nonatomic, nullable, readonly) NSURL *gameURL;
-@property (assign, nonatomic, readonly) GBAEmulationState state;
-
-// Core
-@property (weak, nonatomic, nullable) id<DLTAEmulating> emulatorCore;
-
-// Audio
-@property (weak, nonatomic, nullable) id<DLTAAudioRendering> audioRenderer;
-
-// Video
-@property (weak, nonatomic, nullable) id<DLTAVideoRendering> videoRenderer;
-
-+ (instancetype)sharedBridge;
-
-// Emulation
-- (void)startWithGameURL:(NSURL *)URL;
-- (void)stop;
-- (void)pause;
-- (void)resume;
+@interface GBAEmulatorBridge : DLTAEmulatorBridge
 
 // Inputs
 - (void)activateInput:(GBAGameInput)gameInput;

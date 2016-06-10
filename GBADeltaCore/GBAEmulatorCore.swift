@@ -49,6 +49,11 @@ public class GBAEmulatorCore: EmulatorCore
     //MARK: - Overrides -
     /** Overrides **/
     
+    override public var bridge: DLTAEmulatorBridge
+    {
+        return GBAEmulatorBridge.sharedBridge()
+    }
+    
     override public var audioBufferInfo: AudioManager.BufferInfo
     {
         let inputFormat = AVAudioFormat(commonFormat: .PCMFormatInt16, sampleRate: 32768, channels: 2, interleaved: true)
@@ -68,11 +73,6 @@ public class GBAEmulatorCore: EmulatorCore
         return CGSizeMake(240, 160)
     }
     
-    override public var fastForwardRate: Float
-    {
-        return 4.0
-    }
-    
     override public var supportedCheatFormats: [CheatFormat]
     {
         let actionReplayFormat = CheatFormat(name: NSLocalizedString("Action Replay", comment: ""), format: "XXXXXXXX YYYYYYYY", type: .actionReplay)
@@ -81,44 +81,9 @@ public class GBAEmulatorCore: EmulatorCore
         return [actionReplayFormat, gameSharkFormat, codeBreakerFormat]
     }
     
-    public override func startEmulation() -> Bool
+    override public var supportedRates: ClosedInterval<Double>
     {
-        guard super.startEmulation() else { return false }
-        
-        GBAEmulatorBridge.sharedBridge().emulatorCore = self
-        GBAEmulatorBridge.sharedBridge().audioRenderer = self.audioManager
-        GBAEmulatorBridge.sharedBridge().videoRenderer = self.videoManager
-        
-        GBAEmulatorBridge.sharedBridge().startWithGameURL(self.game.fileURL)
-        
-        return true
-    }
-    
-    public override func stopEmulation() -> Bool
-    {
-        guard super.stopEmulation() else { return false }
-        
-        GBAEmulatorBridge.sharedBridge().stop()
-        
-        return true
-    }
-    
-    public override func pauseEmulation() -> Bool
-    {
-        guard super.pauseEmulation() else { return false }
-        
-        GBAEmulatorBridge.sharedBridge().pause()
-        
-        return true
-    }
-    
-    public override func resumeEmulation() -> Bool
-    {
-        guard super.resumeEmulation() else { return false }
-        
-        GBAEmulatorBridge.sharedBridge().resume()
-        
-        return true
+        return 1...3
     }
     
     //MARK: - EmulatorCore
