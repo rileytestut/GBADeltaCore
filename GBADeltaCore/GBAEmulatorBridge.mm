@@ -252,12 +252,12 @@ int  RGB_LOW_BITS_MASK;
 
 #pragma mark - Inputs -
 
-- (void)activateInput:(GBAGameInput)gameInput
+- (void)activateInput:(NSInteger)gameInput
 {
     [self.activatedInputs addObject:@(gameInput)];
 }
 
-- (void)deactivateInput:(GBAGameInput)gameInput
+- (void)deactivateInput:(NSInteger)gameInput
 {
     [self.activatedInputs removeObject:@(gameInput)];
 }

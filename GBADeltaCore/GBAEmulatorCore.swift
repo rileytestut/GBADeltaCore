@@ -54,6 +54,11 @@ public class GBAEmulatorCore: EmulatorCore
         return GBAEmulatorBridge.sharedBridge()
     }
     
+    public override var gameInputType: InputType.Type
+    {
+        return GBAGameInput.self
+    }
+    
     override public var audioBufferInfo: AudioManager.BufferInfo
     {
         let inputFormat = AVAudioFormat(commonFormat: .PCMFormatInt16, sampleRate: 32768, channels: 2, interleaved: true)
@@ -68,11 +73,6 @@ public class GBAEmulatorCore: EmulatorCore
         return bufferInfo
     }
     
-    override public var preferredRenderingSize: CGSize
-    {
-        return CGSizeMake(240, 160)
-    }
-    
     override public var supportedCheatFormats: [CheatFormat]
     {
         let actionReplayFormat = CheatFormat(name: NSLocalizedString("Action Replay", comment: ""), format: "XXXXXXXX YYYYYYYY", type: .actionReplay)
@@ -84,22 +84,6 @@ public class GBAEmulatorCore: EmulatorCore
     override public var supportedRates: ClosedInterval<Double>
     {
         return 1...3
-    }
-    
-    //MARK: - EmulatorCore
-    /// EmulatorCore
-    public override func gameController(gameController: GameControllerProtocol, didActivateInput input: InputType)
-    {
-        guard let input = input as? GBAGameInput else { return }
-        
-        GBAEmulatorBridge.sharedBridge().activateInput(input)
-    }
-    
-    public override func gameController(gameController: GameControllerProtocol, didDeactivateInput input: InputType)
-    {
-        guard let input = input as? GBAGameInput else { return }
-        
-        GBAEmulatorBridge.sharedBridge().deactivateInput(input)
     }
     
     //MARK: - Cheats -

@@ -34,10 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GBAEmulatorBridge : DLTAEmulatorBridge
 
-// Inputs
-- (void)activateInput:(GBAGameInput)gameInput;
-- (void)deactivateInput:(GBAGameInput)gameInput;
-
 // Cheats
 - (BOOL)activateCheat:(NSString *)cheatCode type:(GBACheatType)type;
 - (void)deactivateCheat:(NSString *)cheatCode;
