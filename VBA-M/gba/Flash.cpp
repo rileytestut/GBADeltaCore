@@ -161,15 +161,12 @@ u8 flashRead(u32 address)
 
 void flashSaveDecide(u32 address, u8 byte)
 {
-  if (saveType == 1)
-    return;
-
   //  log("Deciding save type %08x\n", address);
   if(address == 0x0e005555) {
-    saveType = 3;
+    saveType = 2;
     cpuSaveGameFunc = flashWrite;
   } else {
-    saveType = 2;
+    saveType = 1;
     cpuSaveGameFunc = sramWrite;
   }
 
@@ -178,7 +175,7 @@ void flashSaveDecide(u32 address, u8 byte)
 
 void flashDelayedWrite(u32 address, u8 byte)
 {
-  saveType = 3;
+  saveType = 2;
   cpuSaveGameFunc = flashWrite;
   flashWrite(address, byte);
 }

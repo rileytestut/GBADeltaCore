@@ -14,9 +14,8 @@
 #include "../VBA-M/gba/Sound.h"
 #include "../VBA-M/gba/GBA.h"
 #include "../VBA-M/gba/Cheats.h"
+#include "../VBA-M/gba/RTC.h"
 #include "../VBA-M/Util.h"
-
-#import <CoreImage/CoreImage.h>
 
 #include <sys/time.h>
 
@@ -27,7 +26,7 @@ int  systemGreenShift = 11;
 int  systemBlueShift = 3;
 int  systemColorDepth = 32;
 int  systemVerbose;
-int  systemSaveUpdateCounter;
+int  systemSaveUpdateCounter = 0;
 int  systemFrameSkip;
 u32  systemColorMap32[0x10000];
 u16  systemColorMap16[0x10000];
@@ -74,16 +73,11 @@ int  RGB_LOW_BITS_MASK;
         return;
     }
     
+    [self updateGameSettings];
+    
+    [self loadGameSaveFromURL:[self defaultGameSaveURL]];
+    
     utilUpdateSystemColorMaps(NO);
-    
-    char gameID[5];
-    gameID[0] = rom[0xac];
-    gameID[1] = rom[0xad];
-    gameID[2] = rom[0xae];
-    gameID[3] = rom[0xaf];
-    gameID[4] = '\0';
-    
-    NSLog(@"VBA-M: GameID in ROM is: %s\n", gameID);
     
     soundInit();
     soundSetSampleRate(32768); // 44100 chirps
@@ -93,12 +87,15 @@ int  RGB_LOW_BITS_MASK;
     emulating = 1;
     
     CPUInit(0, false);
-    CPUReset();
+    
+    GBASystem.emuReset();
 }
 
 - (void)stop
 {
     [super stop];
+    
+    [self saveGameSaveToURL:[self defaultGameSaveURL]];
     
     GBASystem.emuCleanUp();
     soundShutdown();
@@ -109,6 +106,8 @@ int  RGB_LOW_BITS_MASK;
 - (void)pause
 {
     [super pause];
+    
+    [self saveGameSaveToURL:[self defaultGameSaveURL]];
     
     emulating = 0;
 }
@@ -130,6 +129,127 @@ int  RGB_LOW_BITS_MASK;
     }
 }
 
+#pragma mark - Settings -
+
+- (void)updateGameSettings
+{
+    NSString *gameID = [NSString stringWithFormat:@"%c%c%c%c", rom[0xac], rom[0xad], rom[0xae], rom[0xaf]];
+    
+    NSLog(@"VBA-M: GameID in ROM is: %@", gameID);
+    
+    // Set defaults
+    // Use underscores to prevent shadowing of global variables
+    BOOL _enableRTC       = NO;
+    BOOL _enableMirroring = NO;
+    BOOL _useBIOS         = NO;
+    int  _cpuSaveType     = 0;
+    int  _flashSize       = 0x10000;
+    
+    // Read in vba-over.ini and break it into an array of strings
+    NSString *iniPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"vba-over" ofType:@"ini"];
+    NSString *iniString = [NSString stringWithContentsOfFile:iniPath encoding:NSUTF8StringEncoding error:NULL];
+    NSArray *settings = [iniString componentsSeparatedByString:@"\n"];
+    
+    BOOL matchFound = NO;
+    NSMutableDictionary *overridesFound = [[NSMutableDictionary alloc] init];
+    NSString *temp;
+    
+    // Check if vba-over.ini has per-game settings for our gameID
+    for (NSString *s in settings)
+    {
+        temp = nil;
+        
+        if ([s hasPrefix:@"["])
+        {
+            NSScanner *scanner = [NSScanner scannerWithString:s];
+            [scanner scanString:@"[" intoString:nil];
+            [scanner scanUpToString:@"]" intoString:&temp];
+            
+            if ([temp caseInsensitiveCompare:gameID] == NSOrderedSame)
+            {
+                matchFound = YES;
+            }
+            
+            continue;
+        }
+        
+        else if (matchFound && [s hasPrefix:@"saveType="])
+        {
+            NSScanner *scanner = [NSScanner scannerWithString:s];
+            [scanner scanString:@"saveType=" intoString:nil];
+            [scanner scanUpToString:@"\n" intoString:&temp];
+            _cpuSaveType = [temp intValue];
+            [overridesFound setObject:temp forKey:@"CPU saveType"];
+            
+            continue;
+        }
+        
+        else if (matchFound && [s hasPrefix:@"rtcEnabled="])
+        {
+            NSScanner *scanner = [NSScanner scannerWithString:s];
+            [scanner scanString:@"rtcEnabled=" intoString:nil];
+            [scanner scanUpToString:@"\n" intoString:&temp];
+            _enableRTC = [temp boolValue];
+            [overridesFound setObject:temp forKey:@"rtcEnabled"];
+            
+            continue;
+        }
+        
+        else if (matchFound && [s hasPrefix:@"flashSize="])
+        {
+            NSScanner *scanner = [NSScanner scannerWithString:s];
+            [scanner scanString:@"flashSize=" intoString:nil];
+            [scanner scanUpToString:@"\n" intoString:&temp];
+            _flashSize = [temp intValue];
+            [overridesFound setObject:temp forKey:@"flashSize"];
+            
+            continue;
+        }
+        
+        else if (matchFound && [s hasPrefix:@"mirroringEnabled="])
+        {
+            NSScanner *scanner = [NSScanner scannerWithString:s];
+            [scanner scanString:@"mirroringEnabled=" intoString:nil];
+            [scanner scanUpToString:@"\n" intoString:&temp];
+            _enableMirroring = [temp boolValue];
+            [overridesFound setObject:temp forKey:@"mirroringEnabled"];
+            
+            continue;
+        }
+        
+        else if (matchFound && [s hasPrefix:@"useBios="])
+        {
+            NSScanner *scanner = [NSScanner scannerWithString:s];
+            [scanner scanString:@"useBios=" intoString:nil];
+            [scanner scanUpToString:@"\n" intoString:&temp];
+            _useBIOS = [temp boolValue];
+            [overridesFound setObject:temp forKey:@"useBios"];
+            
+            continue;
+        }
+        
+        else if (matchFound)
+            break;
+    }
+    
+    if (matchFound)
+    {
+        NSLog(@"VBA: overrides found: %@", overridesFound);
+    }
+    
+    // Apply settings
+    rtcEnable(_enableRTC);
+    mirroringEnable = _enableMirroring;
+    doMirroring(mirroringEnable);
+    cpuSaveType = _cpuSaveType;
+    
+    if (_flashSize == 0x10000 || _flashSize == 0x20000)
+    {
+        flashSetSize(_flashSize);
+    }
+    
+}
+
 #pragma mark - Inputs -
 
 - (void)activateInput:(GBAGameInput)gameInput
@@ -140,6 +260,24 @@ int  RGB_LOW_BITS_MASK;
 - (void)deactivateInput:(GBAGameInput)gameInput
 {
     [self.activatedInputs removeObject:@(gameInput)];
+}
+
+#pragma mark - Game Saves -
+
+- (void)saveGameSaveToURL:(NSURL *)URL
+{
+    GBASystem.emuWriteBattery(URL.fileSystemRepresentation);
+}
+
+- (void)loadGameSaveFromURL:(NSURL *)URL
+{
+    GBASystem.emuReadBattery(URL.fileSystemRepresentation);
+}
+
+- (NSURL *)defaultGameSaveURL
+{
+    NSURL *saveURL = [[self.gameURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"sav"];
+    return saveURL;
 }
 
 #pragma mark - Save States -
@@ -286,7 +424,17 @@ void systemShowSpeed(int _iSpeed)
 
 void system10Frames(int _iRate)
 {
-    
+    if (systemSaveUpdateCounter > 0)
+    {
+        systemSaveUpdateCounter--;
+        
+        if (systemSaveUpdateCounter <= SYSTEM_SAVE_NOT_UPDATED)
+        {
+            [[GBAEmulatorBridge sharedBridge] saveGameSaveToURL:[[GBAEmulatorBridge sharedBridge] defaultGameSaveURL]];
+            
+            systemSaveUpdateCounter = SYSTEM_SAVE_NOT_UPDATED;
+        }
+    }
 }
 
 void systemFrame()

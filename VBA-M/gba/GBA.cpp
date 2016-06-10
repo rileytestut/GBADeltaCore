@@ -3514,10 +3514,10 @@ void CPUReset()
       gbaSaveType = 3;
     else
       switch(saveType) {
-      case 2:
+      case 1:
         gbaSaveType = 1;
         break;
-      case 3:
+      case 2:
         gbaSaveType = 2;
         break;
       }

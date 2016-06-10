@@ -97,6 +97,7 @@
 		BF0418191D01EA1A00E85BCF /* GBAEmulatorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */; };
 		BF04181D1D01EEEC00E85BCF /* Default.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BF04181C1D01EEEC00E85BCF /* Default.deltaskin */; };
 		BF0418201D01EF1900E85BCF /* GBAControllerSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */; };
+		BF3BE9301D0B3008004287EC /* vba-over.ini in Resources */ = {isa = PBXBuildFile; fileRef = BF3BE92F1D0B3008004287EC /* vba-over.ini */; };
 		BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF7A908A1D02708700A3617D /* GBASoundDriver.mm */; };
 		BF7A908D1D02708700A3617D /* GBASoundDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7A908B1D02708700A3617D /* GBASoundDriver.h */; };
 		BFE8E9CE1D010AF7009D623D /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -267,6 +268,7 @@
 		BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAEmulatorCore.swift; sourceTree = "<group>"; };
 		BF04181C1D01EEEC00E85BCF /* Default.deltaskin */ = {isa = PBXFileReference; lastKnownFileType = file; path = Default.deltaskin; sourceTree = "<group>"; };
 		BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAControllerSkin.swift; sourceTree = "<group>"; };
+		BF3BE92F1D0B3008004287EC /* vba-over.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "vba-over.ini"; path = "VBA-M/vba-over.ini"; sourceTree = SOURCE_ROOT; };
 		BF7A908A1D02708700A3617D /* GBASoundDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GBASoundDriver.mm; sourceTree = "<group>"; };
 		BF7A908B1D02708700A3617D /* GBASoundDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBASoundDriver.h; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -509,6 +511,7 @@
 		BF0418121D01E63900E85BCF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BF3BE92F1D0B3008004287EC /* vba-over.ini */,
 				BF04181C1D01EEEC00E85BCF /* Default.deltaskin */,
 				BFE8E9CF1D010AF7009D623D /* Info.plist */,
 			);
@@ -907,6 +910,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF3BE9301D0B3008004287EC /* vba-over.ini in Resources */,
 				BF0418071D01E4CF00E85BCF /* lzma.txt in Resources */,
 				BF0417F91D01E4CF00E85BCF /* 7zC.txt in Resources */,
 				BF04181D1D01EEEC00E85BCF /* Default.deltaskin in Resources */,
@@ -1110,6 +1114,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
@@ -1164,6 +1169,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = GBADeltaCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
