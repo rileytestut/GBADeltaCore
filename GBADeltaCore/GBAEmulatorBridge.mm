@@ -19,6 +19,9 @@
 
 #include <sys/time.h>
 
+// DeltaCore
+#import <DeltaCore/DeltaCore-Swift.h>
+
 // Required vars, used by the emulator core
 //
 int  systemRedShift = 19;
@@ -40,7 +43,6 @@ int  RGB_LOW_BITS_MASK;
 @property (assign, nonatomic, getter=isFrameReady) BOOL frameReady;
 
 @property (strong, nonatomic, nonnull, readonly) NSMutableSet<NSNumber *> *activatedInputs;
-@property (strong, nonatomic, nonnull, readonly) NSMutableDictionary<NSString *, NSNumber *> *cheatCodes;
 
 @end
 
@@ -52,7 +54,6 @@ int  RGB_LOW_BITS_MASK;
     if (self)
     {
         _activatedInputs = [NSMutableSet set];
-        _cheatCodes = [NSMutableDictionary dictionary];
     }
     
     return self;
@@ -63,8 +64,6 @@ int  RGB_LOW_BITS_MASK;
 - (void)startWithGameURL:(NSURL *)URL
 {
     [super startWithGameURL:URL];
-    
-    [self.cheatCodes removeAllObjects];
     
     NSData *data = [NSData dataWithContentsOfURL:URL];
     
@@ -294,83 +293,33 @@ int  RGB_LOW_BITS_MASK;
 
 #pragma mark - Cheats -
 
-- (BOOL)activateCheat:(NSString *)cheatCode type:(GBACheatType)type
+- (BOOL)addCheatCode:(NSString *)cheatCode type:(NSInteger)type
 {
-    NSArray *codes = [cheatCode componentsSeparatedByString:@"\n"];
-    for (NSString *code in codes)
+    BOOL success = YES;
+    
+    switch ((CheatType)type)
     {
-        BOOL success = YES;
-        
-        switch (type)
+        case CheatTypeactionReplay:
+        case CheatTypegameShark:
         {
-            case GBACheatTypeActionReplay:
-            case GBACheatTypeGameShark:
-            {
-                NSString *sanitizedCode = [code stringByReplacingOccurrencesOfString:@" " withString:@""];
-                success = cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
-                break;
-            }
-                
-            case GBACheatTypeCodeBreaker:
-            {
-                success = cheatsAddCBACode([code UTF8String], "code");
-                break;
-            }
+            NSString *sanitizedCode = [cheatCode stringByReplacingOccurrencesOfString:@" " withString:@""];
+            success = cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
+            break;
         }
-        
-        if (!success)
+            
+        case CheatTypecodeBreaker:
         {
-            return NO;
+            success = cheatsAddCBACode([cheatCode UTF8String], "code");
+            break;
         }
     }
     
-    self.cheatCodes[cheatCode] = @(type);
-    
-    [self updateCheats];
-    
-    return YES;
+    return success;
 }
 
-- (void)deactivateCheat:(NSString *)cheatCode
+- (void)resetCheats
 {
-    if (self.cheatCodes[cheatCode] == nil)
-    {
-        return;
-    }
-    
-    self.cheatCodes[cheatCode] = nil;
-    
-    [self updateCheats];
-}
-
-- (void)updateCheats
-{
-    cheatsDeleteAll(false);
-    
-    [self.cheatCodes.copy enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull cheatCode, NSNumber * _Nonnull type, BOOL * _Nonnull stop) {
-        
-        NSArray *codes = [cheatCode componentsSeparatedByString:@"\n"];
-        for (NSString *code in codes)
-        {
-            switch ([type integerValue])
-            {
-                case GBACheatTypeActionReplay:
-                case GBACheatTypeGameShark:
-                {
-                    NSString *sanitizedCode = [code stringByReplacingOccurrencesOfString:@" " withString:@""];
-                    cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
-                    break;
-                }
-                    
-                case GBACheatTypeCodeBreaker:
-                {
-                    cheatsAddCBACode([code UTF8String], "code");
-                    break;
-                }
-            }
-        }
-        
-    }];
+    cheatsDeleteAll(true);
 }
 
 @end

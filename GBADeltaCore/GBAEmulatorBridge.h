@@ -23,20 +23,9 @@ typedef NS_ENUM(NSInteger, GBAGameInput)
     GBAGameInputSelect = 1 << 2,
 };
 
-typedef NS_ENUM(NSInteger, GBACheatType)
-{
-    GBACheatTypeActionReplay = 0,
-    GBACheatTypeGameShark    = 1,
-    GBACheatTypeCodeBreaker  = 2,
-};
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GBAEmulatorBridge : DLTAEmulatorBridge
-
-// Cheats
-- (BOOL)activateCheat:(NSString *)cheatCode type:(GBACheatType)type;
-- (void)deactivateCheat:(NSString *)cheatCode;
 
 @end
 

@@ -13,20 +13,6 @@ import DeltaCore
 
 extension GBAGameInput: InputType {}
 
-private extension GBACheatType
-{
-    init?(_ type: CheatType)
-    {
-        switch type
-        {
-        case .actionReplay: self = .ActionReplay
-        case .gameShark: self = .GameShark
-        case .codeBreaker: self = .CodeBreaker
-        default: return nil
-        }
-    }
-}
-
 public class GBAEmulatorCore: EmulatorCore
 {
     public required init(game: GameType)
@@ -84,22 +70,5 @@ public class GBAEmulatorCore: EmulatorCore
     override public var supportedRates: ClosedInterval<Double>
     {
         return 1...3
-    }
-    
-    //MARK: - Cheats -
-    /// Cheats
-    public override func activateCheat(cheat: CheatProtocol) throws
-    {
-        guard let type = GBACheatType(cheat.type) else { throw CheatError.invalid }
-        
-        if !GBAEmulatorBridge.sharedBridge().activateCheat(cheat.code, type: type)
-        {
-            throw CheatError.invalid
-        }
-    }
-    
-    public override func deactivateCheat(cheat: CheatProtocol)
-    {
-        GBAEmulatorBridge.sharedBridge().deactivateCheat(cheat.code)
     }
 }
