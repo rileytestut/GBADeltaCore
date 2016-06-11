@@ -75,17 +75,18 @@ int  RGB_LOW_BITS_MASK;
     [self updateGameSettings];
         
     utilUpdateSystemColorMaps(NO);
+    utilGBAFindSave(data.length);
     
     soundInit();
     soundSetSampleRate(32768); // 44100 chirps
     
     soundReset();
     
-    emulating = 1;
-    
     CPUInit(0, false);
     
     GBASystem.emuReset();
+    
+    emulating = 1;
 }
 
 - (void)stop
