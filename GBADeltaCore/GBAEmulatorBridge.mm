@@ -73,9 +73,7 @@ int  RGB_LOW_BITS_MASK;
     }
     
     [self updateGameSettings];
-    
-    [self loadGameSaveFromURL:[self defaultGameSaveURL]];
-    
+        
     utilUpdateSystemColorMaps(NO);
     
     soundInit();
@@ -94,8 +92,6 @@ int  RGB_LOW_BITS_MASK;
 {
     [super stop];
     
-    [self saveGameSaveToURL:[self defaultGameSaveURL]];
-    
     GBASystem.emuCleanUp();
     soundShutdown();
     
@@ -105,8 +101,6 @@ int  RGB_LOW_BITS_MASK;
 - (void)pause
 {
     [super pause];
-    
-    [self saveGameSaveToURL:[self defaultGameSaveURL]];
     
     emulating = 0;
 }
@@ -273,12 +267,6 @@ int  RGB_LOW_BITS_MASK;
     GBASystem.emuReadBattery(URL.fileSystemRepresentation);
 }
 
-- (NSURL *)defaultGameSaveURL
-{
-    NSURL *saveURL = [[self.gameURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"sav"];
-    return saveURL;
-}
-
 #pragma mark - Save States -
 
 - (void)saveSaveStateToURL:(NSURL *)URL
@@ -379,7 +367,7 @@ void system10Frames(int _iRate)
         
         if (systemSaveUpdateCounter <= SYSTEM_SAVE_NOT_UPDATED)
         {
-            [[GBAEmulatorBridge sharedBridge] saveGameSaveToURL:[[GBAEmulatorBridge sharedBridge] defaultGameSaveURL]];
+            [[GBAEmulatorBridge sharedBridge].emulatorCore didUpdateGameSave];
             
             systemSaveUpdateCounter = SYSTEM_SAVE_NOT_UPDATED;
         }

@@ -45,6 +45,13 @@ public class GBAEmulatorCore: EmulatorCore
         return GBAGameInput.self
     }
     
+    public override var gameSaveURL: NSURL
+    {
+        var gameSaveURL = self.game.fileURL.URLByDeletingPathExtension ?? self.game.fileURL
+        gameSaveURL = gameSaveURL.URLByAppendingPathExtension("sav")
+        return gameSaveURL
+    }
+    
     override public var audioBufferInfo: AudioManager.BufferInfo
     {
         let inputFormat = AVAudioFormat(commonFormat: .PCMFormatInt16, sampleRate: 32768, channels: 2, interleaved: true)
