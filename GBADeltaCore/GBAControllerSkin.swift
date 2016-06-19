@@ -17,15 +17,15 @@ public class GBAControllerSkin: ControllerSkin
     
     //MARK: - ControllerSkin
     /// ControllerSkin
-    public override class func defaultControllerSkinForGameUTI(UTI: String) -> ControllerSkin?
+    public override class func defaultControllerSkinForGameUTI(_ UTI: String) -> ControllerSkin?
     {
-        let URL = NSBundle(forClass: self).URLForResource("Default", withExtension: "deltaskin")
+        let URL = Bundle(for: self).urlForResource("Default", withExtension: "deltaskin")
         let controllerSkin = ControllerSkin(URL: URL!)
         
         return controllerSkin
     }
     
-    public override func inputsForItem(item: ControllerSkin.Item, point: CGPoint) -> [InputType]
+    public override func inputsForItem(_ item: ControllerSkin.Item, point: CGPoint) -> [InputType]
     {
         var inputs: [InputType] = []
         
@@ -40,33 +40,33 @@ public class GBAControllerSkin: ControllerSkin
                 let leftRect = CGRect(x: item.frame.minX, y: item.frame.minY, width: item.frame.width / 3.0, height: item.frame.height)
                 let rightRect = CGRect(x: item.frame.maxX - item.frame.width / 3.0, y: item.frame.minY, width: item.frame.width / 3.0, height: item.frame.height)
                 
-                if CGRectContainsPoint(topRect, point)
+                if topRect.contains(point)
                 {
-                    inputs.append(GBAGameInput.Up)
+                    inputs.append(GBAGameInput.up)
                 }
                 
-                if CGRectContainsPoint(bottomRect, point)
+                if bottomRect.contains(point)
                 {
-                    inputs.append(GBAGameInput.Down)
+                    inputs.append(GBAGameInput.down)
                 }
                 
-                if CGRectContainsPoint(leftRect, point)
+                if leftRect.contains(point)
                 {
-                    inputs.append(GBAGameInput.Left)
+                    inputs.append(GBAGameInput.left)
                 }
                 
-                if CGRectContainsPoint(rightRect, point)
+                if rightRect.contains(point)
                 {
-                    inputs.append(GBAGameInput.Right)
+                    inputs.append(GBAGameInput.right)
                 }
                 
-            case "a": inputs.append(GBAGameInput.A)
-            case "b": inputs.append(GBAGameInput.B)
-            case "l": inputs.append(GBAGameInput.L)
-            case "r": inputs.append(GBAGameInput.R)
-            case "start": inputs.append(GBAGameInput.Start)
-            case "select": inputs.append(GBAGameInput.Select)
-            case "menu": inputs.append(ControllerInput.Menu)
+            case "a": inputs.append(GBAGameInput.a)
+            case "b": inputs.append(GBAGameInput.b)
+            case "l": inputs.append(GBAGameInput.l)
+            case "r": inputs.append(GBAGameInput.r)
+            case "start": inputs.append(GBAGameInput.start)
+            case "select": inputs.append(GBAGameInput.select)
+            case "menu": inputs.append(ControllerInput.menu)
             default: break
             }
         }

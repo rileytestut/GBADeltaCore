@@ -288,15 +288,15 @@ int  RGB_LOW_BITS_MASK;
     
     switch ((CheatType)type)
     {
-        case CheatTypeactionReplay:
-        case CheatTypegameShark:
+        case CheatTypeActionReplay:
+        case CheatTypeGameShark:
         {
             NSString *sanitizedCode = [cheatCode stringByReplacingOccurrencesOfString:@" " withString:@""];
             success = cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
             break;
         }
             
-        case CheatTypecodeBreaker:
+        case CheatTypeCodeBreaker:
         {
             success = cheatsAddCBACode([cheatCode UTF8String], "code");
             break;

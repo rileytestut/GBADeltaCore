@@ -11,7 +11,19 @@ import AVFoundation
 
 import DeltaCore
 
-extension GBAGameInput: InputType {}
+@objc public enum GBAGameInput: Int, InputType
+{
+    case up = 64
+    case down = 128
+    case left = 32
+    case right = 16
+    case a = 1
+    case b = 2
+    case l = 512
+    case r = 256
+    case start = 8
+    case select = 4
+}
 
 public class GBAEmulatorCore: EmulatorCore
 {
@@ -37,7 +49,7 @@ public class GBAEmulatorCore: EmulatorCore
     
     override public var bridge: DLTAEmulatorBridge
     {
-        return GBAEmulatorBridge.sharedBridge()
+        return GBAEmulatorBridge.shared()
     }
     
     public override var gameInputType: InputType.Type
@@ -45,24 +57,33 @@ public class GBAEmulatorCore: EmulatorCore
         return GBAGameInput.self
     }
     
-    public override var gameSaveURL: NSURL
+    public override var gameSaveURL: URL
     {
-        var gameSaveURL = self.game.fileURL.URLByDeletingPathExtension ?? self.game.fileURL
-        gameSaveURL = gameSaveURL.URLByAppendingPathExtension("sav")
-        return gameSaveURL
+        do
+        {
+            var gameSaveURL = self.game.fileURL
+            try gameSaveURL.deletePathExtension()
+            try gameSaveURL.appendPathComponent("sav")
+            return gameSaveURL
+        }
+        catch let error as NSError
+        {
+            print(error)
+            return self.game.fileURL
+        }
     }
     
     override public var audioBufferInfo: AudioManager.BufferInfo
     {
-        let inputFormat = AVAudioFormat(commonFormat: .PCMFormatInt16, sampleRate: 32768, channels: 2, interleaved: true)
+        let inputFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 32768, channels: 2, interleaved: true)
         
         let bufferInfo = AudioManager.BufferInfo(inputFormat: inputFormat, preferredSize: 2184)
         return bufferInfo
     }
     
     override public var videoBufferInfo: VideoManager.BufferInfo
-    {
-        let bufferInfo = VideoManager.BufferInfo(inputFormat: .BGRA8, inputDimensions: CGSize(width: 240, height: 160), outputDimensions: CGSize(width: 240, height: 160))
+    {        
+        let bufferInfo = VideoManager.BufferInfo(inputFormat: .bgra8, inputDimensions: CGSize(width: 240, height: 160), outputDimensions: CGSize(width: 240, height: 160))
         return bufferInfo
     }
     
@@ -74,7 +95,7 @@ public class GBAEmulatorCore: EmulatorCore
         return [actionReplayFormat, gameSharkFormat, codeBreakerFormat]
     }
     
-    override public var supportedRates: ClosedInterval<Double>
+    override public var supportedRates: ClosedRange<Double>
     {
         return 1...3
     }
