@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import AVFoundation
+//import AVFoundation
 
 import DeltaCore
 
@@ -73,13 +73,7 @@ public class GBAEmulatorCore: EmulatorCore
         }
     }
     
-    override public var audioBufferInfo: AudioManager.BufferInfo
-    {
-        let inputFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 32768, channels: 2, interleaved: true)
-        
-        let bufferInfo = AudioManager.BufferInfo(inputFormat: inputFormat, preferredSize: 2184)
-        return bufferInfo
-    }
+ 
     
     override public var videoBufferInfo: VideoManager.BufferInfo
     {        

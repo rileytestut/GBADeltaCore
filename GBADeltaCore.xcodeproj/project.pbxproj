@@ -97,6 +97,193 @@
 		BF0418191D01EA1A00E85BCF /* GBAEmulatorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */; };
 		BF04181D1D01EEEC00E85BCF /* Default.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BF04181C1D01EEEC00E85BCF /* Default.deltaskin */; };
 		BF0418201D01EF1900E85BCF /* GBAControllerSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */; };
+		BF32CF0E1D178B4B00020441 /* File_Extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417AD1D01E4BE00E85BCF /* File_Extractor.cpp */; };
+		BF32CF0F1D178B4B00020441 /* GB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA1F1D01298E009D623D /* GB.cpp */; };
+		BF32CF101D178B4B00020441 /* RTC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA761D0129A5009D623D /* RTC.cpp */; };
+		BF32CF111D178B4B00020441 /* Mode1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA6F1D0129A5009D623D /* Mode1.cpp */; };
+		BF32CF121D178B4B00020441 /* GBA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA601D0129A5009D623D /* GBA.cpp */; };
+		BF32CF131D178B4B00020441 /* GBALink.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA681D0129A5009D623D /* GBALink.cpp */; };
+		BF32CF141D178B4B00020441 /* IpAddress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EABB1D013AAA009D623D /* IpAddress.cpp */; };
+		BF32CF151D178B4B00020441 /* Mode4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA721D0129A5009D623D /* Mode4.cpp */; };
+		BF32CF161D178B4B00020441 /* blargg_common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417A21D01E4BE00E85BCF /* blargg_common.cpp */; };
+		BF32CF171D178B4B00020441 /* 7zAlloc.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417D81D01E4CF00E85BCF /* 7zAlloc.c */; };
+		BF32CF181D178B4B00020441 /* TcpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EAC11D013AAA009D623D /* TcpSocket.cpp */; };
+		BF32CF191D178B4B00020441 /* SocketSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EABF1D013AAA009D623D /* SocketSelector.cpp */; };
+		BF32CF1A1D178B4B00020441 /* GBAEmulatorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */; };
+		BF32CF1B1D178B4B00020441 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EABD1D013AAA009D623D /* Socket.cpp */; };
+		BF32CF1C1D178B4B00020441 /* 7zDec.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417E01D01E4CF00E85BCF /* 7zDec.c */; };
+		BF32CF1D1D178B4B00020441 /* CpuArch.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417E81D01E4CF00E85BCF /* CpuArch.c */; };
+		BF32CF1E1D178B4B00020441 /* Effects_Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E9DE1D012886009D623D /* Effects_Buffer.cpp */; };
+		BF32CF1F1D178B4B00020441 /* GBAEmulatorBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF0417311D01D9E000E85BCF /* GBAEmulatorBridge.mm */; };
+		BF32CF201D178B4B00020441 /* EEprom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA561D0129A5009D623D /* EEprom.cpp */; };
+		BF32CF211D178B4B00020441 /* blargg_errors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417A61D01E4BE00E85BCF /* blargg_errors.cpp */; };
+		BF32CF221D178B4B00020441 /* gbGlobals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA271D01298E009D623D /* gbGlobals.cpp */; };
+		BF32CF231D178B4B00020441 /* Globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA6C1D0129A5009D623D /* Globals.cpp */; };
+		BF32CF241D178B4B00020441 /* Bra.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417E51D01E4CF00E85BCF /* Bra.c */; };
+		BF32CF251D178B4B00020441 /* Bra86.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417E71D01E4CF00E85BCF /* Bra86.c */; };
+		BF32CF261D178B4B00020441 /* Cheats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA4C1D0129A5009D623D /* Cheats.cpp */; };
+		BF32CF271D178B4B00020441 /* debugger-expr-lex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA511D0129A5009D623D /* debugger-expr-lex.cpp */; };
+		BF32CF281D178B4B00020441 /* ConfigManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E9F91D0128BB009D623D /* ConfigManager.cpp */; };
+		BF32CF291D178B4B00020441 /* Data_Reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417A91D01E4BE00E85BCF /* Data_Reader.cpp */; };
+		BF32CF2A1D178B4B00020441 /* GBASoundDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF7A908A1D02708700A3617D /* GBASoundDriver.mm */; };
+		BF32CF2B1D178B4B00020441 /* gbSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA2F1D01298E009D623D /* gbSound.cpp */; };
+		BF32CF2C1D178B4B00020441 /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417481D01E29800E85BCF /* Util.cpp */; };
+		BF32CF2D1D178B4B00020441 /* Mode0.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA6E1D0129A5009D623D /* Mode0.cpp */; };
+		BF32CF2E1D178B4B00020441 /* Binary_Extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417A01D01E4BE00E85BCF /* Binary_Extractor.cpp */; };
+		BF32CF2F1D178B4B00020441 /* Rar_Extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417B31D01E4BE00E85BCF /* Rar_Extractor.cpp */; };
+		BF32CF301D178B4B00020441 /* Ppmd7.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417F01D01E4CF00E85BCF /* Ppmd7.c */; };
+		BF32CF311D178B4B00020441 /* debugger-expr-yacc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA521D0129A5009D623D /* debugger-expr-yacc.cpp */; };
+		BF32CF321D178B4B00020441 /* ThreadImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF04171F1D01D5AB00E85BCF /* ThreadImpl.cpp */; };
+		BF32CF331D178B4B00020441 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF04171D1D01D59900E85BCF /* String.cpp */; };
+		BF32CF341D178B4B00020441 /* BreakpointStructures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA4A1D0129A5009D623D /* BreakpointStructures.cpp */; };
+		BF32CF351D178B4B00020441 /* TcpListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EAC01D013AAA009D623D /* TcpListener.cpp */; };
+		BF32CF361D178B4B00020441 /* SocketImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EACD1D013AB3009D623D /* SocketImpl.cpp */; };
+		BF32CF371D178B4B00020441 /* gbSGB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA2D1D01298E009D623D /* gbSGB.cpp */; };
+		BF32CF381D178B4B00020441 /* Gb_Apu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E9E11D012886009D623D /* Gb_Apu.cpp */; };
+		BF32CF391D178B4B00020441 /* remote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA741D0129A5009D623D /* remote.cpp */; };
+		BF32CF3A1D178B4B00020441 /* Zip_Extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417B51D01E4BE00E85BCF /* Zip_Extractor.cpp */; };
+		BF32CF3B1D178B4B00020441 /* Ppmd7Dec.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417F21D01E4CF00E85BCF /* Ppmd7Dec.c */; };
+		BF32CF3C1D178B4B00020441 /* dictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E9FB1D0128BB009D623D /* dictionary.c */; };
+		BF32CF3D1D178B4B00020441 /* Gzip_Extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417AF1D01E4BE00E85BCF /* Gzip_Extractor.cpp */; };
+		BF32CF3E1D178B4B00020441 /* Gb_Apu_State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E9E01D012886009D623D /* Gb_Apu_State.cpp */; };
+		BF32CF3F1D178B4B00020441 /* Sram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA7A1D0129A5009D623D /* Sram.cpp */; };
+		BF32CF401D178B4B00020441 /* Err.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417241D01D60F00E85BCF /* Err.cpp */; };
+		BF32CF411D178B4B00020441 /* Mode5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA731D0129A5009D623D /* Mode5.cpp */; };
+		BF32CF421D178B4B00020441 /* Zip7_Extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417B71D01E4BE00E85BCF /* Zip7_Extractor.cpp */; };
+		BF32CF431D178B4B00020441 /* armdis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA461D0129A5009D623D /* armdis.cpp */; };
+		BF32CF441D178B4B00020441 /* fex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417AB1D01E4BE00E85BCF /* fex.cpp */; };
+		BF32CF451D178B4B00020441 /* gbDis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA251D01298E009D623D /* gbDis.cpp */; };
+		BF32CF461D178B4B00020441 /* Packet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EABC1D013AAA009D623D /* Packet.cpp */; };
+		BF32CF471D178B4B00020441 /* GBADeltaCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */; };
+		BF32CF481D178B4B00020441 /* bios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA481D0129A5009D623D /* bios.cpp */; };
+		BF32CF491D178B4B00020441 /* Http.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EABA1D013AAA009D623D /* Http.cpp */; };
+		BF32CF4A1D178B4B00020441 /* Mode3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA711D0129A5009D623D /* Mode3.cpp */; };
+		BF32CF4B1D178B4B00020441 /* Patch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA031D0128BB009D623D /* Patch.cpp */; };
+		BF32CF4C1D178B4B00020441 /* Mode2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA701D0129A5009D623D /* Mode2.cpp */; };
+		BF32CF4D1D178B4B00020441 /* 7zIn.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417E11D01E4CF00E85BCF /* 7zIn.c */; };
+		BF32CF4E1D178B4B00020441 /* gbCheats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA211D01298E009D623D /* gbCheats.cpp */; };
+		BF32CF4F1D178B4B00020441 /* Gb_Oscs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E9E31D012886009D623D /* Gb_Oscs.cpp */; };
+		BF32CF501D178B4B00020441 /* Gzip_Reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417B11D01E4BE00E85BCF /* Gzip_Reader.cpp */; };
+		BF32CF511D178B4B00020441 /* 7zCrc.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417DD1D01E4CF00E85BCF /* 7zCrc.c */; };
+		BF32CF521D178B4B00020441 /* iniparser.c in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E9FF1D0128BB009D623D /* iniparser.c */; };
+		BF32CF531D178B4B00020441 /* ereader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA5A1D0129A5009D623D /* ereader.cpp */; };
+		BF32CF541D178B4B00020441 /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417ED1D01E4CF00E85BCF /* LzmaDec.c */; };
+		BF32CF561D178B4B00020441 /* GBAGfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA651D0129A5009D623D /* GBAGfx.cpp */; };
+		BF32CF571D178B4B00020441 /* Blip_Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E9DC1D012886009D623D /* Blip_Buffer.cpp */; };
+		BF32CF581D178B4B00020441 /* Time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417221D01D5F000E85BCF /* Time.cpp */; };
+		BF32CF591D178B4B00020441 /* 7zBuf.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417DA1D01E4CF00E85BCF /* 7zBuf.c */; };
+		BF32CF5A1D178B4B00020441 /* gbafilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA631D0129A5009D623D /* gbafilter.cpp */; };
+		BF32CF5B1D178B4B00020441 /* Flash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA5C1D0129A5009D623D /* Flash.cpp */; };
+		BF32CF5C1D178B4B00020441 /* elf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA581D0129A5009D623D /* elf.cpp */; };
+		BF32CF5D1D178B4B00020441 /* Multi_Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E9E51D012886009D623D /* Multi_Buffer.cpp */; };
+		BF32CF5E1D178B4B00020441 /* GBASockClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA6A1D0129A5009D623D /* GBASockClient.cpp */; };
+		BF32CF5F1D178B4B00020441 /* Bcj2.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417E31D01E4CF00E85BCF /* Bcj2.c */; };
+		BF32CF601D178B4B00020441 /* agbprint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA441D0129A5009D623D /* agbprint.cpp */; };
+		BF32CF611D178B4B00020441 /* CheatSearch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA4E1D0129A5009D623D /* CheatSearch.cpp */; };
+		BF32CF621D178B4B00020441 /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EAB61D013A8C009D623D /* Thread.cpp */; };
+		BF32CF631D178B4B00020441 /* Ftp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EAB91D013AAA009D623D /* Ftp.cpp */; };
+		BF32CF641D178B4B00020441 /* Zlib_Inflater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF0417B91D01E4BE00E85BCF /* Zlib_Inflater.cpp */; };
+		BF32CF651D178B4B00020441 /* gbGfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA261D01298E009D623D /* gbGfx.cpp */; };
+		BF32CF661D178B4B00020441 /* gbPrinter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA2B1D01298E009D623D /* gbPrinter.cpp */; };
+		BF32CF671D178B4B00020441 /* memgzio.c in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA011D0128BB009D623D /* memgzio.c */; };
+		BF32CF681D178B4B00020441 /* GBA-thumb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA5F1D0129A5009D623D /* GBA-thumb.cpp */; };
+		BF32CF691D178B4B00020441 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EAC21D013AAA009D623D /* UdpSocket.cpp */; };
+		BF32CF6A1D178B4B00020441 /* GBA-arm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA5E1D0129A5009D623D /* GBA-arm.cpp */; };
+		BF32CF6B1D178B4B00020441 /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA781D0129A5009D623D /* Sound.cpp */; };
+		BF32CF6C1D178B4B00020441 /* gbMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE8EA291D01298E009D623D /* gbMemory.cpp */; };
+		BF32CF6D1D178B4B00020441 /* Lzma2Dec.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417EB1D01E4CF00E85BCF /* Lzma2Dec.c */; };
+		BF32CF6E1D178B4B00020441 /* 7zStream.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417E21D01E4CF00E85BCF /* 7zStream.c */; };
+		BF32CF6F1D178B4B00020441 /* 7zCrcOpt.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417DF1D01E4CF00E85BCF /* 7zCrcOpt.c */; };
+		BF32CF711D178B4B00020441 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF04171B1D01D55500E85BCF /* libz.tbd */; };
+		BF32CF731D178B4B00020441 /* 7zBuf.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417DB1D01E4CF00E85BCF /* 7zBuf.h */; };
+		BF32CF741D178B4B00020441 /* RingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA061D0128BB009D623D /* RingBuffer.h */; };
+		BF32CF751D178B4B00020441 /* blargg_common.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417A31D01E4BE00E85BCF /* blargg_common.h */; };
+		BF32CF761D178B4B00020441 /* dictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9FC1D0128BB009D623D /* dictionary.h */; };
+		BF32CF771D178B4B00020441 /* GBASockClient.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA6B1D0129A5009D623D /* GBASockClient.h */; };
+		BF32CF781D178B4B00020441 /* ereader.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA5B1D0129A5009D623D /* ereader.h */; };
+		BF32CF791D178B4B00020441 /* Ppmd7.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417F11D01E4CF00E85BCF /* Ppmd7.h */; };
+		BF32CF7A1D178B4B00020441 /* Bra.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417E61D01E4CF00E85BCF /* Bra.h */; };
+		BF32CF7B1D178B4B00020441 /* CheatSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA4F1D0129A5009D623D /* CheatSearch.h */; };
+		BF32CF7C1D178B4B00020441 /* blargg_source.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9DB1D012886009D623D /* blargg_source.h */; };
+		BF32CF7D1D178B4B00020441 /* blargg_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417A51D01E4BE00E85BCF /* blargg_endian.h */; };
+		BF32CF7E1D178B4B00020441 /* GBALink.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA691D0129A5009D623D /* GBALink.h */; };
+		BF32CF7F1D178B4B00020441 /* GBAGfx.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA661D0129A5009D623D /* GBAGfx.h */; };
+		BF32CF801D178B4B00020441 /* gbCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA231D01298E009D623D /* gbCodes.h */; };
+		BF32CF811D178B4B00020441 /* Bcj2.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417E41D01E4CF00E85BCF /* Bcj2.h */; };
+		BF32CF821D178B4B00020441 /* BreakpointStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA4B1D0129A5009D623D /* BreakpointStructures.h */; };
+		BF32CF831D178B4B00020441 /* Effects_Buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9DF1D012886009D623D /* Effects_Buffer.h */; };
+		BF32CF841D178B4B00020441 /* 7zAlloc.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417D91D01E4CF00E85BCF /* 7zAlloc.h */; };
+		BF32CF851D178B4B00020441 /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417F31D01E4CF00E85BCF /* Types.h */; };
+		BF32CF861D178B4B00020441 /* File_Extractor.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417AE1D01E4BE00E85BCF /* File_Extractor.h */; };
+		BF32CF871D178B4B00020441 /* GBAinline.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA671D0129A5009D623D /* GBAinline.h */; };
+		BF32CF881D178B4B00020441 /* armdis.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA471D0129A5009D623D /* armdis.h */; };
+		BF32CF891D178B4B00020441 /* Data_Reader.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417AA1D01E4BE00E85BCF /* Data_Reader.h */; };
+		BF32CF8A1D178B4B00020441 /* EEprom.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA571D0129A5009D623D /* EEprom.h */; };
+		BF32CF8B1D178B4B00020441 /* gbafilter.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA641D0129A5009D623D /* gbafilter.h */; };
+		BF32CF8C1D178B4B00020441 /* Zip7_Extractor.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417B81D01E4BE00E85BCF /* Zip7_Extractor.h */; };
+		BF32CF8D1D178B4B00020441 /* bios.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA491D0129A5009D623D /* bios.h */; };
+		BF32CF8E1D178B4B00020441 /* Globals.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA6D1D0129A5009D623D /* Globals.h */; };
+		BF32CF8F1D178B4B00020441 /* GBAcpu.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA621D0129A5009D623D /* GBAcpu.h */; };
+		BF32CF901D178B4B00020441 /* System.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417281D01D75200E85BCF /* System.h */; };
+		BF32CF911D178B4B00020441 /* AutoBuild.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9F51D0128A0009D623D /* AutoBuild.h */; };
+		BF32CF921D178B4B00020441 /* LzmaDec.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417EE1D01E4CF00E85BCF /* LzmaDec.h */; };
+		BF32CF931D178B4B00020441 /* gbCodesCB.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA241D01298E009D623D /* gbCodesCB.h */; };
+		BF32CF941D178B4B00020441 /* blargg_source.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417A81D01E4BE00E85BCF /* blargg_source.h */; };
+		BF32CF951D178B4B00020441 /* gb.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA201D01298E009D623D /* gb.h */; };
+		BF32CF961D178B4B00020441 /* Cheats.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA4D1D0129A5009D623D /* Cheats.h */; };
+		BF32CF971D178B4B00020441 /* GBA.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA611D0129A5009D623D /* GBA.h */; };
+		BF32CF981D178B4B00020441 /* RTC.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA771D0129A5009D623D /* RTC.h */; };
+		BF32CF991D178B4B00020441 /* CpuArch.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417E91D01E4CF00E85BCF /* CpuArch.h */; };
+		BF32CF9A1D178B4B00020441 /* gbSound.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA301D01298E009D623D /* gbSound.h */; };
+		BF32CF9B1D178B4B00020441 /* Port.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA051D0128BB009D623D /* Port.h */; };
+		BF32CF9C1D178B4B00020441 /* gbSGB.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA2E1D01298E009D623D /* gbSGB.h */; };
+		BF32CF9D1D178B4B00020441 /* Zlib_Inflater.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417BA1D01E4BE00E85BCF /* Zlib_Inflater.h */; };
+		BF32CF9E1D178B4B00020441 /* elf.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA591D0129A5009D623D /* elf.h */; };
+		BF32CF9F1D178B4B00020441 /* 7zCrc.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417DE1D01E4CF00E85BCF /* 7zCrc.h */; };
+		BF32CFA01D178B4B00020441 /* Array.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9F81D0128BB009D623D /* Array.h */; };
+		BF32CFA11D178B4B00020441 /* blargg_common.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9D91D012886009D623D /* blargg_common.h */; };
+		BF32CFA21D178B4B00020441 /* remote.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA751D0129A5009D623D /* remote.h */; };
+		BF32CFA31D178B4B00020441 /* Patch.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA041D0128BB009D623D /* Patch.h */; };
+		BF32CFA41D178B4B00020441 /* memgzio.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA021D0128BB009D623D /* memgzio.h */; };
+		BF32CFA51D178B4B00020441 /* blargg_errors.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417A71D01E4BE00E85BCF /* blargg_errors.h */; };
+		BF32CFA61D178B4B00020441 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417491D01E29800E85BCF /* Util.h */; };
+		BF32CFA71D178B4B00020441 /* gbPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA2C1D01298E009D623D /* gbPrinter.h */; };
+		BF32CFA81D178B4B00020441 /* SocketImpl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EABE1D013AAA009D623D /* SocketImpl.hpp */; };
+		BF32CFA91D178B4B00020441 /* Zip_Extractor.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417B61D01E4BE00E85BCF /* Zip_Extractor.h */; };
+		BF32CFAA1D178B4B00020441 /* Multi_Buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9E61D012886009D623D /* Multi_Buffer.h */; };
+		BF32CFAB1D178B4B00020441 /* gbCheats.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA221D01298E009D623D /* gbCheats.h */; };
+		BF32CFAC1D178B4B00020441 /* debugger-expr-yacc.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA531D0129A5009D623D /* debugger-expr-yacc.hpp */; };
+		BF32CFAD1D178B4B00020441 /* Gb_Apu.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9E21D012886009D623D /* Gb_Apu.h */; };
+		BF32CFAE1D178B4B00020441 /* Rar_Extractor.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417B41D01E4BE00E85BCF /* Rar_Extractor.h */; };
+		BF32CFAF1D178B4B00020441 /* blargg_config.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9DA1D012886009D623D /* blargg_config.h */; };
+		BF32CFB01D178B4B00020441 /* Sram.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA7B1D0129A5009D623D /* Sram.h */; };
+		BF32CFB11D178B4B00020441 /* Blip_Buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9DD1D012886009D623D /* Blip_Buffer.h */; };
+		BF32CFB21D178B4B00020441 /* ConfigManager.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9FA1D0128BB009D623D /* ConfigManager.h */; };
+		BF32CFB31D178B4B00020441 /* SoundDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA071D0128BB009D623D /* SoundDriver.h */; };
+		BF32CFB41D178B4B00020441 /* gbMemory.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA2A1D01298E009D623D /* gbMemory.h */; };
+		BF32CFB51D178B4B00020441 /* gbGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA281D01298E009D623D /* gbGlobals.h */; };
+		BF32CFB61D178B4B00020441 /* fex.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417AC1D01E4BE00E85BCF /* fex.h */; };
+		BF32CFB71D178B4B00020441 /* blargg_config.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417A41D01E4BE00E85BCF /* blargg_config.h */; };
+		BF32CFB81D178B4B00020441 /* Lzma2Dec.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417EC1D01E4CF00E85BCF /* Lzma2Dec.h */; };
+		BF32CFB91D178B4B00020441 /* GBASoundDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7A908B1D02708700A3617D /* GBASoundDriver.h */; };
+		BF32CFBA1D178B4B00020441 /* iniparser.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA001D0128BB009D623D /* iniparser.h */; };
+		BF32CFBB1D178B4B00020441 /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA0A1D0128BB009D623D /* Types.h */; };
+		BF32CFBC1D178B4B00020441 /* SocketImpl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EACE1D013AB3009D623D /* SocketImpl.hpp */; };
+		BF32CFBD1D178B4B00020441 /* Sound.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA791D0129A5009D623D /* Sound.h */; };
+		BF32CFBE1D178B4B00020441 /* GBAEmulatorBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417301D01D9E000E85BCF /* GBAEmulatorBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BF32CFBF1D178B4B00020441 /* Flash.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA5D1D0129A5009D623D /* Flash.h */; };
+		BF32CFC01D178B4B00020441 /* Gzip_Extractor.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417B01D01E4BE00E85BCF /* Gzip_Extractor.h */; };
+		BF32CFC11D178B4B00020441 /* Ppmd.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417EF1D01E4CF00E85BCF /* Ppmd.h */; };
+		BF32CFC21D178B4B00020441 /* agbprint.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8EA451D0129A5009D623D /* agbprint.h */; };
+		BF32CFC31D178B4B00020441 /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BF32CFC41D178B4B00020441 /* Binary_Extractor.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417A11D01E4BE00E85BCF /* Binary_Extractor.h */; };
+		BF32CFC51D178B4B00020441 /* Gb_Oscs.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9E41D012886009D623D /* Gb_Oscs.h */; };
+		BF32CFC61D178B4B00020441 /* 7z.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417D71D01E4CF00E85BCF /* 7z.h */; };
+		BF32CFC71D178B4B00020441 /* Gzip_Reader.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417B21D01E4BE00E85BCF /* Gzip_Reader.h */; };
+		BF32CFC91D178B4B00020441 /* vba-over.ini in Resources */ = {isa = PBXBuildFile; fileRef = BF3BE92F1D0B3008004287EC /* vba-over.ini */; };
+		BF32CFCA1D178B4B00020441 /* lzma.txt in Resources */ = {isa = PBXBuildFile; fileRef = BF0417EA1D01E4CF00E85BCF /* lzma.txt */; };
+		BF32CFCB1D178B4B00020441 /* 7zC.txt in Resources */ = {isa = PBXBuildFile; fileRef = BF0417DC1D01E4CF00E85BCF /* 7zC.txt */; };
+		BF32CFCC1D178B4B00020441 /* Default.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BF04181C1D01EEEC00E85BCF /* Default.deltaskin */; };
 		BF3BE9301D0B3008004287EC /* vba-over.ini in Resources */ = {isa = PBXBuildFile; fileRef = BF3BE92F1D0B3008004287EC /* vba-over.ini */; };
 		BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF7A908A1D02708700A3617D /* GBASoundDriver.mm */; };
 		BF7A908D1D02708700A3617D /* GBASoundDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7A908B1D02708700A3617D /* GBASoundDriver.h */; };
@@ -268,6 +455,8 @@
 		BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAEmulatorCore.swift; sourceTree = "<group>"; };
 		BF04181C1D01EEEC00E85BCF /* Default.deltaskin */ = {isa = PBXFileReference; lastKnownFileType = file; path = Default.deltaskin; sourceTree = "<group>"; };
 		BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAControllerSkin.swift; sourceTree = "<group>"; };
+		BF32CFD01D178B4B00020441 /* .framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = .framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF32CFD11D178B4B00020441 /* GBADeltaCore copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GBADeltaCore copy-Info.plist"; path = "/Users/Riley/Desktop/DeltaWatch/Cores/GBADeltaCore/GBADeltaCore copy-Info.plist"; sourceTree = "<absolute>"; };
 		BF3BE92F1D0B3008004287EC /* vba-over.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "vba-over.ini"; path = "VBA-M/vba-over.ini"; sourceTree = SOURCE_ROOT; };
 		BF7A908A1D02708700A3617D /* GBASoundDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GBASoundDriver.mm; sourceTree = "<group>"; };
 		BF7A908B1D02708700A3617D /* GBASoundDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBASoundDriver.h; sourceTree = "<group>"; };
@@ -391,6 +580,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BF32CF701D178B4B00020441 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF32CF711D178B4B00020441 /* libz.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BFE8E9C61D010AF7009D623D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -532,6 +729,7 @@
 				BFE8E9CC1D010AF7009D623D /* GBADeltaCore */,
 				BF0418111D01E63000E85BCF /* Frameworks */,
 				BFE8E9CB1D010AF7009D623D /* Products */,
+				BF32CFD11D178B4B00020441 /* GBADeltaCore copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -539,6 +737,7 @@
 			isa = PBXGroup;
 			children = (
 				BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */,
+				BF32CFD01D178B4B00020441 /* .framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -761,6 +960,98 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		BF32CF721D178B4B00020441 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF32CF731D178B4B00020441 /* 7zBuf.h in Headers */,
+				BF32CF741D178B4B00020441 /* RingBuffer.h in Headers */,
+				BF32CF751D178B4B00020441 /* blargg_common.h in Headers */,
+				BF32CF761D178B4B00020441 /* dictionary.h in Headers */,
+				BF32CF771D178B4B00020441 /* GBASockClient.h in Headers */,
+				BF32CF781D178B4B00020441 /* ereader.h in Headers */,
+				BF32CF791D178B4B00020441 /* Ppmd7.h in Headers */,
+				BF32CF7A1D178B4B00020441 /* Bra.h in Headers */,
+				BF32CF7B1D178B4B00020441 /* CheatSearch.h in Headers */,
+				BF32CF7C1D178B4B00020441 /* blargg_source.h in Headers */,
+				BF32CF7D1D178B4B00020441 /* blargg_endian.h in Headers */,
+				BF32CF7E1D178B4B00020441 /* GBALink.h in Headers */,
+				BF32CF7F1D178B4B00020441 /* GBAGfx.h in Headers */,
+				BF32CF801D178B4B00020441 /* gbCodes.h in Headers */,
+				BF32CF811D178B4B00020441 /* Bcj2.h in Headers */,
+				BF32CF821D178B4B00020441 /* BreakpointStructures.h in Headers */,
+				BF32CF831D178B4B00020441 /* Effects_Buffer.h in Headers */,
+				BF32CF841D178B4B00020441 /* 7zAlloc.h in Headers */,
+				BF32CF851D178B4B00020441 /* Types.h in Headers */,
+				BF32CF861D178B4B00020441 /* File_Extractor.h in Headers */,
+				BF32CF871D178B4B00020441 /* GBAinline.h in Headers */,
+				BF32CF881D178B4B00020441 /* armdis.h in Headers */,
+				BF32CF891D178B4B00020441 /* Data_Reader.h in Headers */,
+				BF32CF8A1D178B4B00020441 /* EEprom.h in Headers */,
+				BF32CF8B1D178B4B00020441 /* gbafilter.h in Headers */,
+				BF32CF8C1D178B4B00020441 /* Zip7_Extractor.h in Headers */,
+				BF32CF8D1D178B4B00020441 /* bios.h in Headers */,
+				BF32CF8E1D178B4B00020441 /* Globals.h in Headers */,
+				BF32CF8F1D178B4B00020441 /* GBAcpu.h in Headers */,
+				BF32CF901D178B4B00020441 /* System.h in Headers */,
+				BF32CF911D178B4B00020441 /* AutoBuild.h in Headers */,
+				BF32CF921D178B4B00020441 /* LzmaDec.h in Headers */,
+				BF32CF931D178B4B00020441 /* gbCodesCB.h in Headers */,
+				BF32CF941D178B4B00020441 /* blargg_source.h in Headers */,
+				BF32CF951D178B4B00020441 /* gb.h in Headers */,
+				BF32CF961D178B4B00020441 /* Cheats.h in Headers */,
+				BF32CF971D178B4B00020441 /* GBA.h in Headers */,
+				BF32CF981D178B4B00020441 /* RTC.h in Headers */,
+				BF32CF991D178B4B00020441 /* CpuArch.h in Headers */,
+				BF32CF9A1D178B4B00020441 /* gbSound.h in Headers */,
+				BF32CF9B1D178B4B00020441 /* Port.h in Headers */,
+				BF32CF9C1D178B4B00020441 /* gbSGB.h in Headers */,
+				BF32CF9D1D178B4B00020441 /* Zlib_Inflater.h in Headers */,
+				BF32CF9E1D178B4B00020441 /* elf.h in Headers */,
+				BF32CF9F1D178B4B00020441 /* 7zCrc.h in Headers */,
+				BF32CFA01D178B4B00020441 /* Array.h in Headers */,
+				BF32CFA11D178B4B00020441 /* blargg_common.h in Headers */,
+				BF32CFA21D178B4B00020441 /* remote.h in Headers */,
+				BF32CFA31D178B4B00020441 /* Patch.h in Headers */,
+				BF32CFA41D178B4B00020441 /* memgzio.h in Headers */,
+				BF32CFA51D178B4B00020441 /* blargg_errors.h in Headers */,
+				BF32CFA61D178B4B00020441 /* Util.h in Headers */,
+				BF32CFA71D178B4B00020441 /* gbPrinter.h in Headers */,
+				BF32CFA81D178B4B00020441 /* SocketImpl.hpp in Headers */,
+				BF32CFA91D178B4B00020441 /* Zip_Extractor.h in Headers */,
+				BF32CFAA1D178B4B00020441 /* Multi_Buffer.h in Headers */,
+				BF32CFAB1D178B4B00020441 /* gbCheats.h in Headers */,
+				BF32CFAC1D178B4B00020441 /* debugger-expr-yacc.hpp in Headers */,
+				BF32CFAD1D178B4B00020441 /* Gb_Apu.h in Headers */,
+				BF32CFAE1D178B4B00020441 /* Rar_Extractor.h in Headers */,
+				BF32CFAF1D178B4B00020441 /* blargg_config.h in Headers */,
+				BF32CFB01D178B4B00020441 /* Sram.h in Headers */,
+				BF32CFB11D178B4B00020441 /* Blip_Buffer.h in Headers */,
+				BF32CFB21D178B4B00020441 /* ConfigManager.h in Headers */,
+				BF32CFB31D178B4B00020441 /* SoundDriver.h in Headers */,
+				BF32CFB41D178B4B00020441 /* gbMemory.h in Headers */,
+				BF32CFB51D178B4B00020441 /* gbGlobals.h in Headers */,
+				BF32CFB61D178B4B00020441 /* fex.h in Headers */,
+				BF32CFB71D178B4B00020441 /* blargg_config.h in Headers */,
+				BF32CFB81D178B4B00020441 /* Lzma2Dec.h in Headers */,
+				BF32CFB91D178B4B00020441 /* GBASoundDriver.h in Headers */,
+				BF32CFBA1D178B4B00020441 /* iniparser.h in Headers */,
+				BF32CFBB1D178B4B00020441 /* Types.h in Headers */,
+				BF32CFBC1D178B4B00020441 /* SocketImpl.hpp in Headers */,
+				BF32CFBD1D178B4B00020441 /* Sound.h in Headers */,
+				BF32CFBE1D178B4B00020441 /* GBAEmulatorBridge.h in Headers */,
+				BF32CFBF1D178B4B00020441 /* Flash.h in Headers */,
+				BF32CFC01D178B4B00020441 /* Gzip_Extractor.h in Headers */,
+				BF32CFC11D178B4B00020441 /* Ppmd.h in Headers */,
+				BF32CFC21D178B4B00020441 /* agbprint.h in Headers */,
+				BF32CFC31D178B4B00020441 /* GBADeltaCore.h in Headers */,
+				BF32CFC41D178B4B00020441 /* Binary_Extractor.h in Headers */,
+				BF32CFC51D178B4B00020441 /* Gb_Oscs.h in Headers */,
+				BF32CFC61D178B4B00020441 /* 7z.h in Headers */,
+				BF32CFC71D178B4B00020441 /* Gzip_Reader.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BFE8E9C71D010AF7009D623D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -856,6 +1147,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		BF32CF0C1D178B4B00020441 /* GBADeltaCore copy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF32CFCD1D178B4B00020441 /* Build configuration list for PBXNativeTarget "GBADeltaCore copy" */;
+			buildPhases = (
+				BF32CF0D1D178B4B00020441 /* Sources */,
+				BF32CF701D178B4B00020441 /* Frameworks */,
+				BF32CF721D178B4B00020441 /* Headers */,
+				BF32CFC81D178B4B00020441 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GBADeltaCore copy";
+			productName = GBADeltaCore;
+			productReference = BF32CFD01D178B4B00020441 /* .framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		BFE8E9C91D010AF7009D623D /* GBADeltaCore */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFE8E9D21D010AF7009D623D /* Build configuration list for PBXNativeTarget "GBADeltaCore" */;
@@ -883,8 +1192,14 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Riley Testut";
 				TargetAttributes = {
+					BF32CF0C1D178B4B00020441 = {
+						DevelopmentTeam = 6XVY5G3U44;
+						DevelopmentTeamName = "Yvette Testut";
+					};
 					BFE8E9C91D010AF7009D623D = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 6XVY5G3U44;
+						DevelopmentTeamName = "Yvette Testut";
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -902,11 +1217,23 @@
 			projectRoot = "";
 			targets = (
 				BFE8E9C91D010AF7009D623D /* GBADeltaCore */,
+				BF32CF0C1D178B4B00020441 /* GBADeltaCore copy */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BF32CFC81D178B4B00020441 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF32CFC91D178B4B00020441 /* vba-over.ini in Resources */,
+				BF32CFCA1D178B4B00020441 /* lzma.txt in Resources */,
+				BF32CFCB1D178B4B00020441 /* 7zC.txt in Resources */,
+				BF32CFCC1D178B4B00020441 /* Default.deltaskin in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BFE8E9C81D010AF7009D623D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -921,6 +1248,110 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BF32CF0D1D178B4B00020441 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF32CF0E1D178B4B00020441 /* File_Extractor.cpp in Sources */,
+				BF32CF0F1D178B4B00020441 /* GB.cpp in Sources */,
+				BF32CF101D178B4B00020441 /* RTC.cpp in Sources */,
+				BF32CF111D178B4B00020441 /* Mode1.cpp in Sources */,
+				BF32CF121D178B4B00020441 /* GBA.cpp in Sources */,
+				BF32CF131D178B4B00020441 /* GBALink.cpp in Sources */,
+				BF32CF141D178B4B00020441 /* IpAddress.cpp in Sources */,
+				BF32CF151D178B4B00020441 /* Mode4.cpp in Sources */,
+				BF32CF161D178B4B00020441 /* blargg_common.cpp in Sources */,
+				BF32CF171D178B4B00020441 /* 7zAlloc.c in Sources */,
+				BF32CF181D178B4B00020441 /* TcpSocket.cpp in Sources */,
+				BF32CF191D178B4B00020441 /* SocketSelector.cpp in Sources */,
+				BF32CF1A1D178B4B00020441 /* GBAEmulatorCore.swift in Sources */,
+				BF32CF1B1D178B4B00020441 /* Socket.cpp in Sources */,
+				BF32CF1C1D178B4B00020441 /* 7zDec.c in Sources */,
+				BF32CF1D1D178B4B00020441 /* CpuArch.c in Sources */,
+				BF32CF1E1D178B4B00020441 /* Effects_Buffer.cpp in Sources */,
+				BF32CF1F1D178B4B00020441 /* GBAEmulatorBridge.mm in Sources */,
+				BF32CF201D178B4B00020441 /* EEprom.cpp in Sources */,
+				BF32CF211D178B4B00020441 /* blargg_errors.cpp in Sources */,
+				BF32CF221D178B4B00020441 /* gbGlobals.cpp in Sources */,
+				BF32CF231D178B4B00020441 /* Globals.cpp in Sources */,
+				BF32CF241D178B4B00020441 /* Bra.c in Sources */,
+				BF32CF251D178B4B00020441 /* Bra86.c in Sources */,
+				BF32CF261D178B4B00020441 /* Cheats.cpp in Sources */,
+				BF32CF271D178B4B00020441 /* debugger-expr-lex.cpp in Sources */,
+				BF32CF281D178B4B00020441 /* ConfigManager.cpp in Sources */,
+				BF32CF291D178B4B00020441 /* Data_Reader.cpp in Sources */,
+				BF32CF2A1D178B4B00020441 /* GBASoundDriver.mm in Sources */,
+				BF32CF2B1D178B4B00020441 /* gbSound.cpp in Sources */,
+				BF32CF2C1D178B4B00020441 /* Util.cpp in Sources */,
+				BF32CF2D1D178B4B00020441 /* Mode0.cpp in Sources */,
+				BF32CF2E1D178B4B00020441 /* Binary_Extractor.cpp in Sources */,
+				BF32CF2F1D178B4B00020441 /* Rar_Extractor.cpp in Sources */,
+				BF32CF301D178B4B00020441 /* Ppmd7.c in Sources */,
+				BF32CF311D178B4B00020441 /* debugger-expr-yacc.cpp in Sources */,
+				BF32CF321D178B4B00020441 /* ThreadImpl.cpp in Sources */,
+				BF32CF331D178B4B00020441 /* String.cpp in Sources */,
+				BF32CF341D178B4B00020441 /* BreakpointStructures.cpp in Sources */,
+				BF32CF351D178B4B00020441 /* TcpListener.cpp in Sources */,
+				BF32CF361D178B4B00020441 /* SocketImpl.cpp in Sources */,
+				BF32CF371D178B4B00020441 /* gbSGB.cpp in Sources */,
+				BF32CF381D178B4B00020441 /* Gb_Apu.cpp in Sources */,
+				BF32CF391D178B4B00020441 /* remote.cpp in Sources */,
+				BF32CF3A1D178B4B00020441 /* Zip_Extractor.cpp in Sources */,
+				BF32CF3B1D178B4B00020441 /* Ppmd7Dec.c in Sources */,
+				BF32CF3C1D178B4B00020441 /* dictionary.c in Sources */,
+				BF32CF3D1D178B4B00020441 /* Gzip_Extractor.cpp in Sources */,
+				BF32CF3E1D178B4B00020441 /* Gb_Apu_State.cpp in Sources */,
+				BF32CF3F1D178B4B00020441 /* Sram.cpp in Sources */,
+				BF32CF401D178B4B00020441 /* Err.cpp in Sources */,
+				BF32CF411D178B4B00020441 /* Mode5.cpp in Sources */,
+				BF32CF421D178B4B00020441 /* Zip7_Extractor.cpp in Sources */,
+				BF32CF431D178B4B00020441 /* armdis.cpp in Sources */,
+				BF32CF441D178B4B00020441 /* fex.cpp in Sources */,
+				BF32CF451D178B4B00020441 /* gbDis.cpp in Sources */,
+				BF32CF461D178B4B00020441 /* Packet.cpp in Sources */,
+				BF32CF471D178B4B00020441 /* GBADeltaCore.swift in Sources */,
+				BF32CF481D178B4B00020441 /* bios.cpp in Sources */,
+				BF32CF491D178B4B00020441 /* Http.cpp in Sources */,
+				BF32CF4A1D178B4B00020441 /* Mode3.cpp in Sources */,
+				BF32CF4B1D178B4B00020441 /* Patch.cpp in Sources */,
+				BF32CF4C1D178B4B00020441 /* Mode2.cpp in Sources */,
+				BF32CF4D1D178B4B00020441 /* 7zIn.c in Sources */,
+				BF32CF4E1D178B4B00020441 /* gbCheats.cpp in Sources */,
+				BF32CF4F1D178B4B00020441 /* Gb_Oscs.cpp in Sources */,
+				BF32CF501D178B4B00020441 /* Gzip_Reader.cpp in Sources */,
+				BF32CF511D178B4B00020441 /* 7zCrc.c in Sources */,
+				BF32CF521D178B4B00020441 /* iniparser.c in Sources */,
+				BF32CF531D178B4B00020441 /* ereader.cpp in Sources */,
+				BF32CF541D178B4B00020441 /* LzmaDec.c in Sources */,
+				BF32CF561D178B4B00020441 /* GBAGfx.cpp in Sources */,
+				BF32CF571D178B4B00020441 /* Blip_Buffer.cpp in Sources */,
+				BF32CF581D178B4B00020441 /* Time.cpp in Sources */,
+				BF32CF591D178B4B00020441 /* 7zBuf.c in Sources */,
+				BF32CF5A1D178B4B00020441 /* gbafilter.cpp in Sources */,
+				BF32CF5B1D178B4B00020441 /* Flash.cpp in Sources */,
+				BF32CF5C1D178B4B00020441 /* elf.cpp in Sources */,
+				BF32CF5D1D178B4B00020441 /* Multi_Buffer.cpp in Sources */,
+				BF32CF5E1D178B4B00020441 /* GBASockClient.cpp in Sources */,
+				BF32CF5F1D178B4B00020441 /* Bcj2.c in Sources */,
+				BF32CF601D178B4B00020441 /* agbprint.cpp in Sources */,
+				BF32CF611D178B4B00020441 /* CheatSearch.cpp in Sources */,
+				BF32CF621D178B4B00020441 /* Thread.cpp in Sources */,
+				BF32CF631D178B4B00020441 /* Ftp.cpp in Sources */,
+				BF32CF641D178B4B00020441 /* Zlib_Inflater.cpp in Sources */,
+				BF32CF651D178B4B00020441 /* gbGfx.cpp in Sources */,
+				BF32CF661D178B4B00020441 /* gbPrinter.cpp in Sources */,
+				BF32CF671D178B4B00020441 /* memgzio.c in Sources */,
+				BF32CF681D178B4B00020441 /* GBA-thumb.cpp in Sources */,
+				BF32CF691D178B4B00020441 /* UdpSocket.cpp in Sources */,
+				BF32CF6A1D178B4B00020441 /* GBA-arm.cpp in Sources */,
+				BF32CF6B1D178B4B00020441 /* Sound.cpp in Sources */,
+				BF32CF6C1D178B4B00020441 /* gbMemory.cpp in Sources */,
+				BF32CF6D1D178B4B00020441 /* Lzma2Dec.c in Sources */,
+				BF32CF6E1D178B4B00020441 /* 7zStream.c in Sources */,
+				BF32CF6F1D178B4B00020441 /* 7zCrcOpt.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BFE8E9C51D010AF7009D623D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1029,6 +1460,42 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		BF32CFCE1D178B4B00020441 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rileytestut.GBADeltaCore;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		BF32CFCF1D178B4B00020441 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = s;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rileytestut.GBADeltaCore;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		BFE8E9D01D010AF7009D623D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1072,6 +1539,7 @@
 					"\"$(SRCROOT)/SFML/include\"",
 					"\"$(SRCROOT)/SFML/src\"",
 				);
+				INFOPLIST_FILE = GBADeltaCore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1081,7 +1549,8 @@
 					"-DNO_PNG",
 					"-DFINAL_VERSION",
 				);
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = GBADeltaCore;
+				SDKROOT = watchos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1127,6 +1596,7 @@
 					"\"$(SRCROOT)/SFML/include\"",
 					"\"$(SRCROOT)/SFML/src\"",
 				);
+				INFOPLIST_FILE = GBADeltaCore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = (
@@ -1135,7 +1605,8 @@
 					"-DNO_PNG",
 					"-DFINAL_VERSION",
 				);
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = GBADeltaCore;
+				SDKROOT = watchos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1186,6 +1657,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BF32CFCD1D178B4B00020441 /* Build configuration list for PBXNativeTarget "GBADeltaCore copy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF32CFCE1D178B4B00020441 /* Debug */,
+				BF32CFCF1D178B4B00020441 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BFE8E9C41D010AF7009D623D /* Build configuration list for PBXProject "GBADeltaCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
