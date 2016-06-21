@@ -1069,7 +1069,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/Users/Riley/Desktop/GBADeltaCore/SFML/include,
+					"\"$(SRCROOT)/SFML/include\"",
 					"\"$(SRCROOT)/SFML/src\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1124,7 +1124,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					/Users/Riley/Desktop/GBADeltaCore/SFML/include,
+					"\"$(SRCROOT)/SFML/include\"",
 					"\"$(SRCROOT)/SFML/src\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
