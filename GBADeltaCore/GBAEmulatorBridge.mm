@@ -20,7 +20,7 @@
 #include <sys/time.h>
 
 // DeltaCore
-#import <DeltaCore/DeltaCore-Swift.h>
+#import <GBADeltaCore/GBADeltaCore.h>
 
 // Required vars, used by the emulator core
 //
@@ -40,6 +40,8 @@ int  RGB_LOW_BITS_MASK;
 
 @interface GBAEmulatorBridge ()
 
+@property (nonatomic, copy, nullable, readwrite) NSURL *gameURL;
+
 @property (assign, nonatomic, getter=isFrameReady) BOOL frameReady;
 
 @property (strong, nonatomic, nonnull, readonly) NSMutableSet<NSNumber *> *activatedInputs;
@@ -47,6 +49,20 @@ int  RGB_LOW_BITS_MASK;
 @end
 
 @implementation GBAEmulatorBridge
+@synthesize audioRenderer = _audioRenderer;
+@synthesize videoRenderer = _videoRenderer;
+@synthesize saveUpdateHandler = _saveUpdateHandler;
+
++ (instancetype)sharedBridge
+{
+    static GBAEmulatorBridge *_emulatorBridge = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _emulatorBridge = [[self alloc] init];
+    });
+    
+    return _emulatorBridge;
+}
 
 - (instancetype)init
 {
@@ -63,7 +79,7 @@ int  RGB_LOW_BITS_MASK;
 
 - (void)startWithGameURL:(NSURL *)URL
 {
-    [super startWithGameURL:URL];
+    self.gameURL = URL;
     
     NSData *data = [NSData dataWithContentsOfURL:URL];
     
@@ -75,7 +91,7 @@ int  RGB_LOW_BITS_MASK;
     [self updateGameSettings];
         
     utilUpdateSystemColorMaps(NO);
-    utilGBAFindSave(data.length);
+    utilGBAFindSave((int)data.length);
     
     soundInit();
     soundSetSampleRate(32768); // 44100 chirps
@@ -91,8 +107,6 @@ int  RGB_LOW_BITS_MASK;
 
 - (void)stop
 {
-    [super stop];
-    
     GBASystem.emuCleanUp();
     soundShutdown();
     
@@ -101,15 +115,11 @@ int  RGB_LOW_BITS_MASK;
 
 - (void)pause
 {
-    [super pause];
-    
     emulating = 0;
 }
 
 - (void)resume
 {
-    [super resume];
-    
     emulating = 1;
 }
 
@@ -247,7 +257,7 @@ int  RGB_LOW_BITS_MASK;
 #pragma mark - Inputs -
 
 - (void)activateInput:(NSInteger)gameInput
-{
+{    
     [self.activatedInputs addObject:@(gameInput)];
 }
 
@@ -282,25 +292,18 @@ int  RGB_LOW_BITS_MASK;
 
 #pragma mark - Cheats -
 
-- (BOOL)addCheatCode:(NSString *)cheatCode type:(NSInteger)type
+- (BOOL)addCheatCode:(NSString *)cheatCode type:(NSString *)type
 {
-    BOOL success = YES;
+    BOOL success = NO;
     
-    switch ((CheatType)type)
+    if ([type isEqualToString:CheatTypeActionReplay] || [type isEqualToString:CheatTypeGameShark])
     {
-        case CheatTypeActionReplay:
-        case CheatTypeGameShark:
-        {
-            NSString *sanitizedCode = [cheatCode stringByReplacingOccurrencesOfString:@" " withString:@""];
-            success = cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
-            break;
-        }
-            
-        case CheatTypeCodeBreaker:
-        {
-            success = cheatsAddCBACode([cheatCode UTF8String], "code");
-            break;
-        }
+        NSString *sanitizedCode = [cheatCode stringByReplacingOccurrencesOfString:@" " withString:@""];
+        success = cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
+    }
+    else if ([type isEqualToString:CheatTypeCodeBreaker])
+    {
+        success = cheatsAddCBACode([cheatCode UTF8String], "code");
     }
     
     return success;
@@ -309,6 +312,11 @@ int  RGB_LOW_BITS_MASK;
 - (void)resetCheats
 {
     cheatsDeleteAll(true);
+}
+
+- (void)updateCheats
+{
+    
 }
 
 @end
@@ -368,7 +376,7 @@ void system10Frames(int _iRate)
         
         if (systemSaveUpdateCounter <= SYSTEM_SAVE_NOT_UPDATED)
         {
-            [[GBAEmulatorBridge sharedBridge].emulatorCore didUpdateGameSave];
+            GBAEmulatorBridge.sharedBridge.saveUpdateHandler();
             
             systemSaveUpdateCounter = SYSTEM_SAVE_NOT_UPDATED;
         }
