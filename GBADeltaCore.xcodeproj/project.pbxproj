@@ -100,6 +100,7 @@
 		BF3BE9301D0B3008004287EC /* vba-over.ini in Resources */ = {isa = PBXBuildFile; fileRef = BF3BE92F1D0B3008004287EC /* vba-over.ini */; };
 		BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF7A908A1D02708700A3617D /* GBASoundDriver.mm */; };
 		BF7A908D1D02708700A3617D /* GBASoundDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7A908B1D02708700A3617D /* GBASoundDriver.h */; };
+		BFD5EB0F1D304D21001487DC /* GBADeltaCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */; };
 		BFE8E9CE1D010AF7009D623D /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BFE8E9E71D012886009D623D /* blargg_common.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9D91D012886009D623D /* blargg_common.h */; };
 		BFE8E9E81D012886009D623D /* blargg_config.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9DA1D012886009D623D /* blargg_config.h */; };
@@ -271,6 +272,7 @@
 		BF3BE92F1D0B3008004287EC /* vba-over.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "vba-over.ini"; path = "VBA-M/vba-over.ini"; sourceTree = SOURCE_ROOT; };
 		BF7A908A1D02708700A3617D /* GBASoundDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GBASoundDriver.mm; sourceTree = "<group>"; };
 		BF7A908B1D02708700A3617D /* GBASoundDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBASoundDriver.h; sourceTree = "<group>"; };
+		BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBADeltaCore.m; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
 		BFE8E9CF1D010AF7009D623D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -549,6 +551,7 @@
 				BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */,
 				BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */,
 				BF04181E1D01EF0900E85BCF /* Model */,
+				BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */,
 				BFE8E9D61D012865009D623D /* Core */,
 				BF0418121D01E63900E85BCF /* Supporting Files */,
 			);
@@ -993,6 +996,7 @@
 				BF0417FE1D01E4CF00E85BCF /* 7zIn.c in Sources */,
 				BF0417381D01E26900E85BCF /* gbCheats.cpp in Sources */,
 				BFE8E9F11D012886009D623D /* Gb_Oscs.cpp in Sources */,
+				BFD5EB0F1D304D21001487DC /* GBADeltaCore.m in Sources */,
 				BF0417CC1D01E4BE00E85BCF /* Gzip_Reader.cpp in Sources */,
 				BF0417FA1D01E4CF00E85BCF /* 7zCrc.c in Sources */,
 				BFE8EA121D0128BB009D623D /* iniparser.c in Sources */,
