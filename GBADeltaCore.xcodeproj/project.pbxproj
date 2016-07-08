@@ -93,9 +93,6 @@
 		BF04180E1D01E4CF00E85BCF /* Ppmd7.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417F11D01E4CF00E85BCF /* Ppmd7.h */; };
 		BF04180F1D01E4CF00E85BCF /* Ppmd7Dec.c in Sources */ = {isa = PBXBuildFile; fileRef = BF0417F21D01E4CF00E85BCF /* Ppmd7Dec.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		BF0418101D01E4CF00E85BCF /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417F31D01E4CF00E85BCF /* Types.h */; };
-		BF0418171D01E9C000E85BCF /* GBADeltaCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */; };
-		BF0418191D01EA1A00E85BCF /* GBAEmulatorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */; };
-		BF0418201D01EF1900E85BCF /* GBAControllerSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */; };
 		BF0418171D01E9C000E85BCF /* GBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418161D01E9C000E85BCF /* GBA.swift */; };
 		BF3BE9301D0B3008004287EC /* vba-over.ini in Resources */ = {isa = PBXBuildFile; fileRef = BF3BE92F1D0B3008004287EC /* vba-over.ini */; };
 		BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF7A908A1D02708700A3617D /* GBASoundDriver.mm */; };
@@ -271,9 +268,6 @@
 		BF0417F11D01E4CF00E85BCF /* Ppmd7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ppmd7.h; path = "VBA-M/fex/7z_C/Ppmd7.h"; sourceTree = SOURCE_ROOT; };
 		BF0417F21D01E4CF00E85BCF /* Ppmd7Dec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Ppmd7Dec.c; path = "VBA-M/fex/7z_C/Ppmd7Dec.c"; sourceTree = SOURCE_ROOT; };
 		BF0417F31D01E4CF00E85BCF /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Types.h; path = "VBA-M/fex/7z_C/Types.h"; sourceTree = SOURCE_ROOT; };
-		BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBADeltaCore.swift; sourceTree = "<group>"; };
-		BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAEmulatorCore.swift; sourceTree = "<group>"; };
-		BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAControllerSkin.swift; sourceTree = "<group>"; };
 		BF0418161D01E9C000E85BCF /* GBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBA.swift; sourceTree = "<group>"; };
 		BF3BE92F1D0B3008004287EC /* vba-over.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "vba-over.ini"; path = "VBA-M/vba-over.ini"; sourceTree = SOURCE_ROOT; };
 		BF7A908A1D02708700A3617D /* GBASoundDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GBASoundDriver.mm; sourceTree = "<group>"; };
@@ -579,8 +573,6 @@
 			isa = PBXGroup;
 			children = (
 				BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */,
-				BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */,
-				BF04181E1D01EF0900E85BCF /* Model */,
 				BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */,
 				BF0418161D01E9C000E85BCF /* GBA.swift */,
 				BFD5EB161D3052BD001487DC /* Registration */,
@@ -595,7 +587,6 @@
 		BFE8E9D61D012865009D623D /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */,
 				BF04172F1D01D99900E85BCF /* Bridge */,
 				BFE8E9D71D012868009D623D /* VBA-M */,
 				BFE8EAB41D013A78009D623D /* SFML */,
@@ -977,7 +968,6 @@
 				BF0417F51D01E4CF00E85BCF /* 7zAlloc.c in Sources */,
 				BFE8EACB1D013AAA009D623D /* TcpSocket.cpp in Sources */,
 				BFE8EAC91D013AAA009D623D /* SocketSelector.cpp in Sources */,
-				BF0418191D01EA1A00E85BCF /* GBAEmulatorCore.swift in Sources */,
 				BFE8EAC71D013AAA009D623D /* Socket.cpp in Sources */,
 				BF0417FD1D01E4CF00E85BCF /* 7zDec.c in Sources */,
 				BF0418051D01E4CF00E85BCF /* CpuArch.c in Sources */,
@@ -1025,7 +1015,6 @@
 				BF0417C61D01E4BE00E85BCF /* fex.cpp in Sources */,
 				BF04173C1D01E26900E85BCF /* gbDis.cpp in Sources */,
 				BFE8EAC61D013AAA009D623D /* Packet.cpp in Sources */,
-				BF0418171D01E9C000E85BCF /* GBADeltaCore.swift in Sources */,
 				BF0418171D01E9C000E85BCF /* GBA.swift in Sources */,
 				BFE8EA801D0129A5009D623D /* bios.cpp in Sources */,
 				BFE8EAC41D013AAA009D623D /* Http.cpp in Sources */,
@@ -1042,7 +1031,6 @@
 				BFE8EA121D0128BB009D623D /* iniparser.c in Sources */,
 				BFE8EA921D0129A5009D623D /* ereader.cpp in Sources */,
 				BF04180A1D01E4CF00E85BCF /* LzmaDec.c in Sources */,
-				BF0418201D01EF1900E85BCF /* GBAControllerSkin.swift in Sources */,
 				BFE8EA9D1D0129A5009D623D /* GBAGfx.cpp in Sources */,
 				BFE8E9EA1D012886009D623D /* Blip_Buffer.cpp in Sources */,
 				BF0417231D01D5F000E85BCF /* Time.cpp in Sources */,
