@@ -104,6 +104,10 @@
 		BFD5EB0F1D304D21001487DC /* GBADeltaCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */; };
 		BFD5EB121D304E72001487DC /* GBAInputTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB111D304E72001487DC /* GBAInputTransformer.swift */; };
 		BFD5EB151D30500D001487DC /* GBAEmulatorConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB141D30500D001487DC /* GBAEmulatorConfiguration.swift */; };
+		BFD5EB181D3052CE001487DC /* GBARegistrationResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB171D3052CE001487DC /* GBARegistrationResponder.swift */; };
+		BFD5EB1B1D3052E7001487DC /* GBARegistrationResponder+Dynamic.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD5EB191D3052E7001487DC /* GBARegistrationResponder+Dynamic.h */; };
+		BFD5EB1C1D3052E7001487DC /* GBARegistrationResponder+Dynamic.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB1A1D3052E7001487DC /* GBARegistrationResponder+Dynamic.m */; };
+		BFD5EB231D305B48001487DC /* Standard.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BFD5EB221D305B48001487DC /* Standard.deltaskin */; };
 		BFE8E9CE1D010AF7009D623D /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BFE8E9E71D012886009D623D /* blargg_common.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9D91D012886009D623D /* blargg_common.h */; };
 		BFE8E9E81D012886009D623D /* blargg_config.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9DA1D012886009D623D /* blargg_config.h */; };
@@ -279,6 +283,9 @@
 		BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBADeltaCore.m; sourceTree = "<group>"; };
 		BFD5EB111D304E72001487DC /* GBAInputTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAInputTransformer.swift; sourceTree = "<group>"; };
 		BFD5EB141D30500D001487DC /* GBAEmulatorConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAEmulatorConfiguration.swift; sourceTree = "<group>"; };
+		BFD5EB171D3052CE001487DC /* GBARegistrationResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBARegistrationResponder.swift; sourceTree = "<group>"; };
+		BFD5EB191D3052E7001487DC /* GBARegistrationResponder+Dynamic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GBARegistrationResponder+Dynamic.h"; sourceTree = "<group>"; };
+		BFD5EB1A1D3052E7001487DC /* GBARegistrationResponder+Dynamic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GBARegistrationResponder+Dynamic.m"; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
 		BFE8E9CF1D010AF7009D623D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -542,6 +549,14 @@
 			name = "Emulator Configuration";
 			sourceTree = "<group>";
 		};
+		BFD5EB161D3052BD001487DC /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				BFD5EB171D3052CE001487DC /* GBARegistrationResponder.swift */,
+				BFD5EB191D3052E7001487DC /* GBARegistrationResponder+Dynamic.h */,
+				BFD5EB1A1D3052E7001487DC /* GBARegistrationResponder+Dynamic.m */,
+			);
+			name = Registration;
 			sourceTree = "<group>";
 		};
 		BFE8E9C01D010AF7009D623D = {
@@ -569,6 +584,7 @@
 				BF04181E1D01EF0900E85BCF /* Model */,
 				BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */,
 				BF0418161D01E9C000E85BCF /* GBA.swift */,
+				BFD5EB161D3052BD001487DC /* Registration */,
 				BFD5EB131D304FF6001487DC /* Emulator Configuration */,
 				BFD5EB101D304E63001487DC /* Inputs */,
 				BFE8E9D61D012865009D623D /* Core */,
@@ -798,6 +814,7 @@
 				BFE8EA871D0129A5009D623D /* CheatSearch.h in Headers */,
 				BFE8E9E91D012886009D623D /* blargg_source.h in Headers */,
 				BF0417C01D01E4BE00E85BCF /* blargg_endian.h in Headers */,
+				BFD5EB1B1D3052E7001487DC /* GBARegistrationResponder+Dynamic.h in Headers */,
 				BFE8EAA11D0129A5009D623D /* GBALink.h in Headers */,
 				BFE8EA9E1D0129A5009D623D /* GBAGfx.h in Headers */,
 				BF04173A1D01E26900E85BCF /* gbCodes.h in Headers */,
@@ -966,6 +983,7 @@
 				BF0417FD1D01E4CF00E85BCF /* 7zDec.c in Sources */,
 				BF0418051D01E4CF00E85BCF /* CpuArch.c in Sources */,
 				BFE8E9EC1D012886009D623D /* Effects_Buffer.cpp in Sources */,
+				BFD5EB181D3052CE001487DC /* GBARegistrationResponder.swift in Sources */,
 				BF0417331D01D9E000E85BCF /* GBAEmulatorBridge.mm in Sources */,
 				BFE8EA8E1D0129A5009D623D /* EEprom.cpp in Sources */,
 				BF0417C11D01E4BE00E85BCF /* blargg_errors.cpp in Sources */,
@@ -1021,6 +1039,7 @@
 				BFD5EB0F1D304D21001487DC /* GBADeltaCore.m in Sources */,
 				BF0417CC1D01E4BE00E85BCF /* Gzip_Reader.cpp in Sources */,
 				BF0417FA1D01E4CF00E85BCF /* 7zCrc.c in Sources */,
+				BFD5EB1C1D3052E7001487DC /* GBARegistrationResponder+Dynamic.m in Sources */,
 				BFE8EA121D0128BB009D623D /* iniparser.c in Sources */,
 				BFE8EA921D0129A5009D623D /* ereader.cpp in Sources */,
 				BF04180A1D01E4CF00E85BCF /* LzmaDec.c in Sources */,
