@@ -101,6 +101,7 @@
 		BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF7A908A1D02708700A3617D /* GBASoundDriver.mm */; };
 		BF7A908D1D02708700A3617D /* GBASoundDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7A908B1D02708700A3617D /* GBASoundDriver.h */; };
 		BFD5EB0F1D304D21001487DC /* GBADeltaCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */; };
+		BFD5EB121D304E72001487DC /* GBAInputTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB111D304E72001487DC /* GBAInputTransformer.swift */; };
 		BFD5EB151D30500D001487DC /* GBAEmulatorConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB141D30500D001487DC /* GBAEmulatorConfiguration.swift */; };
 		BFE8E9CE1D010AF7009D623D /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BFE8E9E71D012886009D623D /* blargg_common.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9D91D012886009D623D /* blargg_common.h */; };
@@ -274,6 +275,7 @@
 		BF7A908A1D02708700A3617D /* GBASoundDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GBASoundDriver.mm; sourceTree = "<group>"; };
 		BF7A908B1D02708700A3617D /* GBASoundDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBASoundDriver.h; sourceTree = "<group>"; };
 		BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBADeltaCore.m; sourceTree = "<group>"; };
+		BFD5EB111D304E72001487DC /* GBAInputTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAInputTransformer.swift; sourceTree = "<group>"; };
 		BFD5EB141D30500D001487DC /* GBAEmulatorConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAEmulatorConfiguration.swift; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
@@ -522,12 +524,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BF04181E1D01EF0900E85BCF /* Model */ = {
+		BFD5EB101D304E63001487DC /* Inputs */ = {
 			isa = PBXGroup;
 			children = (
-				BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */,
+				BFD5EB111D304E72001487DC /* GBAInputTransformer.swift */,
 			);
-			name = Model;
+			name = Inputs;
+			sourceTree = "<group>";
+		};
 		BFD5EB131D304FF6001487DC /* Emulator Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,6 +567,7 @@
 				BF04181E1D01EF0900E85BCF /* Model */,
 				BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */,
 				BFD5EB131D304FF6001487DC /* Emulator Configuration */,
+				BFD5EB101D304E63001487DC /* Inputs */,
 				BFE8E9D61D012865009D623D /* Core */,
 				BF0418121D01E63900E85BCF /* Supporting Files */,
 			);
@@ -990,6 +995,7 @@
 				BF04180F1D01E4CF00E85BCF /* Ppmd7Dec.c in Sources */,
 				BFE8EA0E1D0128BB009D623D /* dictionary.c in Sources */,
 				BF0417CA1D01E4BE00E85BCF /* Gzip_Extractor.cpp in Sources */,
+				BFD5EB121D304E72001487DC /* GBAInputTransformer.swift in Sources */,
 				BFE8E9EE1D012886009D623D /* Gb_Apu_State.cpp in Sources */,
 				BFE8EAB21D0129A5009D623D /* Sram.cpp in Sources */,
 				BF0417251D01D60F00E85BCF /* Err.cpp in Sources */,
