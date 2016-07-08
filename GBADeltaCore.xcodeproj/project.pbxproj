@@ -95,7 +95,6 @@
 		BF0418101D01E4CF00E85BCF /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417F31D01E4CF00E85BCF /* Types.h */; };
 		BF0418171D01E9C000E85BCF /* GBADeltaCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */; };
 		BF0418191D01EA1A00E85BCF /* GBAEmulatorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */; };
-		BF04181D1D01EEEC00E85BCF /* Default.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BF04181C1D01EEEC00E85BCF /* Default.deltaskin */; };
 		BF0418201D01EF1900E85BCF /* GBAControllerSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */; };
 		BF0418171D01E9C000E85BCF /* GBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418161D01E9C000E85BCF /* GBA.swift */; };
 		BF3BE9301D0B3008004287EC /* vba-over.ini in Resources */ = {isa = PBXBuildFile; fileRef = BF3BE92F1D0B3008004287EC /* vba-over.ini */; };
@@ -274,7 +273,6 @@
 		BF0417F31D01E4CF00E85BCF /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Types.h; path = "VBA-M/fex/7z_C/Types.h"; sourceTree = SOURCE_ROOT; };
 		BF0418161D01E9C000E85BCF /* GBADeltaCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBADeltaCore.swift; sourceTree = "<group>"; };
 		BF0418181D01EA1A00E85BCF /* GBAEmulatorCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAEmulatorCore.swift; sourceTree = "<group>"; };
-		BF04181C1D01EEEC00E85BCF /* Default.deltaskin */ = {isa = PBXFileReference; lastKnownFileType = file; path = Default.deltaskin; sourceTree = "<group>"; };
 		BF04181F1D01EF1900E85BCF /* GBAControllerSkin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAControllerSkin.swift; sourceTree = "<group>"; };
 		BF0418161D01E9C000E85BCF /* GBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBA.swift; sourceTree = "<group>"; };
 		BF3BE92F1D0B3008004287EC /* vba-over.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "vba-over.ini"; path = "VBA-M/vba-over.ini"; sourceTree = SOURCE_ROOT; };
@@ -286,6 +284,7 @@
 		BFD5EB171D3052CE001487DC /* GBARegistrationResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBARegistrationResponder.swift; sourceTree = "<group>"; };
 		BFD5EB191D3052E7001487DC /* GBARegistrationResponder+Dynamic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GBARegistrationResponder+Dynamic.h"; sourceTree = "<group>"; };
 		BFD5EB1A1D3052E7001487DC /* GBARegistrationResponder+Dynamic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GBARegistrationResponder+Dynamic.m"; sourceTree = "<group>"; };
+		BFD5EB221D305B48001487DC /* Standard.deltaskin */ = {isa = PBXFileReference; lastKnownFileType = file; name = Standard.deltaskin; path = "Controller Skin/Standard.deltaskin"; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
 		BFE8E9CF1D010AF7009D623D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -527,7 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				BF3BE92F1D0B3008004287EC /* vba-over.ini */,
-				BF04181C1D01EEEC00E85BCF /* Default.deltaskin */,
+				BFD5EB221D305B48001487DC /* Standard.deltaskin */,
 				BFE8E9CF1D010AF7009D623D /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -952,10 +951,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFD5EB231D305B48001487DC /* Standard.deltaskin in Resources */,
 				BF3BE9301D0B3008004287EC /* vba-over.ini in Resources */,
 				BF0418071D01E4CF00E85BCF /* lzma.txt in Resources */,
 				BF0417F91D01E4CF00E85BCF /* 7zC.txt in Resources */,
-				BF04181D1D01EEEC00E85BCF /* Default.deltaskin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
