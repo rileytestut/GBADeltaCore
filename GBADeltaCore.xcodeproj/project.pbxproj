@@ -909,7 +909,7 @@
 		BFE8E9C11D010AF7009D623D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Riley Testut";
 				TargetAttributes = {
 					BFE8E9C91D010AF7009D623D = {
@@ -1211,6 +1211,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rileytestut.GBADeltaCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
