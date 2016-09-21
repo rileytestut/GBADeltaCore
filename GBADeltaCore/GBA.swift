@@ -10,7 +10,7 @@ import Foundation
 
 public extension GameType
 {
-    public static let gba = "com.rileytestut.delta.game.gba" as GameType
+    public static let gba = GameType("com.rileytestut.delta.game.gba")
 }
 
 public struct GBA: DeltaCoreProtocol
