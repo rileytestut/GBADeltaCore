@@ -21,6 +21,7 @@
 
 // DeltaCore
 #import <GBADeltaCore/GBADeltaCore.h>
+#import <GBADeltaCore/GBADeltaCore-Swift.h>
 
 // Required vars, used by the emulator core
 //
@@ -264,6 +265,20 @@ int  RGB_LOW_BITS_MASK;
 - (void)deactivateInput:(NSInteger)gameInput
 {
     [self.activatedInputs removeObject:@(gameInput)];
+}
+
+- (void)resetInputs
+{
+    [self deactivateInput:GBAGameInputUp];
+    [self deactivateInput:GBAGameInputDown];
+    [self deactivateInput:GBAGameInputLeft];
+    [self deactivateInput:GBAGameInputRight];
+    [self deactivateInput:GBAGameInputA];
+    [self deactivateInput:GBAGameInputB];
+    [self deactivateInput:GBAGameInputL];
+    [self deactivateInput:GBAGameInputR];
+    [self deactivateInput:GBAGameInputStart];
+    [self deactivateInput:GBAGameInputSelect];
 }
 
 #pragma mark - Game Saves -
