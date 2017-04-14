@@ -345,14 +345,6 @@ void systemMessage(int _iId, const char * _csFormat, ...)
 
 void systemDrawScreen()
 {
-    for (int i = 0; i < 241 * 162 * 4; i++)
-    {
-        if ((i + 1) % 4 == 0)
-        {
-            pix[i] = 255;
-        }
-    }
-    
     // Get rid of the first line and the last row
     dispatch_apply(160, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t y){
         memcpy([GBAEmulatorBridge sharedBridge].videoRenderer.videoBuffer + y * 240 * 4, pix + (y + 1) * (240 + 1) * 4, 240 * 4);

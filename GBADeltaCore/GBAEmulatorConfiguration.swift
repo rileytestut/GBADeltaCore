@@ -23,7 +23,7 @@ public struct GBAEmulatorConfiguration: EmulatorConfiguration
     }
     
     public var videoBufferInfo: VideoManager.BufferInfo {
-        let bufferInfo = VideoManager.BufferInfo(inputFormat: .bgra8, inputDimensions: CGSize(width: 240, height: 160), outputDimensions: CGSize(width: 240, height: 160))
+        let bufferInfo = VideoManager.BufferInfo(format: .bgra8, dimensions: CGSize(width: 240, height: 160))
         return bufferInfo
     }
     
