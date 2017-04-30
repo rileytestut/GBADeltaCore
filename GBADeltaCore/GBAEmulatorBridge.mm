@@ -10,12 +10,12 @@
 #import "GBASoundDriver.h"
 
 // VBA-M
-#include "../VBA-M/System.h"
-#include "../VBA-M/gba/Sound.h"
-#include "../VBA-M/gba/GBA.h"
-#include "../VBA-M/gba/Cheats.h"
-#include "../VBA-M/gba/RTC.h"
-#include "../VBA-M/Util.h"
+#include "System.h"
+#include "gba/Sound.h"
+#include "gba/GBA.h"
+#include "gba/Cheats.h"
+#include "gba/RTC.h"
+#include "Util.h"
 
 #include <sys/time.h>
 
@@ -32,9 +32,9 @@ int  systemColorDepth = 32;
 int  systemVerbose;
 int  systemSaveUpdateCounter = 0;
 int  systemFrameSkip;
-u32  systemColorMap32[0x10000];
-u16  systemColorMap16[0x10000];
-u16  systemGbPalette[24];
+uint32_t  systemColorMap32[0x10000];
+uint16_t  systemColorMap16[0x10000];
+uint16_t  systemGbPalette[24];
 
 int  emulating;
 int  RGB_LOW_BITS_MASK;
@@ -309,19 +309,36 @@ int  RGB_LOW_BITS_MASK;
 
 - (BOOL)addCheatCode:(NSString *)cheatCode type:(NSString *)type
 {
-    BOOL success = NO;
+    NSMutableCharacterSet *legalCharactersSet = [NSMutableCharacterSet hexadecimalCharacterSet];
+    [legalCharactersSet addCharactersInString:@" "];
+    
+    if ([cheatCode rangeOfCharacterFromSet:[legalCharactersSet invertedSet]].location != NSNotFound)
+    {
+        return NO;
+    }
     
     if ([type isEqualToString:CheatTypeActionReplay] || [type isEqualToString:CheatTypeGameShark])
     {
         NSString *sanitizedCode = [cheatCode stringByReplacingOccurrencesOfString:@" " withString:@""];
-        success = cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
+        
+        if (sanitizedCode.length != 16)
+        {
+            return NO;
+        }
+        
+        cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
     }
     else if ([type isEqualToString:CheatTypeCodeBreaker])
     {
-        success = cheatsAddCBACode([cheatCode UTF8String], "code");
+        if (cheatCode.length != 13)
+        {
+            return NO;
+        }
+        
+        cheatsAddCBACode([cheatCode UTF8String], "code");
     }
     
-    return success;
+    return YES;
 }
 
 - (void)resetCheats
@@ -358,9 +375,9 @@ bool systemReadJoypads()
     return true;
 }
 
-u32 systemReadJoypad(int joy)
+uint32_t systemReadJoypad(int joy)
 {
-    u32 joypad = 0;
+    uint32_t joypad = 0;
     
     for (NSNumber *input in [GBAEmulatorBridge sharedBridge].activatedInputs.copy)
     {
@@ -405,7 +422,7 @@ void systemScreenCapture(int _iNum)
 
 }
 
-u32 systemGetClock()
+uint32_t systemGetClock()
 {
     timeval time;
     
@@ -427,7 +444,7 @@ void systemUpdateMotionSensor()
 {
 }
 
-u8 systemGetSensorDarkness()
+uint8_t systemGetSensorDarkness()
 {
     return 0;
 }
@@ -451,7 +468,7 @@ void systemCartridgeRumble(bool)
 {
 }
 
-void systemGbPrint(u8 * _puiData,
+void systemGbPrint(uint8_t * _puiData,
                    int  _iLen,
                    int  _iPages,
                    int  _iFeed,
@@ -482,7 +499,7 @@ void systemOnSoundShutdown()
 {
 }
 
-void systemOnWriteDataToSoundBuffer(const u16 * finalWave, int length)
+void systemOnWriteDataToSoundBuffer(const uint16_t * finalWave, int length)
 {
 }
 

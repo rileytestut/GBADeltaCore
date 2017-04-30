@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 
-#include "../VBA-M/common/SoundDriver.h"
+#include "common/SoundDriver.h"
 
 class GBASoundDriver : public SoundDriver
 {
