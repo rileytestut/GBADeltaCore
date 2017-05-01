@@ -586,6 +586,7 @@
 				BF7A908A1D02708700A3617D /* GBASoundDriver.mm */,
 			);
 			name = Bridge;
+			path = Bridge;
 			sourceTree = "<group>";
 		};
 		BF0418111D01E63000E85BCF /* Frameworks */ = {
@@ -1085,6 +1086,7 @@
 				BFD5EB111D304E72001487DC /* GBAInputTransformer.swift */,
 			);
 			name = Inputs;
+			path = Inputs;
 			sourceTree = "<group>";
 		};
 		BFE8E9C01D010AF7009D623D = {
