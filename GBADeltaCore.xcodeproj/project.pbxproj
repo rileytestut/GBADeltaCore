@@ -226,11 +226,11 @@
 		BF2884471EB5BA6F0027FC53 /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = BF2880A61EB594560027FC53 /* LzmaDec.c */; };
 		BF2884481EB5BA6F0027FC53 /* Ppmd7.c in Sources */ = {isa = PBXBuildFile; fileRef = BF2880A91EB594560027FC53 /* Ppmd7.c */; };
 		BF2884491EB5BA6F0027FC53 /* Ppmd7Dec.c in Sources */ = {isa = PBXBuildFile; fileRef = BF2880AB1EB594560027FC53 /* Ppmd7Dec.c */; };
+		BF6424871F5CCD0A00D6AB44 /* Standard.deltamapping in Resources */ = {isa = PBXBuildFile; fileRef = BF6424861F5CCC6600D6AB44 /* Standard.deltamapping */; };
 		BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF7A908A1D02708700A3617D /* GBASoundDriver.mm */; };
 		BF7A908D1D02708700A3617D /* GBASoundDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7A908B1D02708700A3617D /* GBASoundDriver.h */; };
 		BFBFF3471EB5BB6A005D9792 /* vba-over.ini in Resources */ = {isa = PBXBuildFile; fileRef = BF28805D1EB592A70027FC53 /* vba-over.ini */; };
 		BFD5EB0F1D304D21001487DC /* GBADeltaCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */; };
-		BFD5EB121D304E72001487DC /* GBAInputTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB111D304E72001487DC /* GBAInputTransformer.swift */; };
 		BFD5EB231D305B48001487DC /* Standard.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BFD5EB221D305B48001487DC /* Standard.deltaskin */; };
 		BFE8E9CE1D010AF7009D623D /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -547,10 +547,10 @@
 		BF2884201EB5B8F70027FC53 /* BreakpointStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BreakpointStructures.h; sourceTree = "<group>"; };
 		BF2884221EB5B93A0027FC53 /* remote.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = remote.cpp; sourceTree = "<group>"; };
 		BF2884231EB5B93A0027FC53 /* remote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remote.h; sourceTree = "<group>"; };
+		BF6424861F5CCC6600D6AB44 /* Standard.deltamapping */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Standard.deltamapping; sourceTree = "<group>"; };
 		BF7A908A1D02708700A3617D /* GBASoundDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GBASoundDriver.mm; sourceTree = "<group>"; };
 		BF7A908B1D02708700A3617D /* GBASoundDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBASoundDriver.h; sourceTree = "<group>"; };
 		BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBADeltaCore.m; sourceTree = "<group>"; };
-		BFD5EB111D304E72001487DC /* GBAInputTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBAInputTransformer.swift; sourceTree = "<group>"; };
 		BFD5EB221D305B48001487DC /* Standard.deltaskin */ = {isa = PBXFileReference; lastKnownFileType = file; name = Standard.deltaskin; path = "Controller Skin/Standard.deltaskin"; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
@@ -599,9 +599,10 @@
 		BF0418121D01E63900E85BCF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BF28805D1EB592A70027FC53 /* vba-over.ini */,
-				BFD5EB221D305B48001487DC /* Standard.deltaskin */,
 				BFE8E9CF1D010AF7009D623D /* Info.plist */,
+				BFD5EB221D305B48001487DC /* Standard.deltaskin */,
+				BF6424861F5CCC6600D6AB44 /* Standard.deltamapping */,
+				BF28805D1EB592A70027FC53 /* vba-over.ini */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1079,14 +1080,6 @@
 			name = gb;
 			sourceTree = "<group>";
 		};
-		BFD5EB101D304E63001487DC /* Inputs */ = {
-			isa = PBXGroup;
-			children = (
-				BFD5EB111D304E72001487DC /* GBAInputTransformer.swift */,
-			);
-			path = Inputs;
-			sourceTree = "<group>";
-		};
 		BFE8E9C01D010AF7009D623D = {
 			isa = PBXGroup;
 			children = (
@@ -1113,7 +1106,6 @@
 				BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */,
 				BF0418161D01E9C000E85BCF /* GBA.swift */,
 				BF04172F1D01D99900E85BCF /* Bridge */,
-				BFD5EB101D304E63001487DC /* Inputs */,
 				BF0418121D01E63900E85BCF /* Supporting Files */,
 			);
 			path = GBADeltaCore;
@@ -1336,6 +1328,7 @@
 				BF2882E31EB596870027FC53 /* Vector3.inl in Resources */,
 				BF2882D91EB596870027FC53 /* Thread.inl in Resources */,
 				BF2882DF1EB596870027FC53 /* Utf.inl in Resources */,
+				BF6424871F5CCD0A00D6AB44 /* Standard.deltamapping in Resources */,
 				BF2882AC1EB596870027FC53 /* Rect.inl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1445,7 +1438,6 @@
 				BF0417331D01D9E000E85BCF /* GBAEmulatorBridge.mm in Sources */,
 				BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */,
 				BF2883561EB596870027FC53 /* Err.cpp in Sources */,
-				BFD5EB121D304E72001487DC /* GBAInputTransformer.swift in Sources */,
 				BF28835F1EB596870027FC53 /* Time.cpp in Sources */,
 				BF28835D1EB596870027FC53 /* Thread.cpp in Sources */,
 				BF28835C1EB596870027FC53 /* String.cpp in Sources */,

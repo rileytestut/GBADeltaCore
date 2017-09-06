@@ -16,13 +16,33 @@ public extension GameType
     public static let gba = GameType("com.rileytestut.delta.game.gba")
 }
 
+@objc public enum GBAGameInput: Int, Input
+{
+    case up = 64
+    case down = 128
+    case left = 32
+    case right = 16
+    case a = 1
+    case b = 2
+    case l = 512
+    case r = 256
+    case start = 8
+    case select = 4
+    
+    public var type: InputType {
+        return .game(.gba)
+    }
+}
+
 public struct GBA: DeltaCoreProtocol
 {
     public static let core = GBA()
     
+    public let bundleIdentifier = "com.rileytestut.GBADeltaCore"
+    
     public let gameType = GameType.gba
     
-    public let bundleIdentifier = "com.rileytestut.GBADeltaCore"
+    public let gameInputType: Input.Type = GBAGameInput.self
     
     public let gameSaveFileExtension = "sav"
     
@@ -40,8 +60,6 @@ public struct GBA: DeltaCoreProtocol
     }()
     
     public let emulatorBridge: EmulatorBridging = GBAEmulatorBridge.shared
-    
-    public let inputTransformer: InputTransforming = GBAInputTransformer()
     
     private init()
     {

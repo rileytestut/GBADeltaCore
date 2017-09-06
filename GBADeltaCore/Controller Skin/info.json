@@ -1,1 +1,274 @@
-{"name":"Standard GBA","identifier":"com.delta.gba.standard","gameTypeIdentifier":"com.rileytestut.delta.game.gba","debug":false,"representations":{"iphone":{"portrait":{"assets":{"resizable":"iphone_portrait.pdf"},"items":[{"keys":["dpad"],"frame":{"x":6,"y":56,"width":132,"height":132},"extendedEdges":{"top":15,"bottom":15,"left":15,"right":15}},{"keys":["a"],"frame":{"x":241,"y":62,"width":64,"height":64},"extendedEdges":{"right":15}},{"keys":["b"],"frame":{"x":176,"y":121,"width":64,"height":64}},{"keys":["l"],"frame":{"x":0,"y":0,"width":97,"height":29}},{"keys":["r"],"frame":{"x":224,"y":0,"width":97,"height":29}},{"keys":["start"],"frame":{"x":176,"y":205,"width":21,"height":21},"extendedEdges":{"bottom":13}},{"keys":["select"],"frame":{"x":124,"y":205,"width":21,"height":21},"extendedEdges":{"bottom":13}},{"keys":["menu"],"frame":{"x":8,"y":205,"width":21,"height":21},"extendedEdges":{"left":8,"bottom":13}}],"mappingSize":{"width":320,"height":240},"extendedEdges":{"top":7,"bottom":7,"left":7,"right":7}},"landscape":{"assets":{"resizable":"iphone_landscape.pdf"},"items":[{"keys":["dpad"],"frame":{"x":12,"y":162,"width":146,"height":146},"extendedEdges":{"left":20,"top":20,"right":20,"bottom":20}},{"keys":["a"],"frame":{"x":488,"y":187,"width":69,"height":69},"extendedEdges":{"bottom":0}},{"keys":["b"],"frame":{"x":419,"y":239,"width":69,"height":69},"extendedEdges":{"right":0}},{"keys":["a","b"],"frame":{"x":488,"y":256,"width":69,"height":52},"extendedEdges":{"left":0,"top":0}},{"keys":["l"],"frame":{"x":12,"y":12,"width":93,"height":48}},{"keys":["r"],"frame":{"x":463,"y":12,"width":93,"height":48}},{"keys":["start"],"frame":{"x":296,"y":274,"width":66,"height":34}},{"keys":["select"],"frame":{"x":206,"y":274,"width":66,"height":34}},{"keys":["menu"],"frame":{"x":251,"y":12,"width":66,"height":33}}],"mappingSize":{"width":568,"height":320},"extendedEdges":{"top":12,"bottom":12,"left":12,"right":12},"translucent":true}}}}
+{
+  "name" : "Standard GBA",
+  "identifier" : "com.delta.gba.standard",
+  "gameTypeIdentifier" : "com.rileytestut.delta.game.gba",
+  "debug" : false,
+  "representations" : {
+    "iphone" : {
+      "portrait" : {
+        "assets" : {
+          "resizable" : "iphone_portrait.pdf"
+        },
+        "items" : [
+          {
+            "inputs" : {
+              "up" : "up",
+              "down" : "down",
+              "left" : "left",
+              "right" : "right"
+            },
+            "frame" : {
+              "x" : 6,
+              "y" : 56,
+              "width" : 132,
+              "height" : 132
+            },
+            "extendedEdges" : {
+              "top" : 15,
+              "bottom" : 15,
+              "left" : 15,
+              "right" : 15
+            }
+          },
+          {
+            "inputs" : [
+              "a"
+            ],
+            "frame" : {
+              "x" : 241,
+              "y" : 62,
+              "width" : 64,
+              "height" : 64
+            },
+            "extendedEdges" : {
+              "right" : 15
+            }
+          },
+          {
+            "inputs" : [
+              "b"
+            ],
+            "frame" : {
+              "x" : 176,
+              "y" : 121,
+              "width" : 64,
+              "height" : 64
+            }
+          },
+          {
+            "inputs" : [
+              "l"
+            ],
+            "frame" : {
+              "x" : 0,
+              "y" : 0,
+              "width" : 97,
+              "height" : 29
+            }
+          },
+          {
+            "inputs" : [
+              "r"
+            ],
+            "frame" : {
+              "x" : 224,
+              "y" : 0,
+              "width" : 97,
+              "height" : 29
+            }
+          },
+          {
+            "inputs" : [
+              "start"
+            ],
+            "frame" : {
+              "x" : 176,
+              "y" : 205,
+              "width" : 21,
+              "height" : 21
+            },
+            "extendedEdges" : {
+              "bottom" : 13
+            }
+          },
+          {
+            "inputs" : [
+              "select"
+            ],
+            "frame" : {
+              "x" : 124,
+              "y" : 205,
+              "width" : 21,
+              "height" : 21
+            },
+            "extendedEdges" : {
+              "bottom" : 13
+            }
+          },
+          {
+            "inputs" : [
+              "menu"
+            ],
+            "frame" : {
+              "x" : 8,
+              "y" : 205,
+              "width" : 21,
+              "height" : 21
+            },
+            "extendedEdges" : {
+              "left" : 8,
+              "bottom" : 13
+            }
+          }
+        ],
+        "mappingSize" : {
+          "width" : 320,
+          "height" : 240
+        },
+        "extendedEdges" : {
+          "top" : 7,
+          "bottom" : 7,
+          "left" : 7,
+          "right" : 7
+        }
+      },
+      "landscape" : {
+        "assets" : {
+          "resizable" : "iphone_landscape.pdf"
+        },
+        "items" : [
+          {
+            "inputs" : {
+              "up" : "up",
+              "down" : "down",
+              "left" : "left",
+              "right" : "right"
+            },
+            "frame" : {
+              "x" : 12,
+              "y" : 162,
+              "width" : 146,
+              "height" : 146
+            },
+            "extendedEdges" : {
+              "left" : 20,
+              "top" : 20,
+              "right" : 20,
+              "bottom" : 20
+            }
+          },
+          {
+            "inputs" : [
+              "a"
+            ],
+            "frame" : {
+              "x" : 488,
+              "y" : 187,
+              "width" : 69,
+              "height" : 69
+            },
+            "extendedEdges" : {
+              "bottom" : 0
+            }
+          },
+          {
+            "inputs" : [
+              "b"
+            ],
+            "frame" : {
+              "x" : 419,
+              "y" : 239,
+              "width" : 69,
+              "height" : 69
+            },
+            "extendedEdges" : {
+              "right" : 0
+            }
+          },
+          {
+            "inputs" : [
+              "a",
+              "b"
+            ],
+            "frame" : {
+              "x" : 488,
+              "y" : 256,
+              "width" : 69,
+              "height" : 52
+            },
+            "extendedEdges" : {
+              "left" : 0,
+              "top" : 0
+            }
+          },
+          {
+            "inputs" : [
+              "l"
+            ],
+            "frame" : {
+              "x" : 12,
+              "y" : 12,
+              "width" : 93,
+              "height" : 48
+            }
+          },
+          {
+            "inputs" : [
+              "r"
+            ],
+            "frame" : {
+              "x" : 463,
+              "y" : 12,
+              "width" : 93,
+              "height" : 48
+            }
+          },
+          {
+            "inputs" : [
+              "start"
+            ],
+            "frame" : {
+              "x" : 296,
+              "y" : 274,
+              "width" : 66,
+              "height" : 34
+            }
+          },
+          {
+            "inputs" : [
+              "select"
+            ],
+            "frame" : {
+              "x" : 206,
+              "y" : 274,
+              "width" : 66,
+              "height" : 34
+            }
+          },
+          {
+            "inputs" : [
+              "menu"
+            ],
+            "frame" : {
+              "x" : 251,
+              "y" : 12,
+              "width" : 66,
+              "height" : 33
+            }
+          }
+        ],
+        "mappingSize" : {
+          "width" : 568,
+          "height" : 320
+        },
+        "extendedEdges" : {
+          "top" : 12,
+          "bottom" : 12,
+          "left" : 12,
+          "right" : 12
+        },
+        "translucent" : true
+      }
+    }
+  }
+}
