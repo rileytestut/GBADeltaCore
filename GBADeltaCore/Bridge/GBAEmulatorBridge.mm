@@ -45,7 +45,7 @@ int  RGB_LOW_BITS_MASK;
 
 @property (assign, nonatomic, getter=isFrameReady) BOOL frameReady;
 
-@property (strong, nonatomic, nonnull, readonly) NSMutableSet<NSNumber *> *activatedInputs;
+@property (nonatomic) uint32_t activatedInputs;
 
 @end
 
@@ -63,17 +63,6 @@ int  RGB_LOW_BITS_MASK;
     });
     
     return _emulatorBridge;
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        _activatedInputs = [NSMutableSet set];
-    }
-    
-    return self;
 }
 
 #pragma mark - Emulation -
@@ -258,27 +247,18 @@ int  RGB_LOW_BITS_MASK;
 #pragma mark - Inputs -
 
 - (void)activateInput:(NSInteger)gameInput
-{    
-    [self.activatedInputs addObject:@(gameInput)];
+{
+    self.activatedInputs |= (uint32_t)gameInput;
 }
 
 - (void)deactivateInput:(NSInteger)gameInput
 {
-    [self.activatedInputs removeObject:@(gameInput)];
+    self.activatedInputs &= ~((uint32_t)gameInput);
 }
 
 - (void)resetInputs
 {
-    [self deactivateInput:GBAGameInputUp];
-    [self deactivateInput:GBAGameInputDown];
-    [self deactivateInput:GBAGameInputLeft];
-    [self deactivateInput:GBAGameInputRight];
-    [self deactivateInput:GBAGameInputA];
-    [self deactivateInput:GBAGameInputB];
-    [self deactivateInput:GBAGameInputL];
-    [self deactivateInput:GBAGameInputR];
-    [self deactivateInput:GBAGameInputStart];
-    [self deactivateInput:GBAGameInputSelect];
+    self.activatedInputs = 0;
 }
 
 #pragma mark - Game Saves -
@@ -377,14 +357,7 @@ bool systemReadJoypads()
 
 uint32_t systemReadJoypad(int joy)
 {
-    uint32_t joypad = 0;
-    
-    for (NSNumber *input in [GBAEmulatorBridge sharedBridge].activatedInputs.copy)
-    {
-        joypad |= [input unsignedIntegerValue];
-    }
-    
-    return joypad;
+    return [GBAEmulatorBridge sharedBridge].activatedInputs;
 }
 
 void systemShowSpeed(int _iSpeed)
