@@ -38,16 +38,12 @@ public struct GBA: DeltaCoreProtocol
 {
     public static let core = GBA()
     
-    public let bundleIdentifier = "com.rileytestut.GBADeltaCore"
-    
     public let gameType = GameType.gba
     
     public let gameInputType: Input.Type = GBAGameInput.self
     
     public let gameSaveFileExtension = "sav"
-    
-    public let frameDuration = (1.0 / 60.0)
-    
+        
     public let audioFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 32768, channels: 2, interleaved: true)!
     
     public let videoFormat = VideoFormat(pixelFormat: .bgra8, dimensions: CGSize(width: 240, height: 160))

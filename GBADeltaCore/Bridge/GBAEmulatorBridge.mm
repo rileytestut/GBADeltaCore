@@ -331,6 +331,13 @@ int  RGB_LOW_BITS_MASK;
     
 }
 
+#pragma mark - Getters/Setters -
+
+- (NSTimeInterval)frameDuration
+{
+    return (1.0 / 60.0);
+}
+
 @end
 
 #pragma mark - VBA-M -
