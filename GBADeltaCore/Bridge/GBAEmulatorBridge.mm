@@ -117,20 +117,14 @@ int  RGB_LOW_BITS_MASK;
     
     emulating = 0;
     
-    if ([self.motionManager isGyroActive])
-    {
-        [self.motionManager stopGyroUpdates];
-    }
+    [self deactivateGyroscope];
 }
 
 - (void)pause
 {
     emulating = 0;
     
-    if ([self.motionManager isGyroActive])
-    {
-        [self.motionManager stopGyroUpdates];
-    }
+    [self deactivateGyroscope];
 }
 
 - (void)resume
@@ -356,6 +350,32 @@ int  RGB_LOW_BITS_MASK;
     
 }
 
+#pragma mark - Gyroscope -
+
+- (void)activateGyroscope
+{
+    if ([self.motionManager isGyroActive] || ![self.motionManager isGyroAvailable])
+    {
+        return;
+    }
+    
+    [self.motionManager startGyroUpdates];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GBADidActivateGyroNotification object:self];
+}
+
+- (void)deactivateGyroscope
+{
+    if (![self.motionManager isGyroActive])
+    {
+        return;
+    }
+    
+    [self.motionManager stopGyroUpdates];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GBADidDeactivateGyroNotification object:self];
+}
+
 #pragma mark - Getters/Setters -
 
 - (NSTimeInterval)frameDuration
@@ -469,7 +489,7 @@ int systemGetSensorZ()
 {
     if (![GBAEmulatorBridge.sharedBridge.motionManager isGyroActive])
     {
-        [GBAEmulatorBridge.sharedBridge.motionManager startGyroUpdates];
+        [GBAEmulatorBridge.sharedBridge activateGyroscope];
     }
     
     CMGyroData *gyroData = GBAEmulatorBridge.sharedBridge.motionManager.gyroData;

@@ -16,6 +16,12 @@ public extension GameType
     static let gba = GameType("com.rileytestut.delta.game.gba")
 }
 
+public extension GBA
+{
+    static let didActivateGyroNotification = NSNotification.Name.__GBADidActivateGyro
+    static let didDeactivateGyroNotification = NSNotification.Name.__GBADidDeactivateGyro
+}
+
 @objc public enum GBAGameInput: Int, Input
 {
     case up = 64
