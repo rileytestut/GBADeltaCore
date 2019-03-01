@@ -229,6 +229,7 @@
 		BF6424871F5CCD0A00D6AB44 /* Standard.deltamapping in Resources */ = {isa = PBXBuildFile; fileRef = BF6424861F5CCC6600D6AB44 /* Standard.deltamapping */; };
 		BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF7A908A1D02708700A3617D /* GBASoundDriver.mm */; };
 		BF7A908D1D02708700A3617D /* GBASoundDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7A908B1D02708700A3617D /* GBASoundDriver.h */; };
+		BF917D2422261A9B00901726 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF917D2322261A9B00901726 /* CoreMotion.framework */; };
 		BFBFF3471EB5BB6A005D9792 /* vba-over.ini in Resources */ = {isa = PBXBuildFile; fileRef = BF28805D1EB592A70027FC53 /* vba-over.ini */; };
 		BFD5EB0F1D304D21001487DC /* GBADeltaCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */; };
 		BFD5EB231D305B48001487DC /* Standard.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BFD5EB221D305B48001487DC /* Standard.deltaskin */; };
@@ -550,6 +551,7 @@
 		BF6424861F5CCC6600D6AB44 /* Standard.deltamapping */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Standard.deltamapping; sourceTree = "<group>"; };
 		BF7A908A1D02708700A3617D /* GBASoundDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GBASoundDriver.mm; sourceTree = "<group>"; };
 		BF7A908B1D02708700A3617D /* GBASoundDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBASoundDriver.h; sourceTree = "<group>"; };
+		BF917D2322261A9B00901726 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBADeltaCore.m; sourceTree = "<group>"; };
 		BFD5EB221D305B48001487DC /* Standard.deltaskin */ = {isa = PBXFileReference; lastKnownFileType = file; name = Standard.deltaskin; path = "Controller Skin/Standard.deltaskin"; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -569,6 +571,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF917D2422261A9B00901726 /* CoreMotion.framework in Frameworks */,
 				BF2881031EB5963C0027FC53 /* libVBA-M.a in Frameworks */,
 				BF04171C1D01D55500E85BCF /* libz.tbd in Frameworks */,
 			);
@@ -591,6 +594,7 @@
 		BF0418111D01E63000E85BCF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BF917D2322261A9B00901726 /* CoreMotion.framework */,
 				BF04171B1D01D55500E85BCF /* libz.tbd */,
 			);
 			name = Frameworks;

@@ -9,6 +9,8 @@
 #import "GBAEmulatorBridge.h"
 #import "GBASoundDriver.h"
 
+#import <CoreMotion/CoreMotion.h>
+
 // VBA-M
 #include "System.h"
 #include "gba/Sound.h"
@@ -47,6 +49,8 @@ int  RGB_LOW_BITS_MASK;
 
 @property (nonatomic) uint32_t activatedInputs;
 
+@property (strong, nonatomic, readonly) CMMotionManager *motionManager;
+
 @end
 
 @implementation GBAEmulatorBridge
@@ -63,6 +67,17 @@ int  RGB_LOW_BITS_MASK;
     });
     
     return _emulatorBridge;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        _motionManager = [[CMMotionManager alloc] init];
+    }
+    
+    return self;
 }
 
 #pragma mark - Emulation -
@@ -101,11 +116,21 @@ int  RGB_LOW_BITS_MASK;
     soundShutdown();
     
     emulating = 0;
+    
+    if ([self.motionManager isGyroActive])
+    {
+        [self.motionManager stopGyroUpdates];
+    }
 }
 
 - (void)pause
 {
     emulating = 0;
+    
+    if ([self.motionManager isGyroActive])
+    {
+        [self.motionManager stopGyroUpdates];
+    }
 }
 
 - (void)resume
@@ -441,7 +466,15 @@ int systemGetSensorY()
 
 int systemGetSensorZ()
 {
-    return 0;
+    if (![GBAEmulatorBridge.sharedBridge.motionManager isGyroActive])
+    {
+        [GBAEmulatorBridge.sharedBridge.motionManager startGyroUpdates];
+    }
+    
+    CMGyroData *gyroData = GBAEmulatorBridge.sharedBridge.motionManager.gyroData;
+    
+    int sensorZ = -gyroData.rotationRate.z * 25;
+    return sensorZ;
 }
 
 void systemCartridgeRumble(bool)
