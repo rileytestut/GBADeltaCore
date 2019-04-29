@@ -265,7 +265,7 @@ int  RGB_LOW_BITS_MASK;
 
 #pragma mark - Inputs -
 
-- (void)activateInput:(NSInteger)gameInput
+- (void)activateInput:(NSInteger)gameInput value:(double)value
 {
     self.activatedInputs |= (uint32_t)gameInput;
 }
@@ -400,6 +400,7 @@ void systemDrawScreen()
         memcpy([GBAEmulatorBridge sharedBridge].videoRenderer.videoBuffer + y * 240 * 4, pix + (y + 1) * (240 + 1) * 4, 240 * 4);
     }
     
+    [[GBAEmulatorBridge sharedBridge].videoRenderer processFrame];
     [[GBAEmulatorBridge sharedBridge] setFrameReady:YES];
 }
 

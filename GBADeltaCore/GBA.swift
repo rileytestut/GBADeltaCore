@@ -52,7 +52,7 @@ public struct GBA: DeltaCoreProtocol
         
     public let audioFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 32768, channels: 2, interleaved: true)!
     
-    public let videoFormat = VideoFormat(pixelFormat: .bgra8, dimensions: CGSize(width: 240, height: 160))
+    public let videoFormat = VideoFormat(format: .bitmap(.bgra8), dimensions: CGSize(width: 240, height: 160))
     
     public let supportedCheatFormats: Set<CheatFormat> = {
         let actionReplayFormat = CheatFormat(name: NSLocalizedString("Action Replay", comment: ""), format: "XXXXXXXX YYYYYYYY", type: .actionReplay)
