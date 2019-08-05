@@ -132,7 +132,7 @@ int  RGB_LOW_BITS_MASK;
     emulating = 1;
 }
 
-- (void)runFrame
+- (void)runFrameAndProcessVideo:(BOOL)processVideo
 {
     self.frameReady = NO;
     
