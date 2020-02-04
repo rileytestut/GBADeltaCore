@@ -6,7 +6,9 @@
 //  Copyright © 2016 Riley Testut. All rights reserved.
 //
 
-@import DeltaCore;
+#import "GBATypes.h"
+
+GameType const GameTypeGBA = @"com.rileytestut.delta.game.gba";
 
 CheatType const CheatTypeActionReplay = @"ActionReplay";
 CheatType const CheatTypeGameShark = @"GameShark";

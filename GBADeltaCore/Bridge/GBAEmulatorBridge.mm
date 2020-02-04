@@ -23,7 +23,7 @@
 
 // DeltaCore
 #import <GBADeltaCore/GBADeltaCore.h>
-#import <GBADeltaCore/GBADeltaCore-Swift.h>
+#import <DeltaCore/DeltaCore-Swift.h>
 
 // Required vars, used by the emulator core
 //

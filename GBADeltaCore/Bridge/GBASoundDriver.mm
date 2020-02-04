@@ -10,6 +10,7 @@
 #import "GBAEmulatorBridge.h"
 
 #import <DeltaCore/DeltaCore.h>
+#import <DeltaCore/DeltaCore-Swift.h>
 
 GBASoundDriver::GBASoundDriver()
 {

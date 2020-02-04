@@ -11,6 +11,7 @@
 		BF0417321D01D9E000E85BCF /* GBAEmulatorBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0417301D01D9E000E85BCF /* GBAEmulatorBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BF0417331D01D9E000E85BCF /* GBAEmulatorBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF0417311D01D9E000E85BCF /* GBAEmulatorBridge.mm */; };
 		BF0418171D01E9C000E85BCF /* GBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0418161D01E9C000E85BCF /* GBA.swift */; };
+		BF0BFE2523E36D2800E0FC00 /* DeltaCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0BFE2423E36D2800E0FC00 /* DeltaCore.framework */; };
 		BF28805F1EB592A70027FC53 /* Blip_Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2880001EB592A70027FC53 /* Blip_Buffer.cpp */; };
 		BF2880601EB592A70027FC53 /* Effects_Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2880021EB592A70027FC53 /* Effects_Buffer.cpp */; };
 		BF2880611EB592A70027FC53 /* Gb_Apu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2880041EB592A70027FC53 /* Gb_Apu.cpp */; };
@@ -227,11 +228,12 @@
 		BF2884481EB5BA6F0027FC53 /* Ppmd7.c in Sources */ = {isa = PBXBuildFile; fileRef = BF2880A91EB594560027FC53 /* Ppmd7.c */; };
 		BF2884491EB5BA6F0027FC53 /* Ppmd7Dec.c in Sources */ = {isa = PBXBuildFile; fileRef = BF2880AB1EB594560027FC53 /* Ppmd7Dec.c */; };
 		BF6424871F5CCD0A00D6AB44 /* Standard.deltamapping in Resources */ = {isa = PBXBuildFile; fileRef = BF6424861F5CCC6600D6AB44 /* Standard.deltamapping */; };
+		BF69FBC123E39E420051BEEA /* GBATypes.h in Headers */ = {isa = PBXBuildFile; fileRef = BF69FBC023E39E420051BEEA /* GBATypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF7A908A1D02708700A3617D /* GBASoundDriver.mm */; };
 		BF7A908D1D02708700A3617D /* GBASoundDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7A908B1D02708700A3617D /* GBASoundDriver.h */; };
 		BF917D2422261A9B00901726 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF917D2322261A9B00901726 /* CoreMotion.framework */; };
 		BFBFF3471EB5BB6A005D9792 /* vba-over.ini in Resources */ = {isa = PBXBuildFile; fileRef = BF28805D1EB592A70027FC53 /* vba-over.ini */; };
-		BFD5EB0F1D304D21001487DC /* GBADeltaCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */; };
+		BFD5EB0F1D304D21001487DC /* GBATypes.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB0E1D304D21001487DC /* GBATypes.m */; };
 		BFD5EB231D305B48001487DC /* Standard.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BFD5EB221D305B48001487DC /* Standard.deltaskin */; };
 		BFE8E9CE1D010AF7009D623D /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -263,6 +265,7 @@
 		BF0417301D01D9E000E85BCF /* GBAEmulatorBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAEmulatorBridge.h; sourceTree = "<group>"; };
 		BF0417311D01D9E000E85BCF /* GBAEmulatorBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GBAEmulatorBridge.mm; sourceTree = "<group>"; };
 		BF0418161D01E9C000E85BCF /* GBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBA.swift; sourceTree = "<group>"; };
+		BF0BFE2423E36D2800E0FC00 /* DeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF287FF21EB590F90027FC53 /* libVBA-M.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libVBA-M.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF287FFD1EB592A70027FC53 /* blargg_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blargg_common.h; sourceTree = "<group>"; };
 		BF287FFE1EB592A70027FC53 /* blargg_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blargg_config.h; sourceTree = "<group>"; };
@@ -549,10 +552,11 @@
 		BF2884221EB5B93A0027FC53 /* remote.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = remote.cpp; sourceTree = "<group>"; };
 		BF2884231EB5B93A0027FC53 /* remote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remote.h; sourceTree = "<group>"; };
 		BF6424861F5CCC6600D6AB44 /* Standard.deltamapping */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Standard.deltamapping; sourceTree = "<group>"; };
+		BF69FBC023E39E420051BEEA /* GBATypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBATypes.h; sourceTree = "<group>"; };
 		BF7A908A1D02708700A3617D /* GBASoundDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GBASoundDriver.mm; sourceTree = "<group>"; };
 		BF7A908B1D02708700A3617D /* GBASoundDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBASoundDriver.h; sourceTree = "<group>"; };
 		BF917D2322261A9B00901726 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBADeltaCore.m; sourceTree = "<group>"; };
+		BFD5EB0E1D304D21001487DC /* GBATypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBATypes.m; sourceTree = "<group>"; };
 		BFD5EB221D305B48001487DC /* Standard.deltaskin */ = {isa = PBXFileReference; lastKnownFileType = file; name = Standard.deltaskin; path = "Controller Skin/Standard.deltaskin"; sourceTree = "<group>"; };
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
@@ -573,6 +577,7 @@
 			files = (
 				BF917D2422261A9B00901726 /* CoreMotion.framework in Frameworks */,
 				BF2881031EB5963C0027FC53 /* libVBA-M.a in Frameworks */,
+				BF0BFE2523E36D2800E0FC00 /* DeltaCore.framework in Frameworks */,
 				BF04171C1D01D55500E85BCF /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,6 +599,7 @@
 		BF0418111D01E63000E85BCF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BF0BFE2423E36D2800E0FC00 /* DeltaCore.framework */,
 				BF917D2322261A9B00901726 /* CoreMotion.framework */,
 				BF04171B1D01D55500E85BCF /* libz.tbd */,
 			);
@@ -1084,6 +1090,15 @@
 			name = gb;
 			sourceTree = "<group>";
 		};
+		BF69FBC223E3A4E10051BEEA /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				BF69FBC023E39E420051BEEA /* GBATypes.h */,
+				BFD5EB0E1D304D21001487DC /* GBATypes.m */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
 		BFE8E9C01D010AF7009D623D = {
 			isa = PBXGroup;
 			children = (
@@ -1107,9 +1122,9 @@
 			isa = PBXGroup;
 			children = (
 				BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */,
-				BFD5EB0E1D304D21001487DC /* GBADeltaCore.m */,
 				BF0418161D01E9C000E85BCF /* GBA.swift */,
 				BF04172F1D01D99900E85BCF /* Bridge */,
+				BF69FBC223E3A4E10051BEEA /* Types */,
 				BF0418121D01E63900E85BCF /* Supporting Files */,
 			);
 			path = GBADeltaCore;
@@ -1153,6 +1168,7 @@
 				BF28829E1EB596870027FC53 /* Config.hpp in Headers */,
 				BF2882CE1EB596870027FC53 /* FileInputStream.hpp in Headers */,
 				BF2882EF1EB596870027FC53 /* VideoMode.hpp in Headers */,
+				BF69FBC123E39E420051BEEA /* GBATypes.h in Headers */,
 				BF2882BF1EB596870027FC53 /* Ftp.hpp in Headers */,
 				BF2882D61EB596870027FC53 /* String.hpp in Headers */,
 				BF2882CC1EB596870027FC53 /* Err.hpp in Headers */,
@@ -1304,6 +1320,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1448,7 +1465,7 @@
 				BF28835C1EB596870027FC53 /* String.cpp in Sources */,
 				BF0418171D01E9C000E85BCF /* GBA.swift in Sources */,
 				BF2883661EB596870027FC53 /* ThreadImpl.cpp in Sources */,
-				BFD5EB0F1D304D21001487DC /* GBADeltaCore.m in Sources */,
+				BFD5EB0F1D304D21001487DC /* GBATypes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1471,7 +1488,6 @@
 				DEVELOPMENT_TEAM = 6XVY5G3U44;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "VBA-M";
 				SKIP_INSTALL = YES;
@@ -1485,7 +1501,6 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				DEVELOPMENT_TEAM = 6XVY5G3U44;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "VBA-M";
 				SKIP_INSTALL = YES;
