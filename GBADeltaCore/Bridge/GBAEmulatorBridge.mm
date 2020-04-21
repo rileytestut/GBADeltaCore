@@ -308,33 +308,37 @@ int  RGB_LOW_BITS_MASK;
 
 - (BOOL)addCheatCode:(NSString *)cheatCode type:(NSString *)type
 {
-    NSMutableCharacterSet *legalCharactersSet = [NSMutableCharacterSet hexadecimalCharacterSet];
-    [legalCharactersSet addCharactersInString:@" "];
-    
-    if ([cheatCode rangeOfCharacterFromSet:[legalCharactersSet invertedSet]].location != NSNotFound)
+    NSArray<NSString *> *codes = [cheatCode componentsSeparatedByString:@"\n"];
+    for (NSString *code in codes)
     {
-        return NO;
-    }
-    
-    if ([type isEqualToString:CheatTypeActionReplay] || [type isEqualToString:CheatTypeGameShark])
-    {
-        NSString *sanitizedCode = [cheatCode stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSMutableCharacterSet *legalCharactersSet = [NSMutableCharacterSet hexadecimalCharacterSet];
+        [legalCharactersSet addCharactersInString:@" "];
         
-        if (sanitizedCode.length != 16)
+        if ([code rangeOfCharacterFromSet:[legalCharactersSet invertedSet]].location != NSNotFound)
         {
             return NO;
         }
         
-        cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
-    }
-    else if ([type isEqualToString:CheatTypeCodeBreaker])
-    {
-        if (cheatCode.length != 13)
+        if ([type isEqualToString:CheatTypeActionReplay] || [type isEqualToString:CheatTypeGameShark])
         {
-            return NO;
+            NSString *sanitizedCode = [code stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+            if (sanitizedCode.length != 16)
+            {
+                return NO;
+            }
+            
+            cheatsAddGSACode([sanitizedCode UTF8String], "code", true);
         }
-        
-        cheatsAddCBACode([cheatCode UTF8String], "code");
+        else if ([type isEqualToString:CheatTypeCodeBreaker])
+        {
+            if (code.length != 13)
+            {
+                return NO;
+            }
+            
+            cheatsAddCBACode([code UTF8String], "code");
+        }
     }
     
     return YES;
