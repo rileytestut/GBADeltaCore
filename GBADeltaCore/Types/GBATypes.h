@@ -9,7 +9,7 @@
 #import <DeltaCore/DeltaTypes.h>
 
 // Extensible Enums
-FOUNDATION_EXPORT GameType const GameTypeGBA NS_SWIFT_NAME(GameType.gba);
+FOUNDATION_EXPORT GameType const GameTypeGBA NS_SWIFT_NAME(gba);
 
 FOUNDATION_EXPORT CheatType const CheatTypeActionReplay;
 FOUNDATION_EXPORT CheatType const CheatTypeGameShark;
