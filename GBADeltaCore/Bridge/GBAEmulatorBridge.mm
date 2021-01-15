@@ -432,7 +432,10 @@ void system10Frames(int _iRate)
         
         if (systemSaveUpdateCounter <= SYSTEM_SAVE_NOT_UPDATED)
         {
-            GBAEmulatorBridge.sharedBridge.saveUpdateHandler();
+            if (GBAEmulatorBridge.sharedBridge.saveUpdateHandler)
+            {
+                GBAEmulatorBridge.sharedBridge.saveUpdateHandler();
+            }
             
             systemSaveUpdateCounter = SYSTEM_SAVE_NOT_UPDATED;
         }
