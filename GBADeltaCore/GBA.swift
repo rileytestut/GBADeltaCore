@@ -62,3 +62,17 @@ public struct GBA: DeltaCoreProtocol
     {
     }
 }
+
+// Expose DeltaCore properties to Objective-C.
+public extension GBAEmulatorBridge
+{
+    @objc(gbaResources) class var __gbaResources: Bundle {
+        return GBA.core.resourceBundle
+    }
+    
+    @objc(coreDirectoryURL) class var __coreDirectoryURL: URL {
+        return _coreDirectoryURL
+    }
+}
+
+private let _coreDirectoryURL = GBA.core.directoryURL

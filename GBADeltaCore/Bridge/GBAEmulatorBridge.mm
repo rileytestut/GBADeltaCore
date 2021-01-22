@@ -26,6 +26,13 @@
 #import <DeltaCore/DeltaCore.h>
 #import <DeltaCore/DeltaCore-Swift.h>
 
+#if STATIC_LIBRARY
+#import "GBADeltaCore-Swift.h"
+#import "GBATypes.h"
+#else
+#import <GBADeltaCore/GBADeltaCore-Swift.h>
+#endif
+
 // Required vars, used by the emulator core
 //
 int  systemRedShift = 19;
@@ -93,11 +100,12 @@ int  RGB_LOW_BITS_MASK;
     {
         return;
     }
-    
-    [self updateGameSettings];
         
     utilUpdateSystemColorMaps(NO);
     utilGBAFindSave((int)data.length);
+    
+    // Update per-game settings after utilGBAFindSave determines defaults.
+    [self updateGameSettings];
     
     soundInit();
     soundSetSampleRate(32768); // 44100 chirps
@@ -160,7 +168,7 @@ int  RGB_LOW_BITS_MASK;
     int  _flashSize       = 0x10000;
     
     // Read in vba-over.ini and break it into an array of strings
-    NSString *iniPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"vba-over" ofType:@"ini"];
+    NSString *iniPath = [GBAEmulatorBridge.gbaResources pathForResource:@"vba-over" ofType:@"ini"];
     NSString *iniString = [NSString stringWithContentsOfFile:iniPath encoding:NSUTF8StringEncoding error:NULL];
     NSArray *settings = [iniString componentsSeparatedByString:@"\n"];
     
@@ -246,16 +254,24 @@ int  RGB_LOW_BITS_MASK;
             break;
     }
     
-    if (matchFound)
+    // Some hacked games use the RealTimeClock even when the game they're based off of doesn't (ex: Pokemon Liquid Crystal), so we always have it enabled.
+    rtcEnable(true);
+    
+    if (!matchFound)
     {
-        NSLog(@"VBA: overrides found: %@", overridesFound);
+        // Only update remaining settings if we found a match.
+        return;
     }
     
+    NSLog(@"VBA: overrides found: %@", overridesFound);
+    
     // Apply settings
-    rtcEnable(_enableRTC);
     mirroringEnable = _enableMirroring;
     doMirroring(mirroringEnable);
     cpuSaveType = _cpuSaveType;
+    
+    // Delta doesn't use BIOS files.
+    // useBios = _useBIOS;
     
     if (_flashSize == 0x10000 || _flashSize == 0x20000)
     {
