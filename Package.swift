@@ -23,70 +23,73 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(name: "DeltaCore", url: "https://github.com/rileytestut/DeltaCore.git", .branch("swift_package"))
+        .package(name: "GBABridge", path: "Sources")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "GBADeltaCore",
-            dependencies: ["DeltaCore", "GBABridge", "VBA-M"],
+            dependencies: [/*"DeltaCore",*/ "GBABridge"],
+//            path: "GBADeltaCore",
             resources: [
                 .copy("Resources/Controller Skin/Standard.deltaskin"),
                 .copy("Resources/Standard.deltamapping"),
             ]
         ),
-        .target(
-            name: "GBABridge",
-            dependencies: ["DeltaCore", "VBA-M"],
-            publicHeadersPath: "include",
-            cSettings: [
-                .headerSearchPath("../VBA-M/visualboyadvance-m/src"),
-                .unsafeFlags(["-fmodules", "-fcxx-modules"])
-            ]
-        ),
-        .target(
-            name: "VBA-M",
-            exclude: [
-                "visualboyadvance-m/src/common/ffmpeg.cpp",
-                "visualboyadvance-m/src/common/SoundSDL.cpp",
-                "visualboyadvance-m/src/gba/debugger-expr.l",
-                "visualboyadvance-m/src/gba/debugger-expr.y",
-                "visualboyadvance-m/src/gba/debugger-expr.c",
-                "visualboyadvance-m/src/gba/debugger-expr-lex.c",
-                
-                "SFML/src/SFML/Network/Win32",
-            ],
-            sources: [
-                "visualboyadvance-m/fex",
-                "visualboyadvance-m/src/apu",
-                "visualboyadvance-m/src/common",
-                "visualboyadvance-m/src/gba",
-                "visualboyadvance-m/src/gb",
-                "visualboyadvance-m/src/Util.cpp",
-                
-                "SFML/src/SFML/Network",
-                "SFML/src/SFML/System/Err.cpp",
-                "SFML/src/SFML/System/Time.cpp",
-                "SFML/src/SFML/System/Thread.cpp",
-                "SFML/src/SFML/System/String.cpp",
-                "SFML/src/SFML/System/Unix/ThreadImpl.cpp"
-            ],
-            cSettings: [
-                .headerSearchPath("visualboyadvance-m/fex"),
-                .headerSearchPath("SFML/include"),
-                .headerSearchPath("SFML/src"),
-                
-                .define("C_CORE"),
-                .define("NO_PNG"),
-                .define("FINAL_VERSION"),
-                .define("PKGDATADIR"),
-                .define("SYSCONF_INSTALL_DIR"),
-                .define("NO_DEBUGGER"),
-                .define("BKPT_SUPPORT"),
-                .define("HAVE_ARPA_INET_H"),
-            ]
-        )
+//        .target(
+//            name: "GBABridge",
+//            dependencies: ["DeltaCore", "VBA-M"],
+//            path: "GBABridge",
+//            publicHeadersPath: "include",
+//            cSettings: [
+//                .headerSearchPath("../VBA-M/visualboyadvance-m/src"),
+//                .unsafeFlags(["-fmodules", "-fcxx-modules"])
+//            ]
+//        ),
+//        .target(
+//            name: "VBA-M",
+//            path: "VBA-M",
+//            exclude: [
+//                "visualboyadvance-m/src/common/ffmpeg.cpp",
+//                "visualboyadvance-m/src/common/SoundSDL.cpp",
+//                "visualboyadvance-m/src/gba/debugger-expr.l",
+//                "visualboyadvance-m/src/gba/debugger-expr.y",
+//                "visualboyadvance-m/src/gba/debugger-expr.c",
+//                "visualboyadvance-m/src/gba/debugger-expr-lex.c",
+//
+//                "SFML/src/SFML/Network/Win32",
+//            ],
+//            sources: [
+//                "visualboyadvance-m/fex",
+//                "visualboyadvance-m/src/apu",
+//                "visualboyadvance-m/src/common",
+//                "visualboyadvance-m/src/gba",
+//                "visualboyadvance-m/src/gb",
+//                "visualboyadvance-m/src/Util.cpp",
+//
+//                "SFML/src/SFML/Network",
+//                "SFML/src/SFML/System/Err.cpp",
+//                "SFML/src/SFML/System/Time.cpp",
+//                "SFML/src/SFML/System/Thread.cpp",
+//                "SFML/src/SFML/System/String.cpp",
+//                "SFML/src/SFML/System/Unix/ThreadImpl.cpp"
+//            ],
+//            cSettings: [
+//                .headerSearchPath("visualboyadvance-m/fex"),
+//                .headerSearchPath("SFML/include"),
+//                .headerSearchPath("SFML/src"),
+//
+//                .define("C_CORE"),
+//                .define("NO_PNG"),
+//                .define("FINAL_VERSION"),
+//                .define("PKGDATADIR"),
+//                .define("SYSCONF_INSTALL_DIR"),
+//                .define("NO_DEBUGGER"),
+//                .define("BKPT_SUPPORT"),
+//                .define("HAVE_ARPA_INET_H"),
+//            ]
+//        )
 //        .target(
 //            name: "SFML",
 //            exclude: [
