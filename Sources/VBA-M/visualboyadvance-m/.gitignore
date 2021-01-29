@@ -1,0 +1,18 @@
+src/wx/builtin-over.h
+src/wx/builtin-xrc.h
+src/wx/cmd-evtable.h
+src/wx/cmdhandlers.h
+src/wx/cmdtab.cpp
+src/wx/wxvbam.xrs
+build/*
+dependencies/*
+.vs/*
+*.o
+*.so
+*.exe
+
+# vim swap files
+*.sw?
+
+# mac finder crap
+*.DS_Store

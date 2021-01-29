@@ -1,0 +1,853 @@
+#!/bin/sh
+
+CMAKE=cmake
+
+main() {
+    cd "$(dirname $0)"
+
+    check_command_line_args "$@"
+
+    target=$1
+
+    mktmp
+
+    check_os
+
+    ${os}_installdeps
+
+    quit 0
+}
+
+check_command_line_args() {
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            -h|--help|--usage)
+                usage
+                quit 0
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+
+    if [ $# -gt 1 ]; then
+        usage
+        quit 1
+    fi
+}
+
+check_os() {
+    case "$(uname -s)" in
+        Linux)
+            os=linux
+            ;;
+        Darwin)
+            os=mac
+            ;;
+        MINGW*|MSYS*)
+            os=windows
+            ;;
+        *)
+            error "Don't know how to install deps on your OS"
+            ;;
+    esac
+}
+
+mktmp() {
+    tmp="/tmp/installdeps_$$"
+    mkdir "$tmp" || quit 1
+    chmod 700 "$tmp" 2>/dev/null
+    trap "quit 1" PIPE HUP INT QUIT ILL TRAP KILL BUS TERM
+}
+
+quit() {
+    [ -n "$tmp" ] && rm -rf "$tmp" 2>/dev/null
+    exit ${1:-0}
+}
+
+usage() {
+    cat <<'EOF'
+Usage: [32m./installdeps [1;35m[TARGET][0m
+Try to install the dependencies needed for this project appropriately on the
+host OS.
+
+This program may require [1;35msudo[0m.
+
+A cross-compile target may be specified as the only parameter, of either
+[1;35mm32[0m which targets the host in 32 bit mode (e.g. x86 on an amd64
+host) or [1;35mwin32[0m, [1;35mMinGW-w64-i686[0m or
+[1;35mMinGW-w64-x86_64[0m.  [1;35mwin32[0m is an alias for
+[1;35mMinGW-w64-i686[0m to target Windows via MinGW.  Cross compiling for
+Windows is only supported on Debian/Ubuntu, Fedora, Arch Linux and MSYS2.
+
+On MSYS2 dependencies are installed for 32 or 64 bit native Windows targets
+based on which shell you started (the value of $MSYSTEM) unless you specify one
+or the other. You can specify a cross target of [1;35mm32[0m or
+[1;35mm64[0m as aliases for the 32 bit or 64 bit targets respectively.
+MSYS2 POSIX layer builds are not supported.
+
+  [1m-h, --help, --usage[0m                Show this help screen and exit.
+
+Examples:
+  [32m./installdeps[0m                        # install dependencies for a host build
+  [32m./installdeps [1;35mm32[0m                    # make a 32 bit binary for the host OS
+  [32m./installdeps [1;35mwin32[0m                  # cross-compile for 32 bit windows (Debian/Ubuntu, Arch Linux or MSYS2)
+  [32m./installdeps [1;35mMinGW-w64-i686[0m         # likewise
+  [32m./installdeps [1;35mMinGW-w64-x86_64[0m       # cross-compile for 64 bit windows (Debian/Ubuntu, Arch Linux or MSYS2)
+EOF
+}
+
+error() {
+    printf '\n[31mERROR[0m: %s.\n\n' "$1" >&2
+    [ -z "$2" ] && quit 1
+}
+
+warning() {
+    [ -z "$1" ] && return 0
+    printf '\n[35mWARNING[0m: %s.\n\n' "$1" >&2
+}
+
+
+info_msg() {
+    [ -z "$1" ] && return 0
+    printf '\n[32mINFO[0m: %s.\n\n' "$1" >&2
+}
+
+installing() {
+    echo '[32mInstalling deps...[0m'
+    echo
+}
+
+check() {
+    "$@"
+    if [ $? -ne 0 ]; then
+        error 'command failed' NOQUIT
+        echo 'The failing command was:'
+        echo "$@"
+        quit 1
+    fi
+}
+
+countdown() {
+    secs=$1
+    echo
+    while [ "$secs" -ne 0 ]; do
+        printf '%s\r' "Starting in $secs seconds..."
+        sleep 1
+        secs=$((secs-1))
+    done
+    printf '\n\n'
+}
+
+linux_installdeps() {
+    # detect host architecture
+    case "$(uname -a)" in
+        *x86_64*)
+            amd64=1
+            ;;
+        *i686*)
+            i686=1
+            ;;
+    esac
+
+    if [ -f /etc/debian_version ]; then
+        debian_installdeps
+    elif [ -f /etc/fedora-release ]; then
+        fedora_installdeps
+    elif [ -f /etc/arch-release ]; then
+        archlinux_installdeps
+    elif [ -f /etc/solus-release ]; then
+        solus_installdeps
+    elif [ -f /etc/gentoo-release ]; then
+        gentoo_installdeps
+    elif [ -f /etc/os-release ]; then
+        case "$(. /etc/os-release; echo "$ID_LIKE")" in
+            *suse*)
+                suse_installdeps
+                ;;
+        esac
+    else
+        error "Don't know how to install deps on your version of Linux"
+    fi
+}
+
+# the -j flag for make parameter, empty if 1
+jobs_flag() {
+    if [ $(num_cpus) -gt 1 ]; then
+        echo "-j$(num_cpus)"
+    fi
+}
+
+# number of CPUs to use for jobs, 1 less than total to not overload resources
+num_cpus() {
+    if [ -n "$_num_cpus" ]; then
+        if [ $((_num_cpus - 1)) -lt 1 ]; then
+            echo 1
+        else
+            echo $((_num_cpus - 1))
+        fi
+        return 0
+    fi
+
+    # determine number of CPUs and cache it
+    if command -v nproc >/dev/null; then
+        _num_cpus=$(nproc)
+    elif [ $os = linux -o $os = windows ]; then
+        _num_cpus=$(grep '^processor		*:' /proc/cpuinfo | wc -l)
+    elif [ $os = mac ]; then
+        _num_cpus=$(sysctl -n hw.ncpu)
+    fi
+
+    [ -z "$_num_cpus" ] && _num_cpus=1
+
+    num_cpus
+}
+
+check_cross() {
+    target=$(echo "$target" | tr 'A-Z' 'a-z')
+
+    if [ -z "$target" ]; then
+        if [ -n "$msys2" ]; then
+            case "$MSYSTEM" in
+                MINGW32)
+                    target='mingw-w64-i686'
+                    ;;
+                MINGW64)
+                    target='mingw-w64-x86_64'
+                    ;;
+                MSYS)
+                    error 'host builds in MSYS mode are not supported, supply a target or start a MINGW shell'
+                    ;;
+                *)
+                    error 'unknown value for $MSYSTEM: '"$MSYSTEM"' '
+                    ;;
+            esac
+        else
+            return
+        fi
+    fi
+
+    case "$target" in
+        win32|mingw*)
+            if [ -z "$arch_linux" -a -z "$msys2" -a -z "$debian" -a -z "$fedora" ]; then
+                error 'win32 cross compiling targets are only supported on Debian/Ubuntu, Fedora, Arch and MSYS2 at the moment'
+            fi
+
+            case "$target" in
+                win32)
+                    target='mingw-w64-i686'
+                    ;;
+                mingw-w64-i686)
+                    ;;
+                mingw-w64-x86_64)
+                    ;;
+                *)
+                    error "target must be one of 'm32', 'win32', 'MinGW-w64-i686' or 'MinGW-w64-x86_64'"
+                    ;;
+            esac
+
+            # get the necessary win32 headers
+            check git submodule update --remote --recursive
+            ;;
+        m32)
+            if [ -z "$msys2" -a -z "$fedora" -a -z "$arch_linux" -a -z "$solus" ]; then
+                error '32 bit builds are only supported on Fedora, Arch, Solus and MSYS2 at the moment'
+            fi
+
+            if [ -n "$msys2" ]; then
+                target='mingw-w64-i686'
+            else
+                cmake_flags="$cmake_flags -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-cross-m32.cmake"
+            fi
+            ;;
+        m64)
+            if [ -z "$msys2" ]; then
+                error '64 bit cross target only supported on MSYS2 at the moment'
+            fi
+            target='mingw-w64-x86_64'
+            ;;
+        *)
+            error "unknown cross target: '$target' "
+            ;;
+    esac
+}
+
+debian_installdeps() {
+    debian=1
+    check_cross
+    installing
+
+    if [ -z "$target" ]; then
+        sudo apt-get -qq update
+
+        sfml_libs=$(apt-cache search libsfml | grep -E 'graphics|window|network' | sed 's/ - .*//')
+
+        glew_lib=$(apt-cache search libglew | grep '^libglew[0-9]' | sed 's/ - .*//')
+
+        check sudo apt-get -qy install build-essential g++ nasm cmake gettext zlib1g-dev libgl1-mesa-dev libavcodec-dev libavformat-dev libswscale-dev libavutil-dev libgettextpo-dev libpng-dev libsdl2-dev libsdl2-2.0 libglu1-mesa-dev libglu1-mesa libgles2-mesa-dev libsfml-dev $sfml_libs $glew_lib libopenal-dev libwxgtk3.0-dev libwxgtk3.0 libgtk2.0-dev libgtk-3-dev ccache zip
+    else
+        case "$target" in
+            mingw-w64-i686)
+                target='i686-w64-mingw32.static'
+                CMAKE="/usr/lib/mxe/usr/bin/i686-w64-mingw32.static-cmake"
+                ;;
+            mingw-w64-x86_64)
+                target='x86-64-w64-mingw32.static'
+                CMAKE="/usr/lib/mxe/usr/bin/x86_64-w64-mingw32.static-cmake"
+                ;;
+            *)
+                error "unknown cross target (you shouldn't see this)"
+                ;;
+        esac
+
+        mxe_apt_sources='/etc/apt/sources.list.d/mxeapt.list'
+
+        sudo apt-get -qq update
+        if [ -z "$(apt-cache search '^mxe-source$')" ]; then
+            if [ ! -f "$mxe_apt_sources" ]; then
+                echo "deb http://pkg.mxe.cc/repos/apt/debian wheezy main" | sudo -- sh -c "cat > $mxe_apt_sources"
+                check sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB
+            else
+                error "$mxe_apt_sources exists but mxe packages are not found in apt, either delete it or fix it"
+            fi
+        fi
+
+        set --
+        for dep in gcc zlib ffmpeg gettext sdl2 sfml openal wxwidgets; do
+            set -- "$@" "mxe-${target}-$dep"
+        done
+        check sudo apt-get -qq update
+        # native wx-common needed for wxrc executable
+        check sudo apt-get -qy install build-essential cmake wx-common "$@"
+    fi
+
+    build_instructions
+}
+
+fedora_installdeps() {
+    fedora=1
+    ffmpeg=ffmpeg-devel
+    no_ffmpeg=
+    rpms_installed=
+
+    check_cross
+    installing
+
+    warning=
+
+    # using --nogpgcheck with dnf because keys can be a problem on rawhide
+
+    fedora_release=$(rpm -E %fedora)
+    tries=3
+    curdir=$(pwd)
+
+    # make sure rpmfusion is installed for ffmpeg
+    while [ $tries -gt 0 ]; do
+        mkdir -p "${tmp}/fusion"
+        cd "${tmp}/fusion"
+        if ! curl -fLO https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-${fedora_release}.noarch.rpm; then
+            fedora_release=$((fedora_release - 1))
+            tries=$((tries - 1))
+            continue
+        fi
+        if ! curl -fLO https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${fedora_release}.noarch.rpm; then
+            tries=0
+            break
+        fi
+        # check if already installed
+        if rpm -q rpmfusion-free-release-${fedora_release} >/dev/null 2>&1 && rpm -q rpmfusion-nonfree-release-${fedora_release} >/dev/null 2>&1; then
+            info_msg 'rpmfusion already installed, good'
+            break
+        fi
+        # otherwise try to install
+        if ! sudo rpm --nodeps -Uvh ./rpmfusion-*.rpm; then
+            tries=0
+            break
+        fi
+        break
+    done
+    cd "$curdir"
+    if [ $tries -eq 0 ]; then
+        warning 'installing rpmfusion repos failed, continuing without ffmpeg'
+        no_ffmpeg=1
+        cmake_flags="$cmake_flags -DENABLE_FFMPEG=NO"
+    fi
+
+    # non-multiarch packages first
+    check sudo dnf -y --nogpgcheck --best --allowerasing install gcc gcc-c++ make cmake git nasm redhat-rpm-config pkgconfig ccache
+
+    # try to install multiarch libgcc, glibc-devel and pkgconfig if available
+    if [ -n "$amd64" ]; then
+        for pkg in pkgconfig libgcc glibc-devel; do
+            if [ "$target" = m32 ]; then
+                sudo dnf -y --nogpgcheck --best --allowerasing install "$pkg".i686
+            else
+                sudo dnf -y --nogpgcheck --best --allowerasing install "$pkg".x86_64
+            fi
+        done
+    fi
+
+    set --
+    if [ -z "$target" -o "$target" = m32 ]; then
+        # try to install both 64 bit and 32 bit versions on 64 bit hosts (see below)
+        if [ -n "$amd64" ]; then
+            # this is sometimes necessary for rawhide
+            set -- --exclude='glibc32*'
+        fi
+        for pkg in zlib-devel mesa-libGL-devel ffmpeg-devel gettext-devel libpng-devel SDL2-devel SFML-devel openal-soft-devel wxGTK3-devel gtk2-devel gtk3-devel; do
+            case $pkg in
+                *ffmpeg*)
+                    [ -n "$no_ffmpeg" ] && continue
+                    ;;
+            esac
+
+            if [ -n "$amd64" ]; then
+                if [ "$target" = m32 ]; then
+                    set -- "$@" "${pkg}.i686"
+                else
+                    set -- "$@" "${pkg}.x86_64"
+                fi
+            else
+                set -- "$@" "$pkg"
+            fi
+        done
+
+        # fedora has a bug where all necessary -devel packages are not pulled in for 32 bit direct -devel deps
+        # this hack adds them to the list
+        if [ -n "$amd64" -a "$target" = m32 ]; then
+            info_msg 'Calculating dependencies, this will take a while..'
+            curdeps=
+            newdeps=$@
+            while [ "$curdeps" != "$newdeps" ]; do
+                curdeps=$newdeps
+                set -- $(echo "$@" $(sudo dnf -y --nogpgcheck repoquery --deplist "$@" 2>/dev/null | sed -n 's/\.x86_64$/.i686/; s/^ *provider: *\([^ ]*-devel-.*\)$/\1/p' | sort -u) | sed 's/  */\n/g' | sort -u)
+                newdeps=$@
+                printf '%s' .
+            done
+
+            echo
+            info_msg 'Done'
+
+            ## install the RPMs with rpm --force get around file conflicts
+
+            host_rpms=$(echo "$@" | sed 's/\.i686//g')
+
+            # first update the host arch versions to reduce chances of conflicts
+            check sudo dnf -y --nogpgcheck --allowerasing --best install $host_rpms
+
+            oldcwd=$PWD
+            mkdir "$tmp/rpms"
+            cd "$tmp/rpms"
+
+            check sudo dnf -y --nogpgcheck --allowerasing --best download "$@"
+
+            # first try installing with dnf to pull in deps
+            check sudo dnf -y --nogpgcheck --allowerasing --best --skip-broken install *.rpm
+
+            # follow up with rpm --force to ignore conflicts
+            check sudo rpm -Uvh --force *.rpm
+
+            rm -f *.rpm
+
+            # reinstall the host rpms to make sure any overwritten files are the host version
+            check sudo dnf -y --nogpgcheck --allowerasing --best download $host_rpms
+
+            check sudo dnf -y --nogpgcheck --allowerasing --best --skip-broken install *.rpm
+
+            check sudo rpm -Uvh --force *.rpm
+
+            cd "$oldcwd"
+            rm -rf "$tmp/rpms"
+
+            ffmpeg=ffmpeg-devel.i686
+
+            rpms_installed=1
+        fi
+    else # mingw build
+        set -- "$@" pkgconfig
+        case "$target" in
+            mingw-w64-i686)
+                target=mingw32
+                cmake_flags="$cmake_flags -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-cross-MinGW-w64-i686.cmake -DENABLE_LINK=NO"
+                ;;
+            mingw-w64-x86_64)
+                target=mingw64
+                cmake_flags="$cmake_flags -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-cross-MinGW-w64-x86_64.cmake -DENABLE_LINK=NO"
+                ;;
+            *)
+                error 'unknown cross target (this should not happen)'
+                ;;
+        esac
+        # install static deps
+        for pkg in zlib gettext libpng SDL2 wxWidgets; do
+            set -- "$@" "${target}-${pkg}-static"
+        done
+        # install deps that are not available as static
+        for pkg in openal-soft; do
+            set -- "$@" "${target}-${pkg}"
+        done
+
+        warning='SFML is required for LINK support, Fedora does not currently have a MinGW SFML package, if you want LINK support you will need to install it manually'
+    fi
+
+    [ -z "$rpms_installed" ] && check sudo dnf -y --nogpgcheck --best --allowerasing install "$@"
+
+    if ! rpm -q $ffmpeg >/dev/null 2>&1; then
+        warning 'ffmpeg failed to install (probably due to conflicts)'
+        cmake_flags="$cmake_flags -DENABLE_FFMPEG=NO"
+    fi
+
+    [ -n "$warning" ] && warning "$warning"
+
+    build_instructions
+}
+
+suse_installdeps() {
+    check_cross
+    installing
+
+    check sudo zypper in -y gcc gcc-c++ binutils make cmake nasm gettext-tools libpng16-devel pkg-config \
+                            libSDL2-devel openal-soft-devel sfml2-devel wxWidgets-3_0-devel ccache zip # ffmpeg2-devel
+    # ffmpeg requires packman repos
+
+    build_instructions
+}
+
+archlinux_require_yaourt() {
+    if ! command -v yaourt >/dev/null; then
+        (
+            cd "$tmp"
+            git clone https://aur.archlinux.org/package-query.git
+            cd package-query
+            makepkg --noconfirm -si
+            cd ..
+            git clone https://aur.archlinux.org/yaourt.git
+            cd yaourt
+            makepkg --noconfirm -si
+        )
+        [ $? -ne 0 ] && error 'could not install yaourt'
+    fi
+    pacman='yaourt --aur --m-arg=--skipinteg'
+}
+
+archlinux_installdeps() {
+    arch_linux=1
+
+    pacman='sudo pacman'
+    command -v pacaur >/dev/null && pacman='pacaur --noedit'
+    command -v yaourt >/dev/null && pacman='yaourt --aur --m-arg=--skipinteg'
+
+    check_cross
+    installing
+
+    # check for gcc-multilib
+    gcc_pkg=gcc
+    if $pacman -Q gcc-multilib >/dev/null 2>&1; then
+        gcc_pkg=gcc-multilib
+    fi
+
+    # update catalogs
+    check $pacman -Sy
+
+    # common needed dev packages
+    # not using the base-devel group because it can break gcc-multilib
+    check $pacman --noconfirm --needed -S binutils file grep gawk gzip libtool make patch sed util-linux nasm cmake pkg-config git ccache zip
+
+    libs="zlib mesa gettext libpng sdl2 openal wxgtk3 gtk3 sfml ffmpeg"
+
+    if [ -z "$target" -o "$target" = m32 ]; then
+        if [ -z "$target" -o -z "$amd64" ]; then
+            # native build
+            check $pacman --noconfirm --needed -S "$gcc_pkg" $libs
+        else
+            # try to build 32 bit binaries
+
+            # lib32-sfml and lib32-ffmpeg are in AUR
+            archlinux_require_yaourt
+
+            # enable multilib repos if not enabled
+            cp /etc/pacman.conf ${tmp}/pacman.conf
+            cat <<'EOF' >> ${tmp}/pacman.conf
+[multilib-testing]
+Include = /etc/pacman.d/mirrorlist
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+EOF
+            pacman="$pacman --config ${tmp}/pacman.conf"
+
+            # pull in multilib repo info
+            $pacman -Sy
+
+            yes | check $pacman --needed -S gcc-multilib
+
+            libs32=
+            for lib in $libs; do
+                libs32="$libs32 lib32-$lib"
+            done
+
+            check $pacman --noconfirm --needed -S $libs32
+        fi
+    else
+        # windows cross build
+        case "$target" in
+            *i686*)
+                cmake_flags="$cmake_flags -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-cross-MinGW-w64-i686.cmake -DENABLE_LINK=NO"
+                ;;
+            *x86_64*)
+                cmake_flags="$cmake_flags -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-cross-MinGW-w64-x86_64.cmake -DENABLE_LINK=NO"
+                ;;
+            *)
+                # this will never be reached, it's checked in check_cross()
+                error 'unknown cross target (you should not see this)'
+                ;;
+        esac
+
+        check $pacman --noconfirm --needed -S "$gcc_pkg"
+
+        archlinux_require_yaourt
+
+        pkg_prefix='mingw-w64-'
+
+        # cross toolchain (without headers and crt, we'll use -git versions)
+        set --
+        for p in binutils gcc winpthreads; do
+            set -- "$@" "${pkg_prefix}${p}"
+        done
+        check $pacman --noconfirm --needed -S "$@"
+
+        # build library deps from AUR
+
+        info_msg 'We will now build dependencies from AUR, this will take quite a while and has a high probability of failure. In fact, it is definitely broken at the time of this writing. Press CTRL-C now to abort'
+
+        countdown 16
+
+        # pass appropriate make -jX flag through makepkg
+        export MAKEPKG_CONF=${MAKEPKG_CONF:-/etc/makepkg.conf}
+
+        grep -Ev '^[ 	]*MAKEFLAGS=' "$MAKEPKG_CONF" > "$tmp/makepkg.conf"
+
+        export MAKEFLAGS=$(jobs_flag)
+        echo "MAKEFLAGS=\"$MAKEFLAGS\"" >> "$tmp/makepkg.conf"
+
+        export MAKEPKG_CONF="$tmp/makepkg.conf"
+
+        # now do the AUR builds
+
+        # first we need -headers-git and -crt-git (unless the non-git packages are installed)
+        for p in "${pkg_prefix}headers" "${pkg_prefix}crt"; do
+          if ! $pacman -Q "$p" >/dev/null 2>&1; then
+              check $pacman --noconfirm --needed -S "${p}-git"
+          else
+              warning "${pkg_prefix}headers-git and ${pkg_prefix}crt-git are recommended over the regular versions, if you have build failures try to install them"
+          fi
+        done
+
+        # and the actual deps
+        for p in zlib gettext libpng pkg-config sdl2 openal wxmsw; do
+            pkg="${pkg_prefix}${p}"
+            # check if already installed
+            if ! $pacman -Q "$pkg" >/dev/null 2>&1; then
+                set -- "$@" "${pkg_prefix}${p}"
+            fi
+        done
+        [ $# -gt 0 ] && check $pacman --noconfirm --needed -S "$@"
+
+        warning 'SFML is required for LINK support, the SFML package in AUR is currently broken, if you want LINK support you will need to install it manually'
+    fi
+
+    build_instructions
+}
+
+solus_installdeps() {
+    solus=1
+
+    check_cross
+    installing
+
+    check sudo eopkg -y update-repo
+    check sudo eopkg -y install -c system.devel
+    check sudo eopkg -y install git ccache
+
+    set -- sdl2-devel openal-soft-devel wxwidgets-devel libgtk-2-devel libgtk-3-devel
+    if [ -n "$amd64" -a "$target" = m32 ]; then
+        info_msg 'Calculating dependencies, this will take a while..'
+
+        # first expand all dep lists recursively for -devel packages
+        curdeps=
+        newdeps=$@
+        while [ "$curdeps" != "$newdeps" ]; do
+            curdeps=$newdeps
+            set -- $(echo "$@" $(sudo eopkg info "$@" 2>/dev/null | sed -n 's/^Dependencies  *:  *\(.*\)/\1/p' | sort -u) | sed 's/  */\n/g' | grep -- '-devel$' | sort -u)
+            newdeps=$@
+        done
+
+        # transform to 32bit package names
+        first=1
+        for pkg in "$@"; do
+            if [ "$first" = 1 ]; then
+                set --
+                first=0
+            fi
+            case "$pkg" in
+                *-32bit-devel)
+                    # already 32 bit
+                    ;;
+                *-devel)
+                    set -- "$@" "${pkg%-devel}-32bit-devel"
+                    ;;
+                *)
+                    set -- "$@" "$pkg"
+                    ;;
+            esac
+        done
+
+        # prune the ones that don't exist
+        first=1
+        for pkg in "$@"; do
+            if [ "$first" = 1 ]; then
+                set --
+                first=0
+            fi
+            if ! sudo eopkg info "$pkg" | grep -q 'not found in binary repositories'; then
+                set -- "$@" "$pkg"
+            fi
+        done
+    else
+        # no 32bit versions of these
+        set -- "$@" SFML-devel ffmpeg-devel
+    fi
+
+    check sudo eopkg -y install "$@"
+
+    if [ -n "$amd64" -a "$target" = m32 ]; then
+        warning 'SFML is required for LINK support, there is no 32 bit SFML package in Solus currently, if you want LINK support you will need to install it manually'
+        warning 'ffmpeg is required for game recording, there is no 32 bit ffmpeg package in Solus currently, you may wish to install it manually'
+
+        cmake_flags="$cmake_flags -DENABLE_LINK=NO -DENABLE_FFMPEG=NO"
+    fi
+
+    build_instructions
+}
+
+gentoo_installdeps() {
+    installing
+
+    check sudo emerge-webrsync
+    check sudo emerge -vuDUa gcc make cmake binutils libsdl2 libsfml wxGTK zlib dev-util/pkgconfig nasm
+
+    build_instructions
+}
+
+windows_installdeps() {
+    msys2=1
+
+    check_cross
+    installing
+
+    # update catalogs
+    check pacman -Sy
+
+    set --
+    for p in SDL2 ffmpeg openal sfml wxWidgets zlib binutils cmake crt-git extra-cmake-modules gcc gcc-libs gdb headers-git make pkg-config tools-git windows-default-manifest libmangle-git nasm; do
+        set -- "$@" "${target}-${p}"
+    done
+
+    # install
+    check pacman --noconfirm --needed -S git make zip ccache "$@"
+
+    cmake_flags="$cmake_flags -G 'MSYS Makefiles'"
+
+    if [ "$MSYSTEM" = MSYS ]; then
+        case "$target" in
+            *i686)
+                pre_build=\
+"MSYSTEM=MINGW32 bash -l
+cd $(pwd)"
+                ;;
+            *x86_64)
+                pre_build=\
+"MSYSTEM=MINGW64 bash -l
+cd $(pwd)"
+                ;;
+        esac
+        post_build=exit
+    fi
+
+    build_instructions
+}
+
+mac_installdeps() {
+    if ! xcode-select -p >/dev/null 2>&1 && \
+       ! pkgutil --pkg-info=com.apple.pkg.CLTools_Executables >/dev/null 2>&1 && \
+       ! pkgutil --pkg-info=com.apple.pkg.DeveloperToolsCLI >/dev/null 2>&1; then
+
+        error 'Please install XCode and the XCode Command Line Tools, then run this script again. On newer systems this can be done with: xcode-select --install   '
+    fi
+
+    if command -v brew >/dev/null; then
+        brew_installdeps
+    elif command -v port >/dev/null; then
+        macports_installdeps
+    elif command -v fink >/dev/null; then
+        fink_installdeps
+    else
+        error 'You have no package manager, please install homebrew, macports or fink'
+    fi
+}
+
+brew_installdeps() {
+    check_cross
+    installing
+
+    check brew -v update
+
+    set --
+    for f in nasm cmake ffmpeg gettext libpng pkg-config sdl2 sfml wxmac ccache; do
+        if brew info "$f" | grep -Eq '^Not installed$'; then
+            set -- "$@" "$f"
+        fi
+    done
+    [ $# -gt 0 ] && check brew -v install "$@"
+
+    brew -v cleanup
+
+    build_instructions
+}
+
+macports_installdeps() {
+    check_cross
+    installing
+
+    check sudo port -v selfupdate
+    check sudo port -v install cmake nasm ffmpeg gettext libpng pkgconfig libsdl2 sfml wxWidgets-3.0 libiconv ccache
+    check sudo port select wxWidgets wxWidgets-3.0
+
+    build_instructions
+}
+
+fink_installdeps() {
+    check_cross
+    installing
+
+    check sudo fink -vy selfupdate
+    check sudo fink -vy install cmake nasm ffmpeg libgettext8-dev gettext-tools libpng16 pkgconfig sdl2 wxwidgets300-osxcocoa libiconv-dev sfml24-dev ccache
+
+    build_instructions
+}
+
+build_instructions() {
+    cat <<EOF
+
+[32mDone! To build do:[0m
+
+$pre_build
+mkdir -p build && cd build
+$CMAKE .. $cmake_flags
+make $(jobs_flag)
+$post_build
+
+EOF
+}
+
+main "$@"
