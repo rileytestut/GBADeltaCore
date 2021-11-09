@@ -1,0 +1,5 @@
+module GBABridge {
+    header "GBAEmulatorBridge.h"
+    header "GBATypes.h"
+    export *
+}

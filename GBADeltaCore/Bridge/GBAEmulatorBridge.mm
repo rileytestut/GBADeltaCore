@@ -21,6 +21,14 @@
 
 #include <sys/time.h>
 
+#if SWIFT_PACKAGE
+
+#import "GBATypes.h"
+
+@import DeltaCore;
+
+#else
+
 // DeltaCore
 #import <GBADeltaCore/GBADeltaCore.h>
 #import <DeltaCore/DeltaCore.h>
@@ -31,6 +39,8 @@
 #import "GBATypes.h"
 #else
 #import <GBADeltaCore/GBADeltaCore-Swift.h>
+#endif
+
 #endif
 
 // Required vars, used by the emulator core
@@ -168,7 +178,7 @@ int  RGB_LOW_BITS_MASK;
     int  _flashSize       = 0x10000;
     
     // Read in vba-over.ini and break it into an array of strings
-    NSString *iniPath = [GBAEmulatorBridge.gbaResources pathForResource:@"vba-over" ofType:@"ini"];
+    NSString *iniPath = [GBAEmulatorBridge.sharedBridge.coreResourcesBundle pathForResource:@"vba-over" ofType:@"ini"];
     NSString *iniString = [NSString stringWithContentsOfFile:iniPath encoding:NSUTF8StringEncoding error:NULL];
     NSArray *settings = [iniString componentsSeparatedByString:@"\n"];
     

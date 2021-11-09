@@ -11,6 +11,10 @@ import AVFoundation
 
 import DeltaCore
 
+#if SWIFT_PACKAGE
+import GBABridge
+#endif
+
 public extension GBA
 {
     static let didActivateGyroNotification = NSNotification.Name.__GBADidActivateGyro
@@ -56,23 +60,15 @@ public struct GBA: DeltaCoreProtocol
         return [actionReplayFormat, gameSharkFormat, codeBreakerFormat]
     }
     
-    public let emulatorBridge: EmulatorBridging = GBAEmulatorBridge.shared
+    public var emulatorBridge: EmulatorBridging { GBAEmulatorBridge.shared as! EmulatorBridging }
+    
+    #if SWIFT_PACKAGE
+    public var resourceBundle: Bundle { Bundle.module }
+    #endif
     
     private init()
     {
+        GBAEmulatorBridge.shared.coreDirectoryURL = self.directoryURL
+        GBAEmulatorBridge.shared.coreResourcesBundle = self.resourceBundle
     }
 }
-
-// Expose DeltaCore properties to Objective-C.
-public extension GBAEmulatorBridge
-{
-    @objc(gbaResources) class var __gbaResources: Bundle {
-        return GBA.core.resourceBundle
-    }
-    
-    @objc(coreDirectoryURL) class var __coreDirectoryURL: URL {
-        return _coreDirectoryURL
-    }
-}
-
-private let _coreDirectoryURL = GBA.core.directoryURL

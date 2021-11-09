@@ -9,8 +9,12 @@
 #import "GBASoundDriver.h"
 #import "GBAEmulatorBridge.h"
 
+#if SWIFT_PACKAGE
+@import DeltaCore;
+#else
 #import <DeltaCore/DeltaCore.h>
 #import <DeltaCore/DeltaCore-Swift.h>
+#endif
 
 GBASoundDriver::GBASoundDriver()
 {
