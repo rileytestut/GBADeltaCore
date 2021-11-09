@@ -39,7 +39,7 @@ let package = Package(
             resources: [
                 .copy("Controller Skin/Standard.deltaskin"),
                 .copy("Standard.deltamapping"),
-                .copy("../visualboyadvance-m/src/vba-over.ini")
+                .copy("vba-over.ini")
             ]
         ),
         .target(
