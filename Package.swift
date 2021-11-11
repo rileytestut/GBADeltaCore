@@ -11,7 +11,6 @@ let package = Package(
     products: [
         .library(
             name: "GBADeltaCore",
-            type: .dynamic,
             targets: ["GBADeltaCore", "GBABridge", "VBA-M"]
         )
     ],
