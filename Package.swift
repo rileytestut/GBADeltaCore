@@ -49,7 +49,6 @@ let package = Package(
             publicHeadersPath: "",
             cSettings: [
                 .headerSearchPath("../../visualboyadvance-m/src"),
-                .unsafeFlags(["-fmodules", "-fcxx-modules"])
             ]
         ),
         .target(

@@ -10,7 +10,7 @@
 #import "GBAEmulatorBridge.h"
 
 #if SWIFT_PACKAGE
-@import DeltaCore;
+#import "DeltaCoreObjC.h"
 #else
 #import <DeltaCore/DeltaCore.h>
 #import <DeltaCore/DeltaCore-Swift.h>
