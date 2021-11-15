@@ -49,6 +49,9 @@ let package = Package(
             publicHeadersPath: "",
             cSettings: [
                 .headerSearchPath("../../visualboyadvance-m/src"),
+            ],
+            linkerSettings: [
+                .linkedFramework("CoreMotion")
             ]
         ),
         .target(
