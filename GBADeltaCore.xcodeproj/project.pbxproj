@@ -236,6 +236,9 @@
 		BFD5EB0F1D304D21001487DC /* GBATypes.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD5EB0E1D304D21001487DC /* GBATypes.m */; };
 		BFD5EB231D305B48001487DC /* Standard.deltaskin in Resources */ = {isa = PBXBuildFile; fileRef = BFD5EB221D305B48001487DC /* Standard.deltaskin */; };
 		BFE8E9CE1D010AF7009D623D /* GBADeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5FD2AC327431C040091CB1A /* GBAEmulatorBridge+DeltaCore.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FD2AC027431C040091CB1A /* GBAEmulatorBridge+DeltaCore.m */; };
+		D5FD2AC427431C040091CB1A /* GBAEmulatorBridge+DeltaCore.h in Headers */ = {isa = PBXBuildFile; fileRef = D5FD2AC127431C040091CB1A /* GBAEmulatorBridge+DeltaCore.h */; };
+		D5FD2AC527431C040091CB1A /* GBAEmulatorBridge+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = D5FD2AC227431C040091CB1A /* GBAEmulatorBridge+Private.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -561,6 +564,9 @@
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
 		BFE8E9CF1D010AF7009D623D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5FD2AC027431C040091CB1A /* GBAEmulatorBridge+DeltaCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GBAEmulatorBridge+DeltaCore.m"; sourceTree = "<group>"; };
+		D5FD2AC127431C040091CB1A /* GBAEmulatorBridge+DeltaCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GBAEmulatorBridge+DeltaCore.h"; sourceTree = "<group>"; };
+		D5FD2AC227431C040091CB1A /* GBAEmulatorBridge+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GBAEmulatorBridge+Private.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -589,7 +595,10 @@
 			isa = PBXGroup;
 			children = (
 				BF0417301D01D9E000E85BCF /* GBAEmulatorBridge.h */,
+				D5FD2AC227431C040091CB1A /* GBAEmulatorBridge+Private.h */,
 				BF0417311D01D9E000E85BCF /* GBAEmulatorBridge.mm */,
+				D5FD2AC127431C040091CB1A /* GBAEmulatorBridge+DeltaCore.h */,
+				D5FD2AC027431C040091CB1A /* GBAEmulatorBridge+DeltaCore.m */,
 				BF7A908B1D02708700A3617D /* GBASoundDriver.h */,
 				BF7A908A1D02708700A3617D /* GBASoundDriver.mm */,
 			);
@@ -1176,6 +1185,7 @@
 				BF2882C21EB596870027FC53 /* Packet.hpp in Headers */,
 				BF2882EC1EB596870027FC53 /* Mouse.hpp in Headers */,
 				BF2882F01EB596870027FC53 /* Window.hpp in Headers */,
+				D5FD2AC527431C040091CB1A /* GBAEmulatorBridge+Private.h in Headers */,
 				BF2882D11EB596870027FC53 /* MemoryInputStream.hpp in Headers */,
 				BF2882EE1EB596870027FC53 /* Touch.hpp in Headers */,
 				BF2882A01EB596870027FC53 /* CircleShape.hpp in Headers */,
@@ -1222,6 +1232,7 @@
 				BF2882E61EB596870027FC53 /* ContextSettings.hpp in Headers */,
 				BF2882E21EB596870027FC53 /* Vector3.hpp in Headers */,
 				BF2880FE1EB594560027FC53 /* Zip_Extractor.h in Headers */,
+				D5FD2AC427431C040091CB1A /* GBAEmulatorBridge+DeltaCore.h in Headers */,
 				BF2882921EB596870027FC53 /* OutputSoundFile.hpp in Headers */,
 				BF2882BE1EB596870027FC53 /* Export.hpp in Headers */,
 				BF2880ED1EB594560027FC53 /* blargg_errors.h in Headers */,
@@ -1457,6 +1468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5FD2AC327431C040091CB1A /* GBAEmulatorBridge+DeltaCore.m in Sources */,
 				BF0417331D01D9E000E85BCF /* GBAEmulatorBridge.mm in Sources */,
 				BF7A908C1D02708700A3617D /* GBASoundDriver.mm in Sources */,
 				BF2883561EB596870027FC53 /* Err.cpp in Sources */,

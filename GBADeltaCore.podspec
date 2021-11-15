@@ -11,6 +11,7 @@ Pod::Spec.new do |spec|
   spec.social_media_url   = "https://twitter.com/rileytestut"
   
   spec.source_files  = "GBADeltaCore/**/*.{h,m,mm,swift}", "visualboyadvance-m/src/*.h", "visualboyadvance-m/src/common/*.h", "visualboyadvance-m/src/sdl/*.h", "visualboyadvance-m/src/gba/*.h", "SFML/include/**/*.{h,hpp,inl}", "SFML/src/SFML/System/{Err,Time,Thread,String}.cpp", "SFML/src/SFML/System/Unix/ThreadImpl.{hpp,cpp}"
+  spec.exclude_files = "GBADeltaCore/Bridge/DeltaCoreObjC.h"
   spec.public_header_files = "GBADeltaCore/Types/GBATypes.h", "GBADeltaCore/Bridge/GBAEmulatorBridge.h", "GBADeltaCore/GBADeltaCore.h"
   spec.header_mappings_dir = ""
   spec.resource_bundles = {

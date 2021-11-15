@@ -70,10 +70,13 @@ int  RGB_LOW_BITS_MASK;
 
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wprotocol" // DLTAEmulatorBridging partially implemented in category.
 @implementation GBAEmulatorBridge
 @synthesize audioRenderer = _audioRenderer;
 @synthesize videoRenderer = _videoRenderer;
 @synthesize saveUpdateHandler = _saveUpdateHandler;
+#pragma clang diagnostic pop
 
 + (instancetype)sharedBridge
 {
