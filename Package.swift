@@ -53,6 +53,9 @@ let package = Package(
             ],
             cSettings: [
                 .headerSearchPath("../visualboyadvance-m/src"),
+            ],
+            swiftSettings: [
+                .define("SWIFT_PACKAGE")
             ]
         ),
 //        .target(
