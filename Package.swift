@@ -11,8 +11,12 @@ let package = Package(
     products: [
         .library(
             name: "GBADeltaCore",
-            targets: ["GBADeltaCore", "GBABridge", "VBA-M"]
-        )
+            targets: ["GBADeltaCore" /*, "GBABridge", "VBA-M"*/]
+        ),
+//        .library(
+//            name: "GBADeltaCoreJS",
+//            targets: ["GBADeltaCore", "DeltaBridge", "GBABridgeJS"]
+//        )
     ],
     dependencies: [
         .package(name: "DeltaCore", url: "https://github.com/rileytestut/DeltaCore.git", .branch("swiftpm"))
@@ -20,7 +24,7 @@ let package = Package(
     targets: [
         .target(
             name: "GBADeltaCore",
-            dependencies: ["DeltaCore", "GBABridge", "VBA-M"],
+            dependencies: ["DeltaCore"/*, "GBABridge"*/],
             path: "GBADeltaCore",
             exclude: [
                 "GBADeltaCore.h",
@@ -35,17 +39,50 @@ let package = Package(
                 "Controller Skin/iphone_edgetoedge_portrait.pdf",
                 "Controller Skin/iphone_edgetoedge_landscape.pdf"
             ],
-            sources: ["GBA.swift"],
+            sources: [
+                "GBA.swift",
+                "GBAEmulatorBridge.swift"
+            ],
             resources: [
                 .copy("Controller Skin/Standard.deltaskin"),
                 .copy("Standard.deltamapping"),
-                .copy("vba-over.ini")
+                .copy("vba-over.ini"),
+                .copy("Bridge2/JS/vbam.js"),
+                .copy("Bridge2/JS/vbam.html"),
+                .copy("Bridge2/JS/vbam.wasm")
+            ],
+            cSettings: [
+                .headerSearchPath("../visualboyadvance-m/src"),
             ]
         ),
+//        .target(
+//            name: "DeltaBridge",
+//            dependencies: ["GBABridgeJS", "DeltaCore"],
+//            path: "GBADeltaCore/Bridge/DeltaCore",
+//            publicHeadersPath: "",
+//            cSettings: [
+//                .headerSearchPath("../../../visualboyadvance-m/src"),
+//            ],
+//            linkerSettings: [
+//                .linkedFramework("CoreMotion")
+//            ]
+//        ),
+//        .target(
+//            name: "GBABridgeJS",
+//            dependencies: ["DeltaCore"],
+//            path: "GBADeltaCore/Bridge/JS",
+//            publicHeadersPath: "",
+//            cSettings: [
+//                .headerSearchPath("../../../visualboyadvance-m/src"),
+//            ],
+//            linkerSettings: [
+//                .linkedFramework("CoreMotion")
+//            ]
+//        ),
         .target(
             name: "GBABridge",
-            dependencies: ["DeltaCore", "VBA-M"],
-            path: "GBADeltaCore/Bridge",
+            dependencies: ["VBA-M"],
+            path: "GBADeltaCore/Bridge2",
             publicHeadersPath: "",
             cSettings: [
                 .headerSearchPath("../../visualboyadvance-m/src"),
@@ -171,6 +208,8 @@ let package = Package(
                 .define("BKPT_SUPPORT"),
                 .define("HAVE_ARPA_INET_H"),
             ]
-        )
-    ]
+        ),
+    ],
+    
+    cxxLanguageStandard: .cxx11
 )

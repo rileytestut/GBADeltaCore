@@ -564,6 +564,7 @@
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
 		BFE8E9CF1D010AF7009D623D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D536686A2761403200F7F512 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = Bridge2/JS/Makefile; sourceTree = "<group>"; };
 		D5FD2AC027431C040091CB1A /* GBAEmulatorBridge+DeltaCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GBAEmulatorBridge+DeltaCore.m"; sourceTree = "<group>"; };
 		D5FD2AC127431C040091CB1A /* GBAEmulatorBridge+DeltaCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GBAEmulatorBridge+DeltaCore.h"; sourceTree = "<group>"; };
 		D5FD2AC227431C040091CB1A /* GBAEmulatorBridge+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GBAEmulatorBridge+Private.h"; sourceTree = "<group>"; };
@@ -1132,6 +1133,7 @@
 			children = (
 				BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */,
 				BF0418161D01E9C000E85BCF /* GBA.swift */,
+				D536686A2761403200F7F512 /* Makefile */,
 				BF04172F1D01D99900E85BCF /* Bridge */,
 				BF69FBC223E3A4E10051BEEA /* Types */,
 				BF0418121D01E63900E85BCF /* Supporting Files */,
@@ -1269,6 +1271,23 @@
 		};
 /* End PBXHeadersBuildPhase section */
 
+/* Begin PBXLegacyTarget section */
+		D5B26DD8276049F70071763D /* vbaJS */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = D5B26DDB276049F70071763D /* Build configuration list for PBXLegacyTarget "vbaJS" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /Users/rileytestut/Developer/Scratchpad/PlayDelta/Delta/Cores/GBADeltaCore/GBADeltaCore/Bridge2/JS;
+			dependencies = (
+			);
+			name = vbaJS;
+			passBuildSettingsInEnvironment = 1;
+			productName = vbaJS;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		BF287FF11EB590F90027FC53 /* libVBA-M */ = {
 			isa = PBXNativeTarget;
@@ -1324,6 +1343,11 @@
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1020;
 					};
+					D5B26DD8276049F70071763D = {
+						CreatedOnToolsVersion = 13.2;
+						DevelopmentTeam = 6XVY5G3U44;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = BFE8E9C41D010AF7009D623D /* Build configuration list for PBXProject "GBADeltaCore" */;
@@ -1342,6 +1366,7 @@
 			targets = (
 				BFE8E9C91D010AF7009D623D /* GBADeltaCore */,
 				BF287FF11EB590F90027FC53 /* libVBA-M */,
+				D5B26DD8276049F70071763D /* vbaJS */,
 			);
 		};
 /* End PBXProject section */
@@ -1705,6 +1730,50 @@
 			};
 			name = Release;
 		};
+		D5B26DD9276049F70071763D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6XVY5G3U44;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D5B26DDA276049F70071763D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6XVY5G3U44;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1731,6 +1800,15 @@
 			buildConfigurations = (
 				BFE8E9D31D010AF7009D623D /* Debug */,
 				BFE8E9D41D010AF7009D623D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5B26DDB276049F70071763D /* Build configuration list for PBXLegacyTarget "vbaJS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5B26DD9276049F70071763D /* Debug */,
+				D5B26DDA276049F70071763D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

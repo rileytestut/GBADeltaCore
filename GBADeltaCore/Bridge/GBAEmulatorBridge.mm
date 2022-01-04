@@ -7,7 +7,7 @@
 //
 
 #import "GBAEmulatorBridge+Private.h"
-#import "GBASoundDriver.h"
+//#import "GBASoundDriver.h"
 
 #import <CoreMotion/CoreMotion.h>
 
@@ -467,13 +467,13 @@ uint32_t systemGetClock()
     return milliseconds;
 }
 
-SoundDriver *systemSoundInit()
-{
-    soundShutdown();
-    
-    auto driver = new GBASoundDriver;
-    return driver;
-}
+//SoundDriver *systemSoundInit()
+//{
+//    soundShutdown();
+//    
+//    auto driver = new GBASoundDriver;
+//    return driver;
+//}
 
 void systemUpdateMotionSensor()
 {

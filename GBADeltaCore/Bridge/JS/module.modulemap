@@ -1,0 +1,4 @@
+module GBABridge {
+    header "GBAEmulatorBridge.hpp"
+    export *
+}

@@ -7,7 +7,16 @@
 //
 
 #include <stdio.h>
+
 #include "common/SoundDriver.h"
+#include "GBAEmulatorBridge.hpp"
+
+#include <string>
+
+extern "C"
+{
+typedef void (*AudioCallback)(const unsigned char *_Nonnull buffer, int size);
+}
 
 class GBASoundDriver : public SoundDriver
 {
@@ -20,4 +29,11 @@ public:
     virtual void reset();
     virtual void resume();
     virtual void write(uint16_t *finalWave, int length);
+    
+    void setAudioCallback(AudioCallback audioCallback);
+    
+    std::string description();
+    
+private:
+    AudioCallback _audioCallback;
 };

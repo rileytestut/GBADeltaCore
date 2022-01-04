@@ -11,14 +11,22 @@ import AVFoundation
 
 import DeltaCore
 
-#if SWIFT_PACKAGE
-import GBABridge
-#endif
-
 public extension GBA
 {
-    static let didActivateGyroNotification = NSNotification.Name.__GBADidActivateGyro
-    static let didDeactivateGyroNotification = NSNotification.Name.__GBADidDeactivateGyro
+    static let didActivateGyroNotification = NSNotification.Name("GBADidActivateGyroNotification")
+    static let didDeactivateGyroNotification = NSNotification.Name("GBADidDeactivateGyroNotification")
+}
+
+public extension GameType
+{
+    static let gba = GameType(rawValue: "com.rileytestut.delta.game.gba")
+}
+
+public extension CheatType
+{
+    static let actionReplay = CheatType("ActionReplay")
+    static let gameShark = CheatType("GameShark")
+    static let codeBreaker = CheatType("CodeBreaker")
 }
 
 @objc public enum GBAGameInput: Int, Input
@@ -60,7 +68,7 @@ public struct GBA: DeltaCoreProtocol
         return [actionReplayFormat, gameSharkFormat, codeBreakerFormat]
     }
     
-    public var emulatorBridge: EmulatorBridging { GBAEmulatorBridge.shared as! EmulatorBridging }
+    public var emulatorBridge: EmulatorBridging { GBAEmulatorBridge.shared }
     
     #if SWIFT_PACKAGE
     public var resourceBundle: Bundle { Bundle.module }
@@ -68,7 +76,7 @@ public struct GBA: DeltaCoreProtocol
     
     private init()
     {
-        GBAEmulatorBridge.shared.coreDirectoryURL = self.directoryURL
-        GBAEmulatorBridge.shared.coreResourcesBundle = self.resourceBundle
+//        GBAEmulatorBridge.shared.coreDirectoryURL = self.directoryURL
+//        GBAEmulatorBridge.shared.coreResourcesBundle = self.resourceBundle
     }
 }
