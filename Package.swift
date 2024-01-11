@@ -40,6 +40,9 @@ let package = Package(
                 .copy("Controller Skin/Standard.deltaskin"),
                 .copy("Standard.deltamapping"),
                 .copy("vba-over.ini")
+            ],
+            swiftSettings: [
+                .define("SWIFT_PACKAGE")
             ]
         ),
         .target(
@@ -49,6 +52,7 @@ let package = Package(
             publicHeadersPath: "",
             cSettings: [
                 .headerSearchPath("../../visualboyadvance-m/src"),
+                .define("SWIFT_PACKAGE")
             ],
             linkerSettings: [
                 .linkedFramework("CoreMotion")
