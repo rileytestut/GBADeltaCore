@@ -5,8 +5,8 @@
         "package": "DeltaCore",
         "repositoryURL": "https://github.com/rileytestut/DeltaCore.git",
         "state": {
-          "branch": "swiftpm",
-          "revision": "ff7c816dec91dabae09b05a74e08f661658d881d",
+          "branch": "ios14",
+          "revision": "74d2a7a6e36035cb5730d0b0cf2456cbeb6faf0c",
           "version": null
         }
       },
