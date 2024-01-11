@@ -5,8 +5,8 @@
         "package": "DeltaCore",
         "repositoryURL": "https://github.com/rileytestut/DeltaCore.git",
         "state": {
-          "branch": "swiftpm",
-          "revision": "ff7c816dec91dabae09b05a74e08f661658d881d",
+          "branch": "visionOS",
+          "revision": "9f8137c08ce24c19701f84e2f2cf56ad18657506",
           "version": null
         }
       },
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/weichsel/ZIPFoundation.git",
         "state": {
           "branch": null,
-          "revision": "cf10bbff6ac3b873e97b36b9784c79866a051a8e",
-          "version": "0.9.12"
+          "revision": "a3f5c2bae0f04b0bce9ef3c4ba6bd1031a0564c4",
+          "version": "0.9.17"
         }
       }
     ]
