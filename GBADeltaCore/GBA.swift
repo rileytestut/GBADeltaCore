@@ -12,7 +12,7 @@ import AVFoundation
 import DeltaCore
 
 #if SWIFT_PACKAGE
-import GBABridge
+@_exported import GBABridge
 #endif
 
 public extension GBA
