@@ -58,6 +58,22 @@ uint16_t  systemGbPalette[24];
 int  emulating;
 int  RGB_LOW_BITS_MASK;
 
+@implementation GBARotation
+
+- (instancetype)initWithRotation:(SPRotation3D)rotation rate:(SPVector3D)rate
+{
+    self = [super init];
+    if (self)
+    {
+        _rotation = rotation;
+        _rotationRate = rate;
+    }
+    
+    return self;
+}
+
+@end
+
 @interface GBAEmulatorBridge ()
 
 @property (nonatomic, copy, nullable, readwrite) NSURL *gameURL;
@@ -67,6 +83,7 @@ int  RGB_LOW_BITS_MASK;
 @property (nonatomic) uint32_t activatedInputs;
 
 @property (strong, nonatomic, readonly) CMMotionManager *motionManager;
+@property (nonatomic, getter=isGyroActive) BOOL gyroActive;
 
 @end
 
@@ -359,22 +376,29 @@ int  RGB_LOW_BITS_MASK;
 
 - (void)activateGyroscope
 {
-    if ([self.motionManager isGyroActive] || ![self.motionManager isGyroAvailable])
+    if ([self isGyroActive])
     {
         return;
     }
     
-    [self.motionManager startGyroUpdates];
+    self.gyroActive = YES;
+    
+    if ([self.motionManager isGyroAvailable])
+    {
+        [self.motionManager startGyroUpdates];
+    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:GBADidActivateGyroNotification object:self];
 }
 
 - (void)deactivateGyroscope
 {
-    if (![self.motionManager isGyroActive])
+    if (![self isGyroActive])
     {
         return;
     }
+    
+    self.gyroActive = NO;
     
     [self.motionManager stopGyroUpdates];
     
@@ -496,15 +520,24 @@ int systemGetSensorY()
 
 int systemGetSensorZ()
 {
-    if (![GBAEmulatorBridge.sharedBridge.motionManager isGyroActive])
+    if (![GBAEmulatorBridge.sharedBridge isGyroActive])
     {
         [GBAEmulatorBridge.sharedBridge activateGyroscope];
     }
     
-    CMGyroData *gyroData = GBAEmulatorBridge.sharedBridge.motionManager.gyroData;
-    
-    int sensorZ = -gyroData.rotationRate.z * 25;
-    return sensorZ;
+    GBARotation *rotation = GBAEmulatorBridge.sharedBridge.controllerRotation;
+    if (rotation != nil)
+    {
+        int sensorZ = -rotation.rotationRate.z * 25;
+        return sensorZ;
+    }
+    else
+    {
+        CMGyroData *gyroData = GBAEmulatorBridge.sharedBridge.motionManager.gyroData;
+        
+        int sensorZ = -gyroData.rotationRate.z * 25;
+        return sensorZ;
+    }
 }
 
 void systemCartridgeRumble(bool)

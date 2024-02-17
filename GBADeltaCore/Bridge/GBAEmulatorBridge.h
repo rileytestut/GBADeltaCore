@@ -8,7 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+#import <Spatial/Spatial.h>
+
 @protocol DLTAEmulatorBridging;
+
+@interface GBARotation : NSObject
+
+@property (nonatomic) SPRotation3D rotation;
+@property (nonatomic) SPVector3D rotationRate;
+
+- (nonnull instancetype)initWithRotation:(SPRotation3D)rotation rate:(SPVector3D)rate;
+
+@end
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy, nonatomic, nullable) NSURL *coreDirectoryURL;
 @property (strong, nonatomic, nullable) NSBundle *coreResourcesBundle;
+
+@property (strong, atomic, nullable) GBARotation *controllerRotation; // For the first time ever, we _do_ want atomic!
 
 @end
 
