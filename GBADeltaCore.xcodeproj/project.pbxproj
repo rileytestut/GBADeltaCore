@@ -1503,6 +1503,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "VBA-M";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos xros xrsimulator";
 			};
 			name = Debug;
 		};
@@ -1516,6 +1517,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "VBA-M";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos xros xrsimulator";
 			};
 			name = Release;
 		};
@@ -1679,8 +1681,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rileytestut.GBADeltaCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Debug;
 		};
@@ -1700,8 +1705,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rileytestut.GBADeltaCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Release;
 		};
