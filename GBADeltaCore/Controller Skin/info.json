@@ -564,7 +564,7 @@
       "standard": {
         "portrait": {
           "assets": {
-            "large": "ipad_portrait.png"
+            "resizable": "ipad_portrait.pdf"
           },
           "items": [
             {
@@ -835,7 +835,7 @@
       "splitView": {
         "portrait": {
           "assets": {
-            "large": "ipad_portrait.png"
+            "resizable": "ipad_portrait.pdf"
           },
           "items": [
             {
@@ -965,7 +965,7 @@
         },
         "landscape": {
           "assets": {
-            "large": "ipad_landscape_splitview.png"
+            "resizable": "ipad_landscape_splitview.pdf"
           },
           "items": [
             {
