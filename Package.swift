@@ -19,7 +19,7 @@ let package = Package(
 //        )
     ],
     dependencies: [
-        .package(name: "DeltaCore", url: "https://github.com/rileytestut/DeltaCore.git", .upToNextMajor(from: "0.1.0"))
+        .package(name: "DeltaCore", url: "https://github.com/rileytestut/DeltaCore.git", exact: "0.1.4")
     ],
     targets: [
         .target(
