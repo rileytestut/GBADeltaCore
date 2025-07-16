@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "GBADeltaCore",
     platforms: [
-        .iOS(.v14)
+        .iOS(.v12)
     ],
     products: [
         .library(
@@ -19,7 +19,7 @@ let package = Package(
 //        )
     ],
     dependencies: [
-        .package(name: "DeltaCore", url: "https://github.com/rileytestut/DeltaCore.git", exact: ("0.1.5"))
+        .package(name: "DeltaCore", url: "https://github.com/rileytestut/DeltaCore.git", .upToNextMajor(from: "0.1.0"))
     ],
     targets: [
         .target(
