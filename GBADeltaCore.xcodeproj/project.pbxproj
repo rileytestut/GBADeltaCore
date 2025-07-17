@@ -246,6 +246,20 @@
 			remoteGlobalIDString = BF287FF11EB590F90027FC53;
 			remoteInfo = "libVBA-M";
 		};
+		D5B44C362E29A7E000EA8B6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5B44C2F2E29A7D700EA8B6C /* DeltaCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BF46895D1AACF36800A2586D;
+			remoteInfo = DeltaCore;
+		};
+		D5B44C382E29A7E600EA8B6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5B44C2F2E29A7D700EA8B6C /* DeltaCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BF46895C1AACF36800A2586D;
+			remoteInfo = DeltaCore;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -561,6 +575,7 @@
 		BFE8E9CA1D010AF7009D623D /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE8E9CD1D010AF7009D623D /* GBADeltaCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GBADeltaCore.h; sourceTree = "<group>"; };
 		BFE8E9CF1D010AF7009D623D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5B44C2F2E29A7D700EA8B6C /* DeltaCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DeltaCore.xcodeproj; path = ../DeltaCore/DeltaCore.xcodeproj; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1104,6 +1119,7 @@
 			children = (
 				BFE8E9CC1D010AF7009D623D /* GBADeltaCore */,
 				BF287FF31EB590F90027FC53 /* libVBA-M */,
+				D5B44BA92E29A68100EA8B6C /* Dependencies */,
 				BF0418111D01E63000E85BCF /* Frameworks */,
 				BFE8E9CB1D010AF7009D623D /* Products */,
 			);
@@ -1128,6 +1144,22 @@
 				BF0418121D01E63900E85BCF /* Supporting Files */,
 			);
 			path = GBADeltaCore;
+			sourceTree = "<group>";
+		};
+		D5B44BA92E29A68100EA8B6C /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				D5B44C2F2E29A7D700EA8B6C /* DeltaCore.xcodeproj */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		D5B44C332E29A7E000EA8B6C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D5B44C372E29A7E000EA8B6C /* DeltaCore.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1288,6 +1320,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D5B44C392E29A7E600EA8B6C /* PBXTargetDependency */,
 				BF2881021EB5962B0027FC53 /* PBXTargetDependency */,
 			);
 			name = GBADeltaCore;
@@ -1327,6 +1360,12 @@
 			mainGroup = BFE8E9C01D010AF7009D623D;
 			productRefGroup = BFE8E9CB1D010AF7009D623D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D5B44C332E29A7E000EA8B6C /* Products */;
+					ProjectRef = D5B44C2F2E29A7D700EA8B6C /* DeltaCore.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				BFE8E9C91D010AF7009D623D /* GBADeltaCore */,
@@ -1334,6 +1373,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D5B44C372E29A7E000EA8B6C /* DeltaCore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DeltaCore.framework;
+			remoteRef = D5B44C362E29A7E000EA8B6C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		BFE8E9C81D010AF7009D623D /* Resources */ = {
@@ -1476,6 +1525,11 @@
 			isa = PBXTargetDependency;
 			target = BF287FF11EB590F90027FC53 /* libVBA-M */;
 			targetProxy = BF2881011EB5962B0027FC53 /* PBXContainerItemProxy */;
+		};
+		D5B44C392E29A7E600EA8B6C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DeltaCore;
+			targetProxy = D5B44C382E29A7E600EA8B6C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
