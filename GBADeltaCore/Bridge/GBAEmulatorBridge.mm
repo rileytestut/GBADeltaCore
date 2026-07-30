@@ -545,8 +545,15 @@ int systemGetSensorZ()
     return sensorZ;
 }
 
-void systemCartridgeRumble(bool)
+void systemCartridgeRumble(bool active)
 {
+    if (active)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+            [generator impactOccurred];
+        });
+    }
 }
 
 void systemGbPrint(uint8_t * _puiData,
