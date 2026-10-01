@@ -6,6 +6,11 @@
 //  Copyright © 2016 Riley Testut. All rights reserved.
 //
 
+// Enable VBA-M logging for illegal write detection
+#ifndef GBA_LOGGING
+#define GBA_LOGGING
+#endif
+
 #import "GBAEmulatorBridge.h"
 #import "GBASoundDriver.h"
 
@@ -116,6 +121,9 @@ int  RGB_LOW_BITS_MASK;
     CPUInit(0, false);
     
     GBASystem.emuReset();
+    
+    // Enable illegal write logging (VERBOSE_ILLEGAL_WRITE = 4)
+    systemVerbose = 4;
     
     emulating = 1;
 }
@@ -597,12 +605,75 @@ void log(const char *defaultMsg, ...)
     static FILE *out = NULL;
     
     if(out == NULL) {
-        out = fopen("trace.log","w");
+        // Write to the app's temporary directory instead of current directory
+        NSString *tmpDir = NSTemporaryDirectory();
+        NSString *logPath = [tmpDir stringByAppendingPathComponent:@"trace.log"];
+        out = fopen([logPath UTF8String], "w");
+        
+        if (out == NULL) {
+            // If we can't open the file, just continue without file logging
+            NSLog(@"Warning: Could not open trace.log for writing");
+        }
     }
     
     va_list valist;
-    
     va_start(valist, defaultMsg);
-    vfprintf(out, defaultMsg, valist);
+    
+    // Check if this is an illegal write message
+    if (strstr(defaultMsg, "Illegal") != NULL && strstr(defaultMsg, "write") != NULL) {
+        
+        // Format the message to a string
+        char buffer[512];
+        va_list valistCopy;
+        va_copy(valistCopy, valist);
+        vsnprintf(buffer, sizeof(buffer), defaultMsg, valistCopy);
+        va_end(valistCopy);
+        
+        // Strip trailing newline if present
+        size_t len = strlen(buffer);
+        if (len > 0 && buffer[len - 1] == '\n') {
+            buffer[len - 1] = '\0';
+        }
+        
+        // DEBUG: Always log the formatted buffer to see what we're matching against
+        NSLog(@"DEBUG: Formatted illegal write: %s", buffer);
+        
+        // List of predetermined patterns to detect
+        const char *patternsToDetect[] = {
+            "Illegal byte write: ce to 085ee6e2 from 08099698",
+            // Add more patterns here as needed:
+            // "Illegal byte write: XX to YYYYYYYY from ZZZZZZZZ",
+            NULL  // Sentinel value to mark end of array
+        };
+        
+        // Check if the message matches any of our predetermined patterns
+        bool matchFound = false;
+        for (int i = 0; patternsToDetect[i] != NULL; i++) {
+            NSLog(@"DEBUG: Comparing buffer '%s' with pattern '%s'", buffer, patternsToDetect[i]);
+            if (strcmp(buffer, patternsToDetect[i]) == 0) {
+                matchFound = true;
+                NSLog(@"DEBUG: MATCH FOUND!");
+                break;
+            }
+        }
+        
+        if (matchFound) {
+            // PROTOTYPE: Print to console when specific pattern is detected
+            NSLog(@"JAYCE ERROR: Got here!");
+            NSLog(@"Matched illegal write pattern: %s", buffer);
+            
+            // Post notification to communicate with the rest of the app
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"GBASpecificIllegalWriteDetected" 
+                                                                object:nil 
+                                                              userInfo:@{@"message": [NSString stringWithUTF8String:buffer]}];
+        }
+    }
+    
+    // Only write to file if it was successfully opened
+    if (out != NULL) {
+        vfprintf(out, defaultMsg, valist);
+        fflush(out);  // Flush immediately so we don't lose data on crash
+    }
+    
     va_end(valist);
 }
