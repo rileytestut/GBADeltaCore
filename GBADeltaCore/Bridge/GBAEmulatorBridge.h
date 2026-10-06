@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (class, nonatomic, readonly) GBAEmulatorBridge *sharedBridge;
 
+// When non-nil, Delta looks here for patches with same name as ROM.
+@property (nonatomic, copy, nullable) NSURL *patchesDirectoryURL;
+
 @end
 
 NS_ASSUME_NONNULL_END

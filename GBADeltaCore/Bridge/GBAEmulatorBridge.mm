@@ -18,6 +18,8 @@
 #include "gba/Globals.h"
 #include "gba/Cheats.h"
 #include "gba/RTC.h"
+#include "gba/Sound.h"
+#include "common/Patch.h"
 #include "Util.h"
 
 #include <sys/time.h>
@@ -91,19 +93,60 @@ int  RGB_LOW_BITS_MASK;
 
 #pragma mark - Emulation -
 
-- (void)startWithGameURL:(NSURL *)URL
+- (void)startWithGameURL:(NSURL *)gameURL
 {
-    self.gameURL = URL;
+    self.gameURL = gameURL;
     
-    NSData *data = [NSData dataWithContentsOfURL:URL];
-    
-    if (!CPULoadRomData((const char *)data.bytes, (int)data.length))
+    NSError *error = nil;
+    NSData *data = [NSData dataWithContentsOfURL:gameURL options:0 error:&error];
+    if (data == nil)
     {
+        NSLog(@"Failed to load GBA game at %@. %@", gameURL, error);
         return;
     }
+    
+    int romSize = (int)data.length;
+    void *romBytes = (void *)calloc(ROM_SIZE, 1);
+    memcpy(romBytes, data.bytes, romSize);
+    
+    if (self.patchesDirectoryURL != nil)
+    {
+        // Check if patches directory contains patch with same filename (with .ips extension) as passed in gameURL.
+        NSString *ipsFilename = [[gameURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"ips"].lastPathComponent;
+        NSString *upsFilename = [[gameURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"ups"].lastPathComponent;
+        NSString *ppfFilename = [[gameURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"ppf"].lastPathComponent;
+        
+        NSURL *ipsPatchURL = [self.patchesDirectoryURL URLByAppendingPathComponent:ipsFilename];
+        NSURL *upsPatchURL = [self.patchesDirectoryURL URLByAppendingPathComponent:upsFilename];
+        NSURL *ppfPatchURL = [self.patchesDirectoryURL URLByAppendingPathComponent:ppfFilename];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:ipsPatchURL.path])
+        {
+            // .ips patch
+            applyPatch(ipsPatchURL.fileSystemRepresentation, (uint8_t **)&romBytes, &romSize);
+        }
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:upsPatchURL.path])
+        {
+            // .ups patch
+            applyPatch(upsPatchURL.fileSystemRepresentation, (uint8_t **)&romBytes, &romSize);
+        }
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:ppfPatchURL.path])
+        {
+            // .ppf patch
+            applyPatch(ppfPatchURL.fileSystemRepresentation, (uint8_t **)&romBytes, &romSize);
+        }
+    }
+    
+    if (!CPULoadRomData((const char *)romBytes, romSize))
+    {
+        free(romBytes);
+        return;
+    }
+    
+    free(romBytes);
         
     utilUpdateSystemColorMaps(NO);
-    utilGBAFindSave((int)data.length);
+    utilGBAFindSave(romSize);
     
     // Update per-game settings after utilGBAFindSave determines defaults.
     [self updateGameSettings];
