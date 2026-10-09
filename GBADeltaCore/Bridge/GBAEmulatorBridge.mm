@@ -638,34 +638,44 @@ void log(const char *defaultMsg, ...)
         // DEBUG: Always log the formatted buffer to see what we're matching against
         NSLog(@"DEBUG: Formatted illegal write: %s", buffer);
         
-        // List of predetermined patterns to detect
-        const char *patternsToDetect[] = {
-            "Illegal byte write: ce to 085ee6e2 from 08099698",
-            // Add more patterns here as needed:
-            // "Illegal byte write: XX to YYYYYYYY from ZZZZZZZZ",
-            NULL  // Sentinel value to mark end of array
-        };
-        
-        // Check if the message matches any of our predetermined patterns
-        bool matchFound = false;
-        for (int i = 0; patternsToDetect[i] != NULL; i++) {
-            NSLog(@"DEBUG: Comparing buffer '%s' with pattern '%s'", buffer, patternsToDetect[i]);
-            if (strcmp(buffer, patternsToDetect[i]) == 0) {
-                matchFound = true;
-                NSLog(@"DEBUG: MATCH FOUND!");
-                break;
-            }
+        // Detect the ROM writing the ASCII marker "ALTSTORE", regardless of
+        // which address it writes to or which instruction performs the write.
+        static const char markerToDetect[] = "ALTSTORE";
+        enum { MarkerLength = sizeof(markerToDetect) - 1 };
+
+        // Rolling buffer of the most recent illegal-write byte values.
+        static char recentBytes[MarkerLength] = {0};
+
+        unsigned int value = 0;
+        int valueSize = 0;
+
+        if (sscanf(buffer, "Illegal byte write: %x", &value) == 1) {
+            valueSize = 1;
+        } else if (sscanf(buffer, "Illegal halfword write: %x", &value) == 1) {
+            valueSize = 2;
+        } else if (sscanf(buffer, "Illegal word write: %x", &value) == 1) {
+            valueSize = 4;
         }
-        
-        if (matchFound) {
-            // PROTOTYPE: Print to console when specific pattern is detected
-            NSLog(@"JAYCE ERROR: Got here!");
-            NSLog(@"Matched illegal write pattern: %s", buffer);
-            
-            // Post notification to communicate with the rest of the app
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"GBASpecificIllegalWriteDetected" 
-                                                                object:nil 
-                                                              userInfo:@{@"message": [NSString stringWithUTF8String:buffer]}];
+
+        for (int i = 0; i < valueSize; i++) {
+            // GBA is little-endian, so a halfword/word write's bytes arrive lowest-first.
+            char byte = (char)((value >> (8 * i)) & 0xFF);
+
+            memmove(recentBytes, recentBytes + 1, MarkerLength - 1);
+            recentBytes[MarkerLength - 1] = byte;
+
+            if (memcmp(recentBytes, markerToDetect, MarkerLength) == 0) {
+                NSLog(@"Detected illegal write marker '%s' (last write: %s)", markerToDetect, buffer);
+
+                // Post notification to communicate with the rest of the app
+                [[NSNotificationCenter defaultCenter] postNotificationName:GBADidDetectIllegalWriteNotification
+                                                                    object:GBAEmulatorBridge.sharedBridge
+                                                                  userInfo:@{@"marker": [NSString stringWithUTF8String:markerToDetect],
+                                                                             @"message": [NSString stringWithUTF8String:buffer]}];
+
+                // Require the full marker to be written again before re-triggering.
+                memset(recentBytes, 0, MarkerLength);
+            }
         }
     }
     
