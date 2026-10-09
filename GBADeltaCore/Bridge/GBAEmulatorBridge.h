@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic pop
 
 @property (class, nonatomic, readonly) GBAEmulatorBridge *sharedBridge;
+@property (nonatomic, copy, nullable) void (^illegalWriteHandler)(NSString *message);
 
 @end
 
