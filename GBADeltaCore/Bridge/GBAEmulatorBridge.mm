@@ -57,6 +57,7 @@ int  RGB_LOW_BITS_MASK;
 @property (nonatomic, copy, nullable, readwrite) NSURL *gameURL;
 
 @property (assign, nonatomic, getter=isFrameReady) BOOL frameReady;
+@property (assign, nonatomic, getter=isSavingDisabled) BOOL isSavingDisabled;
 
 @property (nonatomic) uint32_t activatedInputs;
 
@@ -135,8 +136,15 @@ int  RGB_LOW_BITS_MASK;
             // .ppf patch
             applyPatch(ppfPatchURL.fileSystemRepresentation, (uint8_t **)&romBytes, &romSize);
         }
+        
+        // Enable VERBOSE_ILLEGAL_WRITE logging so we can detect enabling/disabling saving.
+        systemVerbose = VERBOSE_ILLEGAL_WRITE;
     }
-    
+    else
+    {
+        systemVerbose = 0;
+    }
+        
     if (!CPULoadRomData((const char *)romBytes, romSize))
     {
         free(romBytes);
@@ -366,6 +374,11 @@ int  RGB_LOW_BITS_MASK;
 
 - (void)saveGameSaveToURL:(NSURL *)URL
 {
+    if ([self isSavingDisabled])
+    {
+        return;
+    }
+    
     GBASystem.emuWriteBattery(URL.fileSystemRepresentation);
 }
 
@@ -637,15 +650,63 @@ void debuggerSignal(int, int)
 
 void log(const char *defaultMsg, ...)
 {
-    static FILE *out = NULL;
+    va_list valist;
+    va_start(valist, defaultMsg);
     
-    if(out == NULL) {
-        out = fopen("trace.log","w");
+    // Format the message to a string
+    char buffer[512];
+    vsnprintf(buffer, sizeof(buffer), defaultMsg, valist);
+    
+    // Strip trailing newline if present
+    size_t len = strlen(buffer);
+    if (len > 0 && buffer[len - 1] == '\n') {
+        buffer[len - 1] = '\0';
     }
     
-    va_list valist;
+    NSLog(@"[GBALog] %s", buffer);
     
-    va_start(valist, defaultMsg);
-    vfprintf(out, defaultMsg, valist);
     va_end(valist);
+    
+    static const unsigned char deltaMagicNumber[] = "DELTA";
+    static const unsigned char altstoreMagicNumber[] = "ALTSTORE";
+    static const int magicNumberMaxLength = 8;
+    
+    // Rolling buffer of the most recent illegal-write byte values.
+    static char recentBytes[magicNumberMaxLength] = {0};
+    
+    unsigned int value = 0;
+    if (sscanf(buffer, "Illegal byte write: %x", &value) != 1)
+    {
+        return;
+    }
+    
+    // Shift buffer down and append latest character to end.
+    memmove(recentBytes, recentBytes + 1, magicNumberMaxLength - 1);
+    recentBytes[magicNumberMaxLength - 1] = value;
+    
+    if (memcmp(recentBytes + 3, deltaMagicNumber, 5) == 0)
+    {
+        // DELTA detected, which means we want to disable saving.
+        
+        GBAEmulatorBridge.sharedBridge.isSavingDisabled = true;
+        [[NSNotificationCenter defaultCenter] postNotificationName:GBADidDisableSavingNotification object:GBAEmulatorBridge.sharedBridge];
+    }
+    else if (memcmp(recentBytes, altstoreMagicNumber, magicNumberMaxLength) == 0)
+    {
+        // ALTSTORE detected, which means we want to enable saving.
+        
+        // Load previous save file back into memory, in case user saved while saving was disabled.
+        NSURL *saveURL = [[GBAEmulatorBridge.sharedBridge.gameURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"sav"];
+        [GBAEmulatorBridge.sharedBridge loadGameSaveFromURL:saveURL];
+        
+        GBAEmulatorBridge.sharedBridge.isSavingDisabled = false;
+        [[NSNotificationCenter defaultCenter] postNotificationName:GBADidEnableSavingNotification object:GBAEmulatorBridge.sharedBridge];
+    }
+    else
+    {
+        return;
+    }
+    
+    // Reset recentBytes buffer.
+    memset(recentBytes, 0, magicNumberMaxLength);
 }

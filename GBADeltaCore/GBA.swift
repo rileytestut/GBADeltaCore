@@ -15,6 +15,8 @@ public extension GBA
 {
     static let didActivateGyroNotification = NSNotification.Name.__GBADidActivateGyro
     static let didDeactivateGyroNotification = NSNotification.Name.__GBADidDeactivateGyro
+    static let didEnableSavingNotification = NSNotification.Name.__GBADidEnableSaving
+    static let didDisableSavingNotification = NSNotification.Name.__GBADidDisableSaving
 }
 
 @objc public enum GBAGameInput: Int, Input

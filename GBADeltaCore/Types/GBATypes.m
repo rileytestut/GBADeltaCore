@@ -16,3 +16,6 @@ CheatType const CheatTypeCodeBreaker = @"CodeBreaker";
 
 NSNotificationName const GBADidActivateGyroNotification = @"GBADidActivateGyroNotification";
 NSNotificationName const GBADidDeactivateGyroNotification = @"GBADidDeactivateGyroNotification";
+
+NSNotificationName const GBADidEnableSavingNotification = @"GBADidEnableSavingNotification";
+NSNotificationName const GBADidDisableSavingNotification = @"GBADidDisableSavingNotification";

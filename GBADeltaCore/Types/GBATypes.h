@@ -17,3 +17,6 @@ FOUNDATION_EXPORT CheatType const CheatTypeCodeBreaker;
 
 FOUNDATION_EXPORT NSNotificationName const GBADidActivateGyroNotification NS_REFINED_FOR_SWIFT;
 FOUNDATION_EXPORT NSNotificationName const GBADidDeactivateGyroNotification NS_REFINED_FOR_SWIFT;
+
+FOUNDATION_EXPORT NSNotificationName const GBADidEnableSavingNotification NS_REFINED_FOR_SWIFT;
+FOUNDATION_EXPORT NSNotificationName const GBADidDisableSavingNotification NS_REFINED_FOR_SWIFT;
